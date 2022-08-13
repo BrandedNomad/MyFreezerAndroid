@@ -20,6 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name = "keyValue"
+            android:value = "${APP_CENTER_KEY}"/>
     </application>
 
 </manifest>
