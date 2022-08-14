@@ -9,6 +9,7 @@ import com.myfreezer.app.R
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.crashes.Crashes;
+import com.myfreezer.app.BuildConfig
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,10 +17,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //Get Secrets
-        val ai: ApplicationInfo = applicationContext.packageManager
-            .getApplicationInfo(applicationContext.packageName, PackageManager.GET_META_DATA)
-        val value = ai.metaData["keyValue"]
-        val appCenterKey = value.toString()
+//        val ai: ApplicationInfo = applicationContext.packageManager
+//            .getApplicationInfo(applicationContext.packageName, PackageManager.GET_META_DATA)
+//        val value = ai.metaData["keyValue"]
+        val appCenterKey = BuildConfig.APP_CENTER_API_KEY.toString()
 
         AppCenter.start(getApplication(), appCenterKey,Analytics::class.java, Crashes::class.java);
 
