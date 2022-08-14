@@ -3,7 +3,31 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/ac_unit-48px.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/add-48px.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/arrow_back.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/arrow_outward-48px.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/assignment-48px.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/delete-filled.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/delete.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/edit-48px.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/favorite-48px.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/favorite.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/heart_broken-48px (1).xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/heart_broken-48px.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/heart_plus-48px (1).xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/menu-48px.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/restaurant-48px.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/save-48px.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/search-48px.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/search..xml" value="0.1" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/sentiment_dissatisfied-48px (1).xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/sentiment_dissatisfied-48px.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/settings-48px.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/settings_filled.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/activity_main.xml" value="0.264" />
       </map>
     </option>
   </component>
