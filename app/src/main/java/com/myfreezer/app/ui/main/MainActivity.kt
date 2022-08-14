@@ -16,14 +16,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //Get Secrets
-//        val ai: ApplicationInfo = applicationContext.packageManager
-//            .getApplicationInfo(applicationContext.packageName, PackageManager.GET_META_DATA)
-//        val value = ai.metaData["keyValue"]
-        val appCenterKey = BuildConfig.APP_CENTER_API_KEY.toString()
 
+        //Get Keys
+        val appCenterKey = BuildConfig.APP_CENTER_API_KEY
+
+        //App Center Analytics
         AppCenter.start(getApplication(), appCenterKey,Analytics::class.java, Crashes::class.java);
 
+        Toast.makeText(applicationContext,appCenterKey,Toast.LENGTH_LONG).show()
 
 
 
