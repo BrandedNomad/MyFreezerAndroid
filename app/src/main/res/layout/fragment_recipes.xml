@@ -7,7 +7,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/FreezerFragment"
         android:background="@color/background">
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -31,6 +30,7 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
