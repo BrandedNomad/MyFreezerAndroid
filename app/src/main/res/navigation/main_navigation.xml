@@ -7,5 +7,29 @@
     <fragment
         android:id="@+id/freezerFragment"
         android:name="com.myfreezer.app.ui.freezer.FreezerFragment"
-        android:label="FreezerFragment" />
+        android:label="FreezerFragment" >
+        <action
+            android:id="@+id/action_freezerFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment"
+            app:popUpTo="@id/freezerFragment" />
+        <action
+            android:id="@+id/action_freezerFragment_to_recipesFragment"
+            app:destination="@id/recipesFragment"
+            app:popUpTo="@id/freezerFragment" />
+        <action
+            android:id="@+id/action_freezerFragment_to_shoppingFragment"
+            app:destination="@id/shoppingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipesFragment"
+        android:name="com.myfreezer.app.ui.recipes.RecipesFragment"
+        android:label="RecipesFragment" />
+    <fragment
+        android:id="@+id/shoppingFragment"
+        android:name="com.myfreezer.app.ui.shopping.ShoppingFragment"
+        android:label="ShoppingFragment" />
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.myfreezer.app.ui.favourites.FavouriteFragment"
+        android:label="FavouriteFragment" />
 </navigation>
