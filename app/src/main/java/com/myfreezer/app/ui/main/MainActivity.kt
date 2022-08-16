@@ -23,9 +23,6 @@ class MainActivity : AppCompatActivity() {
         //App Center Analytics
         AppCenter.start(getApplication(), appCenterKey,Analytics::class.java, Crashes::class.java);
 
-        Toast.makeText(applicationContext,appCenterKey,Toast.LENGTH_LONG).show()
-
-
 
     }
 
