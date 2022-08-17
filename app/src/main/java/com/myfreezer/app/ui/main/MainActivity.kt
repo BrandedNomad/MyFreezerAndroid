@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //Instantiated here otherwise it produces an error
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
 
         //set navbar color
