@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item
+        android:id="@+id/bottomNavItemFreezer"
+        android:enabled="true"
+        android:icon="@drawable/ac_unit"
+        android:title="@string/navbar_item_freezer"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="12dp"/>
+    <item
+        android:id="@+id/bottomNavItemRecipe"
+        android:enabled="true"
+        android:icon="@drawable/restaurant"
+        android:title="@string/navbar_item_recipe"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="12dp"/>
+    <item
+        android:id="@+id/bottomNavItemFavourite"
+        android:enabled="true"
+        android:icon="@drawable/favorite_filled"
+        android:title="@string/navbar_item_favourite"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="12dp"/>
+    <item
+        android:id="@+id/bottomNavItemShopping"
+        android:enabled="true"
+        android:icon="@drawable/assignment"
+        android:title="@string/navbar_item_shopping"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="12dp"/>
+
+</menu>
