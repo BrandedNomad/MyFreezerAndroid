@@ -5,10 +5,10 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class FreezerItem(
-    val id:String,
+    //val id:String,
     val name:String,
     val quantity:String,
     val unit:String,
-    val minimum:String,
-    val date:String,
+    //val minimum:String,
+    //val date:String,
 ): Parcelable

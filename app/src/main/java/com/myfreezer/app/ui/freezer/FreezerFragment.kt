@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.myfreezer.app.R
 import com.myfreezer.app.databinding.FragmentFreezerBinding
+import com.myfreezer.app.shared.freezerList
 
 class FreezerFragment: Fragment() {
 
@@ -24,6 +25,15 @@ class FreezerFragment: Fragment() {
             container,
             false
         )
+
+        //set Adapter
+        val adapter = FreezerAdapter(FreezerAdapter.OnClickListener{
+            //TODO:
+        })
+
+        binding.freezerReyclerView.adapter = adapter
+
+        adapter.submitList(freezerList)
 
         return binding.root
 
