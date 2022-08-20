@@ -7,8 +7,8 @@ import kotlinx.android.parcel.Parcelize
 data class FreezerItem(
     //val id:String,
     val name:String,
-    val quantity:String,
+    val quantity:Int,
     val unit:String,
-    //val minimum:String,
+    val minimum:Int,
     //val date:String,
 ): Parcelable
