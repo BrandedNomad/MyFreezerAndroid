@@ -26,3 +26,15 @@ fun List<DatabaseFreezerItem>.asDomainModel():List<FreezerItem>{
         )
     }
 }
+
+//TODO:ADD transform freezerItem to databasefreezerItem
+//fun FreezerItem.asDatabaseModel():DatabaseFreezerItem{
+//    return DatabaseFreezerItem(
+//            it.name,
+//            FreezerItem::quantity,
+//            FreezerItem::unit,
+//            FreezerItem::minimum
+//        )
+//    }
+//}
+
