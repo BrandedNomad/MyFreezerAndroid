@@ -2,7 +2,7 @@ package com.myfreezer.app.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.myfreezer.app.domain.FreezerItem
+import com.myfreezer.app.models.FreezerItem
 import com.myfreezer.app.shared.freezerList
 
 

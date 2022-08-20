@@ -1,4 +1,4 @@
-package com.myfreezer.app.domain
+package com.myfreezer.app.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

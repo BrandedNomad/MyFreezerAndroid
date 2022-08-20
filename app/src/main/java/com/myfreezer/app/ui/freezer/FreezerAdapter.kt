@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.myfreezer.app.R
-import com.myfreezer.app.domain.FreezerItem
+import com.myfreezer.app.models.FreezerItem
 
 /**
  * @class FreezerAdapter

@@ -1,6 +1,6 @@
 package com.myfreezer.app.shared
 
-import com.myfreezer.app.domain.FreezerItem
+import com.myfreezer.app.models.FreezerItem
 
 val one = FreezerItem("Chicken Breast","10","pcs")
 val two = FreezerItem("Chicken feet","1","kg")
@@ -15,4 +15,4 @@ val ten = FreezerItem("Chicken Wings","3","kg")
 val eleven = FreezerItem("Beef Mince","2","kg")
 val twelve = FreezerItem("Mushrooms","6","pkg")
 
-val freezerList = listOf(one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve)
+val freezerList = mutableListOf(one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve)
