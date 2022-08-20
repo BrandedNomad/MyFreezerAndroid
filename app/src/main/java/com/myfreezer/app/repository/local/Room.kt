@@ -7,10 +7,13 @@ import androidx.room.*
 @Dao
 interface FreezerDao {
 
+    @Insert
+    suspend fun insert(freezerItem:DatabaseFreezerItem)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg freezerItem:DatabaseFreezerItem)
 
-    @Query("SELECT * FROM databasefreezeritems")
+    @Query("SELECT * FROM databasefreezeritem")
     fun getFreezerItems(): LiveData<List<DatabaseFreezerItem>>
 }
 
@@ -28,7 +31,7 @@ abstract class FreezerItemDatabase:RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     FreezerItemDatabase::class.java,
-                    "freezeritems"
+                    "freezeritemdatabase"
                 ).build()
 
                 INSTANCE = instance

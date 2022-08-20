@@ -38,7 +38,7 @@ class FreezerAdapter(val onClickListener: OnClickListener): ListAdapter<FreezerI
         fun bind(holder:FreezerViewHolder, item:FreezerItem){
 
             holder.textViewItemName.text = item.name
-            holder.textViewItemQuantity.text = item.quantity
+            holder.textViewItemQuantity.text = item.quantity.toString()
             holder.textViewItemUnit.text = item.unit
         }
 
