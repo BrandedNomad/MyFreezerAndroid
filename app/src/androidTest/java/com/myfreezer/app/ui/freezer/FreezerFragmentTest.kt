@@ -35,7 +35,7 @@ class FreezerFragmentTest {
     }
 
     @Test
-    fun test_ifFreezerFragmentLoads(){
+    fun test_isRecyclerViewDisplaying(){
         onView(withId(R.id.freezerRecyclerView)).check(matches(isDisplayed()))
     }
 
