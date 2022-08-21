@@ -13,7 +13,7 @@
 
     <string name="hint_text_item">Item Name</string>
     <string name="hint_text_quantity">Quantity</string>
-    <string name="hint_text_unit">kg/g/pcs/pkg ?</string>
+    <string name="hint_text_unit">Unit</string>
     <string name="hint_text_minimum">Minimum Amount</string>
     <string name="hint_text_category">Category</string>
 
