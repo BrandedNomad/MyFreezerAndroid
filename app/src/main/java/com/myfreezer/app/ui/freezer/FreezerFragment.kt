@@ -74,7 +74,7 @@ class FreezerFragment: Fragment() {
         })
 
         //set adapter
-        binding.freezerReyclerView.adapter = adapter
+        binding.freezerRecyclerView.adapter = adapter
 
         //OBSERVERS
 
