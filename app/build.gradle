@@ -145,7 +145,8 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:${espresso_version}"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:${espresso_version}"
 
-    //Assertion
+    //App Center
+    androidTestImplementation 'com.microsoft.appcenter:espresso-test-extension:1.4'
 
 
 

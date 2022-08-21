@@ -15,13 +15,19 @@ import com.myfreezer.app.ui.freezer.FreezerFragment
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import androidx.fragment.app.testing.launchFragmentInContainer
+import com.microsoft.appcenter.espresso.Factory
+import com.microsoft.appcenter.espresso.ReportHelper
+import org.junit.After
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
 
     @get: Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
+
+    @Rule
+    @JvmField
+    var reportHelper = Factory.getReportHelper()
 
     @Test
     fun test_isMainActivityInView(){
@@ -57,6 +63,11 @@ class MainActivityTest {
         }
 
         onView(withId(R.id.freezerRecyclerView)).check(matches(isDisplayed()))
+    }
+
+    @After
+    fun tearDown(){
+        reportHelper.label("Finishing test")
     }
 
 }
