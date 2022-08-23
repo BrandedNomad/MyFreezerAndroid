@@ -31,7 +31,6 @@ class MainActivityTest {
 
     @Test
     fun test_isMainActivityInView(){
-
 //        val activityScenario = ActivityScenario.launch(MainActivity::class.java)
         onView(withId(R.id.mainActivity)).check(matches(isDisplayed()))
     }
@@ -56,6 +55,7 @@ class MainActivityTest {
         onView(withText("My Freezer")).check(matches(isDisplayed()))
     }
 
+
     @Test
     fun test_ifFreezerFragmentLoads(){
         ActivityScenario.launch(MainActivity::class.java).onActivity{
@@ -71,3 +71,15 @@ class MainActivityTest {
     }
 
 }
+
+
+
+//Scenario 3: User Enters the wrong information in text fields
+//
+//GIVEN that the “Add Item” modal is open
+//
+//WHEN the user enters the incorrect information
+//
+//THEN an error message is displayed prompting the user to enter the correct information.
+//
+//AND the “ADD” button remains disabled

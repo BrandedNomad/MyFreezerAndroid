@@ -87,7 +87,7 @@ class FreezerFragment: Fragment() {
 
 
         //When the add button is clicked
-        binding.floatingActionButton.setOnClickListener{
+        binding.fabAddItem.setOnClickListener{
             //open the add item popup modal
             displayAddItemModal(addDialog,addItemLayout,viewModel)
         }
