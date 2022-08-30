@@ -44,5 +44,18 @@ class Repository(val database: FreezerItemDatabase) {
 
     }
 
+    /**
+     * @method deleteFreezerItem
+     * @description Deletes freezerItem from the database
+     * @param {FreezerItem} item to be deleted
+     */
+    suspend fun deleteFreezerItem(item:FreezerItem){
+        withContext(Dispatchers.IO){
+
+            val itemName = item.name
+            database.freezerDao.deleteFreezerItem(itemName)
+        }
+    }
+
 
 }

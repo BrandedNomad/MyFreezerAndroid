@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/confirmation_modal_padding_Top"
+    android:paddingLeft="@dimen/confirmation_modal_padding_Left"
+    android:paddingBottom="@dimen/confirmation_modal_padding_Bottom"
+    android:paddingRight="@dimen/confirmation_modal_padding_Right">
+    <LinearLayout
+        android:id="@+id/deleteConfirmationLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dialogue_delete_title"
+                android:textColor="@color/on_primary"
+                style="@style/heading_6"
+                android:layout_marginBottom="@dimen/confirmation_modal_title_bottom_margin"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/body_1"
+                android:id="@+id/addItemMinimumField"
+                android:text="@string/dialogue_delete_body"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="@dimen/text_field_space_between"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="right"
+            android:layout_marginTop="@dimen/confirmation_modal_buttons_top_margin">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/deleteConfirmationCancelButton"
+                style="@style/button_tertiary"
+                android:text="@string/button_text_cancel"
+                android:layout_height="@dimen/button_height_tall"
+                android:layout_width="wrap_content"
+                android:paddingLeft="@dimen/button_padding_default"
+                android:paddingRight="@dimen/button_padding_default"
+                android:layout_marginRight="@dimen/button_space_between"
+                android:textColor="@color/primary"
+                app:rippleColor="@color/secondary"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/deleteConfirmationConfirmButton"
+                style="@style/button_secondary"
+                android:text="@string/button_text_confirm"
+                android:layout_height="@dimen/button_height_tall"
+                android:layout_width="wrap_content"
+                android:paddingLeft="@dimen/button_padding_default"
+                android:paddingRight="@dimen/button_padding_default"
+                android:textColor="@color/primary"
+                app:backgroundTint="@android:color/transparent"
+                app:cornerRadius="@dimen/radius_s"
+                app:rippleColor="@color/secondary"
+                app:strokeColor="@color/primary"
+                app:strokeWidth="@dimen/border_line_height_thick"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

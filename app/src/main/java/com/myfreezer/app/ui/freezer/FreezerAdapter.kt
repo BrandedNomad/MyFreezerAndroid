@@ -90,7 +90,8 @@ class FreezerAdapter(val onClickListener: OnClickListener): ListAdapter<FreezerI
         val item = getItem(position)
         holder.bind(holder,item)
         holder.itemView.setOnLongClickListener{
-             var x = it.findViewById<FreezerListItem>(R.id.freezerListItem)
+            //TODO: Create item selection background color change
+             //var x = it.findViewById<FreezerListItem>(R.id.freezerListItem)
             //it.setBackgroundColor(Color.parseColor("#9DB2B4"))
             onClickListener.onClick(item)
             return@setOnLongClickListener true

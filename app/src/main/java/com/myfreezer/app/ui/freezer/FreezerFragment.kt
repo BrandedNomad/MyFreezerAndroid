@@ -6,20 +6,14 @@ import android.view.*
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import android.widget.Toolbar
 import android.view.ActionMode
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import com.myfreezer.app.R
 import com.myfreezer.app.databinding.FragmentFreezerBinding
 import com.myfreezer.app.models.FreezerItem
-import com.myfreezer.app.shared.freezerList
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 /**
  * @class FreezerFragment
@@ -53,13 +47,20 @@ class FreezerFragment: Fragment() {
         //INITIALIZING VARIABLES
 
         //Layout used for add item popup modal
-        val addItemLayout = View.inflate(context,R.layout.add_item,null)
+        val addItemLayout = View.inflate(context,R.layout.add_freezer_item,null)
+        val deleteConfirmationLayout = View.inflate(context, R.layout.delete_confirmation,null)
 
         //The add item popup dialogue
         val addDialogBuilder = AlertDialog.Builder(context)
         addDialogBuilder.setView(addItemLayout)
         addDialogBuilder.setCancelable(true)
         val addDialog = addDialogBuilder.create()
+
+        //The deleteConfirmation popup dialogue
+        val deleteConfirmation = AlertDialog.Builder(context)
+        deleteConfirmation.setView(deleteConfirmationLayout)
+        deleteConfirmation.setCancelable(false)
+        val deleteDialog = deleteConfirmation.create()
 
         //VIEWMODEL
 
@@ -74,7 +75,7 @@ class FreezerFragment: Fragment() {
         val adapter = FreezerAdapter(FreezerAdapter.OnClickListener{
             //TODO:Add the navigation observer
 
-            displayContextMenu()
+            displayFreezerListItemContextMenu(deleteDialog, viewModel,it,deleteConfirmationLayout)
         })
 
         //set adapter
@@ -85,7 +86,14 @@ class FreezerFragment: Fragment() {
         //When the list updates
         viewModel.freezerItemList.observe(viewLifecycleOwner, Observer{
             //resubmit the new list to the adapter for display
+            if(it.size == 0){
+
+                binding.freezerEmptyMessage.setVisibility(View.VISIBLE)
+            }else{
+                binding.freezerEmptyMessage.setVisibility(View.GONE)
+            }
             adapter.submitList(it)
+
         })
 
 
@@ -157,14 +165,22 @@ class FreezerFragment: Fragment() {
         itemMinimumView.setText("")
     }
 
-    fun displayContextMenu():Boolean{
+    /**
+     * @method displayFreezerListItemContextMenu
+     * @description Displays a context Menu with options to delete or edit item, when item is long pressed
+     * @param {FreezerVieModel} viewModel: the freezer viewModel which has the delete and edit methods
+     * @param {FreezerItem} freezerItem: the Item that has been selected
+     * @return {Boolean} true
+     */
+    fun displayFreezerListItemContextMenu(dialog:AlertDialog,viewModel:FreezerViewModel,freezerItem:FreezerItem,itemLayout:View):Boolean{
 
 
+        //Create the actionMode for context menu
         val fragmentActivity = requireActivity()
+        actionMode = fragmentActivity.startActionMode(actionModeCallbackWrapper(dialog,viewModel,freezerItem,itemLayout))!!
 
-        actionMode = fragmentActivity.startActionMode(actionModeCallback)!!
-
-
+        //Checks whether action mode allready exists,
+        //if it does it wont create another one
         if(actionMode !== null){
             return false;
         }
@@ -172,35 +188,109 @@ class FreezerFragment: Fragment() {
         return true;
     }
 
-    var actionModeCallback = object: ActionMode.Callback {
-        override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-            mode?.getMenuInflater()!!.inflate(R.menu.freezer_context_menu,menu)
-            mode.setTitle("Options");
-            return true
-        }
+    /**
+     * @method: actionModeCallbackWrapper
+     * @description: a wrapper function that wraps the ActionMode Callback function
+     * The wrapper function is used to pass variables to items inside of the
+     * actionItemClicked methods
+     * @param {FreezerViewModel} viewModel: The viewModel that contains the desired methods
+     * @param {FreezerItem} freezerItem: The item that was selected
+     * @return: {ActionMode.Callback} The callback function for the actionMode
+     */
+    fun actionModeCallbackWrapper(dialog:AlertDialog,viewModel:FreezerViewModel,freezerItem:FreezerItem,itemLayout:View):ActionMode.Callback {
 
-        override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-            return false
-        }
 
-        override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
-            when(item?.getItemId()){
-                R.id.freezerContextMenuDelete -> {
-                    Toast.makeText(context,"deleted", Toast.LENGTH_LONG).show()
+        return object: ActionMode.Callback {
+
+            /**
+             * @method: onCreateActionMode
+             * @description: creates the context Menu
+             * @param {ActionMode?} mode: Provide alternative mode of normal UI like a contextual action.
+             * @param {Menu?} menu: The menu that needs to be inflated for the context menu
+             * @return {Boolean}
+             */
+            override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                //Inflate the menu with options that are displayed when context menu is shown
+                mode?.getMenuInflater()!!.inflate(R.menu.freezer_context_menu,menu)
+
+                //Set title for context menu
+                mode.setTitle("Options");
+
+                return true
+            }
+
+            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                return false
+            }
+
+            override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+                when(item?.getItemId()){
+                    R.id.freezerContextMenuDelete -> {
+                        displayDeleteConfirmationDialog(dialog,viewModel,freezerItem,itemLayout)
+                        actionMode.finish()
+                    }
+                    else -> {
+                        //do nothing
+
+                    }
+
                 }
-                else -> {
-                    //do nothing
+                return true
+            }
 
-                }
+            override fun onDestroyActionMode(mode: ActionMode?) {
+                //TODO("Not yet implemented")
 
             }
-            return true
+
+        }
+    }
+
+
+
+    /**
+     * @method: displayDeleteConfirmationDialog
+     * @description: prompts the user to either cancel or confirm a delete action
+     * @param {}
+     * dialog:AlertDialog, itemLayout:View,viewModel:FreezerViewModel
+     */
+    private fun displayDeleteConfirmationDialog(dialog:AlertDialog,viewModel:FreezerViewModel,item:FreezerItem,itemLayout:View){
+
+
+        val cancelButton: Button = itemLayout.findViewById(R.id.deleteConfirmationCancelButton)
+        val confirmButton: Button = itemLayout.findViewById(R.id.deleteConfirmationConfirmButton)
+
+
+
+        cancelButton.setOnClickListener{
+            dialog.dismiss()
         }
 
-        override fun onDestroyActionMode(mode: ActionMode?) {
-            //TODO("Not yet implemented")
-//            actionMode.finish()
+        confirmButton.setOnClickListener{
+
+            //add
+            viewModel.deleteFreezerItem(item)
+            Toast.makeText(context, "Item deleted",Toast.LENGTH_LONG).show()
+
+            //dismiss modal
+            dialog.dismiss()
         }
+//
+//        dialog.show()
+
+//        val builder = AlertDialog.Builder(context)
+//        builder.setTitle(R.string.dialogue_delete_title)
+//        builder.setMessage(R.string.dialogue_delete_body)
+//        builder.setPositiveButton("Confirm"){dialogInterface,which ->
+//
+//            viewModel.deleteFreezerItem(item)
+//            Toast.makeText(context, "Item deleted",Toast.LENGTH_LONG).show()
+//        }
+//        builder.setNegativeButton("Cancel"){dialogueInterface,which ->
+//
+//        }
+//        val dialog = builder.create()
+        dialog.show()
 
     }
 

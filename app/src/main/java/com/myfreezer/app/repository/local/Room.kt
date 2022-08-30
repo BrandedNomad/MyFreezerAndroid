@@ -3,6 +3,7 @@ package com.myfreezer.app.repository.local
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.myfreezer.app.models.FreezerItem
 
 @Dao
 interface FreezerDao {
@@ -15,6 +16,9 @@ interface FreezerDao {
 
     @Query("SELECT * FROM databasefreezeritem")
     fun getFreezerItems(): LiveData<List<DatabaseFreezerItem>>
+
+    @Query("DELETE FROM databasefreezeritem WHERE name = :itemName")
+    suspend fun deleteFreezerItem(itemName:String)
 }
 
 @Database(entities=[DatabaseFreezerItem::class],version = 1)

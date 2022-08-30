@@ -45,6 +45,15 @@ class FreezerViewModel(application: Application): ViewModel() {
         repository.addFreezerItem(item)
     }
 
+    /**
+     * @method deleteFreezerItem
+     * @description: Deletes freezer item
+     * @param {FreezerItem} item: The item to be deleted
+     */
+    fun deleteFreezerItem(item:FreezerItem) = viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler){
+        repository.deleteFreezerItem(item)
+    }
+
     //TODO:Setup nav triggers
 
 

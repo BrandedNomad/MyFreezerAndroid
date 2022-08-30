@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyFreezer</string>
+    <string name="app_name">My Freezer</string>
 
     <string name="appbar_title_freezer">Freezer</string>
 
@@ -25,6 +25,9 @@
 
     <string name="dialogue_delete_title">Delete Item?</string>
     <string name="dialogue_delete_body">Are you sure you want to remove this item?</string>
+
+    <string name="background_message_freezer_empty_title">EMPTY FREEZER</string>
+    <string name="background_message_freezer_empty_body">Add some items by clicking on the "+" button.</string>
 
 
 
