@@ -294,6 +294,11 @@ class FreezerFragment: Fragment() {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        actionMode.finish()
+    }
+
 
 
 }
