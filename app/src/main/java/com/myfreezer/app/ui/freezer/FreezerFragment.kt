@@ -2,12 +2,12 @@ package com.myfreezer.app.ui.freezer
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import android.widget.Toolbar
+import android.view.ActionMode
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -27,6 +27,7 @@ import kotlinx.coroutines.withContext
  */
 class FreezerFragment: Fragment() {
 
+    lateinit var actionMode:ActionMode
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +48,7 @@ class FreezerFragment: Fragment() {
 
         //set lifecycle owner
         binding.lifecycleOwner = this
+
 
         //INITIALIZING VARIABLES
 
@@ -71,6 +73,8 @@ class FreezerFragment: Fragment() {
         //get adapter
         val adapter = FreezerAdapter(FreezerAdapter.OnClickListener{
             //TODO:Add the navigation observer
+
+            displayContextMenu()
         })
 
         //set adapter
@@ -151,6 +155,53 @@ class FreezerFragment: Fragment() {
         itemQuantityView.setText("")
         itemUnitView.setText("")
         itemMinimumView.setText("")
+    }
+
+    fun displayContextMenu():Boolean{
+
+
+        val fragmentActivity = requireActivity()
+
+        actionMode = fragmentActivity.startActionMode(actionModeCallback)!!
+
+
+        if(actionMode !== null){
+            return false;
+        }
+
+        return true;
+    }
+
+    var actionModeCallback = object: ActionMode.Callback {
+        override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            mode?.getMenuInflater()!!.inflate(R.menu.freezer_context_menu,menu)
+            mode.setTitle("Options");
+            return true
+        }
+
+        override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            return false
+        }
+
+        override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+            when(item?.getItemId()){
+                R.id.freezerContextMenuDelete -> {
+                    Toast.makeText(context,"deleted", Toast.LENGTH_LONG).show()
+                }
+                else -> {
+                    //do nothing
+
+                }
+
+            }
+            return true
+        }
+
+        override fun onDestroyActionMode(mode: ActionMode?) {
+            //TODO("Not yet implemented")
+//            actionMode.finish()
+        }
+
     }
 
 

@@ -67,7 +67,8 @@
                 android:layout_height="24dp"
                 android:layout_width="24dp"
                 android:src="@drawable/add"
-                app:tint="@color/black"/>
+                app:tint="@color/black"
+                android:onClick="addItem"/>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

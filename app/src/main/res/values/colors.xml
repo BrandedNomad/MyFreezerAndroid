@@ -35,4 +35,5 @@
     <color name="shadow">#8B8888</color>
     <color name="hint_text">#737171</color>
     <color name="disabled">#B0ADAD</color>
+    <color name="contextBg">#333333</color>
 </resources>

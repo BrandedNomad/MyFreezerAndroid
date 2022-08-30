@@ -185,6 +185,33 @@ class FreezerFragmentTest {
         onView(withId(R.id.freezerEmptyMessage)).check(matches(isDisplayed()))
     }
 
+//    Scenario 1: User selects item to delete
+    @Test
+    fun freezerListItem_isSelected_contextMenuIsDisplayed(){
+    //    GIVEN the user has navigated to the freezer activity
+        onView(withId(R.id.fabAddItem)).perform(click())
+        onView(withText(R.string.modal_title_add)).check(matches(isDisplayed()))
+
+    //    AND there is at least one item in the list
+        onView(withId(R.id.addItemNameField)).perform(typeText("deleteItem"))
+        onView(withId(R.id.addItemQuantityField)).perform(typeText("2"))
+        onView(withId(R.id.addItemUnitField)).perform(typeText("kg"))
+        onView(withId(R.id.addItemMinimumField)).perform(typeText("2"))
+        onView(withId(R.id.addItemAddButton)).perform(click())
+        onView(withId(R.id.freezerRecyclerView)).check(matches(isDisplayed()))
+        onView(withId(R.id.freezerRecyclerView)).perform(actionOnItem<FreezerAdapter.FreezerViewHolder>(hasDescendant(withText("deleteItem")),click()))
+
+
+    //    WHEN the user long press on the item
+        onView(withId(R.id.freezerRecyclerView)).perform(actionOnItem<FreezerAdapter.FreezerViewHolder>(hasDescendant(withText("deleteItem")), longClick()))
+
+    //    THEN the item is highlighted
+
+    //    AND a context menu appears with the option to delete item
+        onView(withId(R.id.contextMenu)).check(matches(isDisplayed()))
+    }
+
+
     @After
     fun tearDown(){
         //For app center
