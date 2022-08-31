@@ -26,9 +26,11 @@ class Repository(val database: FreezerItemDatabase) {
     //DATA LISTS
 
     //populating freezerItem list from the database
-    val freezerItemList = Transformations.map(database.freezerDao.getFreezerItems()){
+    var freezerItemList = Transformations.map(database.freezerDao.getFreezerItems()){
         it.asDomainModel()
     }
+
+
 
     /**
      * @method addFreezerItem
@@ -36,11 +38,39 @@ class Repository(val database: FreezerItemDatabase) {
      * @param {FreezerItem} item: The item to insert
      */
     suspend fun addFreezerItem(item:FreezerItem){
-        withContext(Dispatchers.IO){
-            //convert item to databaseFreezerItem
-            val itemToInsert:DatabaseFreezerItem = DatabaseFreezerItem(item.name,item.quantity,item.unit,item.minimum)
-            database.freezerDao.insert(itemToInsert)
-        }
+        //convert item to databaseFreezerItem
+        val itemToInsert:DatabaseFreezerItem = DatabaseFreezerItem(item.name,item.quantity,item.unit,item.minimum)
+        database.freezerDao.insert(itemToInsert)
+
+
+    }
+
+    /**
+     * @method deleteFreezerItem
+     * @description Deletes freezerItem from the database
+     * @param {FreezerItem} item to be deleted
+     */
+    suspend fun deleteFreezerItem(item:FreezerItem){
+        val itemName = item.name
+        database.freezerDao.deleteFreezerItem(itemName)
+
+    }
+
+    /**
+     * @method updateFreezerItem
+     * @description: updates an existing freezerItem when item is edited
+     * @param {String} previousId: the id (primary id) of the freezerItem
+     * before it was edited, this will be used to find the item in database
+     * @param {FreezerItem} freezerItem: the new updated item
+     */
+    suspend fun updateFreezerItem(previousId:String, freezerItem:FreezerItem){
+        database.freezerDao.updateFreezerItem(
+            previousId,
+            freezerItem.name,
+            freezerItem.quantity,
+            freezerItem.unit,
+            freezerItem.minimum
+        )
 
     }
 

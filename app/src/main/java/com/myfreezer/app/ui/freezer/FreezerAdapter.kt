@@ -1,15 +1,21 @@
 package com.myfreezer.app.ui.freezer
 
 
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.app.NotificationCompat.getColor
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.internal.ContextUtils.getActivity
 import com.myfreezer.app.R
 import com.myfreezer.app.models.FreezerItem
+import com.myfreezer.app.repository.local.FreezerItemDatabase
 
 /**
  * @class FreezerAdapter
@@ -85,8 +91,12 @@ class FreezerAdapter(val onClickListener: OnClickListener): ListAdapter<FreezerI
     override fun onBindViewHolder(holder:FreezerViewHolder, position: Int){
         val item = getItem(position)
         holder.bind(holder,item)
-        holder.itemView.setOnClickListener{
+        holder.itemView.setOnLongClickListener{
+            //TODO: Create item selection background color change
+             //var x = it.findViewById<FreezerListItem>(R.id.freezerListItem)
+            //it.setBackgroundColor(Color.parseColor("#9DB2B4"))
             onClickListener.onClick(item)
+            return@setOnLongClickListener true
         }
     }
 
@@ -96,6 +106,7 @@ class FreezerAdapter(val onClickListener: OnClickListener): ListAdapter<FreezerI
      */
     class OnClickListener(val clickListener:(freezerItem:FreezerItem)-> Unit){
         fun onClick(freezerItem:FreezerItem) =  clickListener(freezerItem)
+
     }
 }
 
@@ -126,6 +137,10 @@ class FreezerDiffCallback: DiffUtil.ItemCallback<FreezerItem>(){
      * @return {Boolean} true if the items are the same
      */
     override fun areContentsTheSame(oldItem: FreezerItem, newItem: FreezerItem): Boolean {
-        return oldItem.name == newItem.name
+
+        //TODO: FIX are contentTheSame
+        //Currently it always returns true because oldItem gets updated before it is compared to newItem
+        return false
+
     }
 }

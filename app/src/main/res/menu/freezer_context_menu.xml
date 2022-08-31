@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item
+        android:id="@+id/freezerContextMenuEdit"
+        android:enabled="true"
+        android:icon="@drawable/edit"
+        android:title="Edit"
+        android:width = "@dimen/icon_standard"
+        android:height = "@dimen/icon_standard" />
+    <item
+        android:id="@+id/freezerContextMenuDelete"
+        android:enabled="true"
+        android:icon="@drawable/delete_filled"
+        android:title="Delete"
+        android:width = "@dimen/icon_standard"
+        android:height = "@dimen/icon_standard" />
+
+</menu>

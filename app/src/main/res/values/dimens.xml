@@ -48,4 +48,11 @@
     <dimen name="modal_padding_default">8dp</dimen>
     <dimen name="modal_item_margin">8dp</dimen>
 
+    <dimen name="confirmation_modal_padding_Top">22dp</dimen>
+    <dimen name="confirmation_modal_padding_Left">24dp</dimen>
+    <dimen name="confirmation_modal_padding_Right">8dp</dimen>
+    <dimen name="confirmation_modal_padding_Bottom">8dp</dimen>
+    <dimen name="confirmation_modal_title_bottom_margin">18dp</dimen>
+    <dimen name="confirmation_modal_buttons_top_margin">33dp</dimen>
+
 </resources>
