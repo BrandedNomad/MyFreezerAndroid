@@ -19,6 +19,11 @@ interface FreezerDao {
 
     @Query("DELETE FROM databasefreezeritem WHERE name = :itemName")
     suspend fun deleteFreezerItem(itemName:String)
+
+    @Query("UPDATE databasefreezeritem " +
+            "SET name = :name, quantity = :quantity, unit = :unit, minimum = :minimum " +
+            "WHERE name = :previousId")
+    suspend fun updateFreezerItem(previousId:String,name:String,quantity:Int,unit:String,minimum:Int)
 }
 
 @Database(entities=[DatabaseFreezerItem::class],version = 1)

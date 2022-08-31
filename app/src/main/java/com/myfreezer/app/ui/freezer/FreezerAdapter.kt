@@ -2,6 +2,7 @@ package com.myfreezer.app.ui.freezer
 
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.internal.ContextUtils.getActivity
 import com.myfreezer.app.R
 import com.myfreezer.app.models.FreezerItem
+import com.myfreezer.app.repository.local.FreezerItemDatabase
 
 /**
  * @class FreezerAdapter
@@ -135,6 +137,10 @@ class FreezerDiffCallback: DiffUtil.ItemCallback<FreezerItem>(){
      * @return {Boolean} true if the items are the same
      */
     override fun areContentsTheSame(oldItem: FreezerItem, newItem: FreezerItem): Boolean {
-        return oldItem.name == newItem.name
+
+        //TODO: FIX are contentTheSame
+        //Currently it always returns true because oldItem gets updated before it is compared to newItem
+        return false
+
     }
 }

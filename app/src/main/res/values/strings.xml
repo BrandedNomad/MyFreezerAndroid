@@ -20,6 +20,7 @@
     <string name="button_text_add">ADD</string>
     <string name="button_text_cancel">CANCEL</string>
     <string name="button_text_confirm">CONFIRM</string>
+    <string name="button_text_update">UPDATE</string>
 
     <string name="context_selected">Selected</string>
 
