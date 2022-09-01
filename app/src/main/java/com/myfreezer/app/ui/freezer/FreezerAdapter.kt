@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.NotificationCompat.getColor
 import androidx.core.content.ContextCompat
@@ -17,13 +18,14 @@ import com.myfreezer.app.R
 import com.myfreezer.app.models.FreezerItem
 import com.myfreezer.app.repository.local.FreezerItemDatabase
 
+
 /**
  * @class FreezerAdapter
  * @description: The adapter for the freezer item recycler view
  *
  */
 
-class FreezerAdapter(val onClickListener: OnClickListener): ListAdapter<FreezerItem,FreezerAdapter.FreezerViewHolder>(FreezerDiffCallback()) {
+class FreezerAdapter(val onClickListener: OnClickListener,val viewModel:FreezerViewModel): ListAdapter<FreezerItem,FreezerAdapter.FreezerViewHolder>(FreezerDiffCallback()) {
 
     /**
      * @description: The view holder for freezer_list_item
@@ -89,12 +91,36 @@ class FreezerAdapter(val onClickListener: OnClickListener): ListAdapter<FreezerI
      * @param {Int} position: the item position in list
      */
     override fun onBindViewHolder(holder:FreezerViewHolder, position: Int){
+        //Get the correct freezerItem
         val item = getItem(position)
+
+        //Binds the freezerItem to the freezerListItem
         holder.bind(holder,item)
+
+        //When the user clicks the increment the item quantity is updated
+        var incrementButton: ImageView = holder.itemView.findViewById(R.id.freezerListItemIncrement)
+        incrementButton.setOnClickListener{
+            Log.e("Increment",item.name.toString())
+            val previousId = item.name
+            viewModel.incrementFreezerItem(previousId,item)
+        }
+
+        //When the user clicks the increment the item quantity is updated
+        var decrementButton: ImageView = holder.itemView.findViewById(R.id.freezerListItemDecrement)
+        decrementButton.setOnClickListener{
+            Log.e("decrement",item.name.toString())
+            val previousId = item.name
+            viewModel.decrementFreezerItem(previousId,item)
+        }
+
+        //When user longClicks the item, a context menu for editing and deleting item is displayed
         holder.itemView.setOnLongClickListener{
             //TODO: Create item selection background color change
              //var x = it.findViewById<FreezerListItem>(R.id.freezerListItem)
             //it.setBackgroundColor(Color.parseColor("#9DB2B4"))
+
+
+
             onClickListener.onClick(item)
             return@setOnLongClickListener true
         }

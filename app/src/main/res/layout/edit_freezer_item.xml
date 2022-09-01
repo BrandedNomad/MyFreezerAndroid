@@ -27,7 +27,7 @@
             <ImageView
                 android:layout_width="@dimen/icon_l"
                 android:layout_height="@dimen/icon_l"
-                android:src="@drawable/add"
+                android:src="@drawable/edit"
                 app:tint="@color/black" />
         </LinearLayout>
         <LinearLayout

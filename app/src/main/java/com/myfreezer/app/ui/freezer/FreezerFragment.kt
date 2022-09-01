@@ -1,15 +1,14 @@
 package com.myfreezer.app.ui.freezer
 
 import android.app.AlertDialog
-import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.myfreezer.app.R
@@ -95,6 +94,8 @@ class FreezerFragment: Fragment() {
         val adapter = FreezerAdapter(FreezerAdapter.OnClickListener{
             //TODO:Add the navigation observer
 
+
+
             //When list item is clicked, display a context menu in the appbar
             //TODO:unscramble the argument order
             displayFreezerListItemContextMenu(
@@ -105,7 +106,7 @@ class FreezerFragment: Fragment() {
                 editDialog,
                 editItemLayout
             )
-        })
+        },viewModel)
 
         //set adapter
         binding.freezerRecyclerView.adapter = adapter
