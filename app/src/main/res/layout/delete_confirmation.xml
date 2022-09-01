@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/confirmation_modal_title_bottom_margin"
             android:gravity="center_vertical">
             <TextView
                 android:layout_width="wrap_content"
@@ -26,7 +27,12 @@
                 android:text="@string/dialogue_delete_title"
                 android:textColor="@color/on_primary"
                 style="@style/heading_6"
-                android:layout_marginBottom="@dimen/confirmation_modal_title_bottom_margin"/>
+                android:layout_weight="2"/>
+            <ImageView
+                android:layout_width="@dimen/icon_l"
+                android:layout_height="@dimen/icon_l"
+                android:src="@drawable/delete_filled"
+                app:tint="@color/black" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
