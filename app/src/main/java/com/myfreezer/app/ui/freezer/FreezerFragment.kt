@@ -176,6 +176,7 @@ class FreezerFragment: Fragment() {
         dialog.show()
     }
 
+    //TODO:
     /**
      * @method addItem
      * @description Adds new freezer item to database and clears the textfields
@@ -206,6 +207,10 @@ class FreezerFragment: Fragment() {
         itemQuantityView.setText("")
         itemUnitView.setText("")
         itemMinimumView.setText("")
+    }
+
+    fun inputValidation(){
+
     }
 
     /**
