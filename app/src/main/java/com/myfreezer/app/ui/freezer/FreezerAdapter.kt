@@ -100,7 +100,7 @@ class FreezerAdapter(val onClickListener: OnClickListener,val viewModel:FreezerV
         //When the user clicks the increment the item quantity is updated
         var incrementButton: ImageView = holder.itemView.findViewById(R.id.freezerListItemIncrement)
         incrementButton.setOnClickListener{
-            Log.e("Increment",item.name.toString())
+
             val previousId = item.name
             viewModel.incrementFreezerItem(previousId,item)
         }
@@ -108,7 +108,7 @@ class FreezerAdapter(val onClickListener: OnClickListener,val viewModel:FreezerV
         //When the user clicks the increment the item quantity is updated
         var decrementButton: ImageView = holder.itemView.findViewById(R.id.freezerListItemDecrement)
         decrementButton.setOnClickListener{
-            Log.e("decrement",item.name.toString())
+
             val previousId = item.name
             viewModel.decrementFreezerItem(previousId,item)
         }

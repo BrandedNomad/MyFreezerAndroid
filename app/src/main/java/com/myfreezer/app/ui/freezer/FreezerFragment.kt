@@ -2,12 +2,16 @@ package com.myfreezer.app.ui.freezer
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.adapters.TextViewBindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -156,6 +160,13 @@ class FreezerFragment: Fragment() {
         val cancelButton: Button = itemLayout.findViewById(R.id.addItemCancelButton)
         val addButton: Button = itemLayout.findViewById(R.id.addItemAddButton)
 
+
+        val nameField:EditText = itemLayout.findViewById(R.id.addItemNameField)
+        val quantityField:EditText = itemLayout.findViewById(R.id.addItemQuantityField)
+        val unitField:EditText = itemLayout.findViewById(R.id.addItemUnitField)
+        val minimumField:EditText = itemLayout.findViewById(R.id.addItemMinimumField)
+
+
         //When cancel button is clicked
         cancelButton.setOnClickListener{
             //Dismiss the dialogue without adding anything to the list
@@ -165,11 +176,16 @@ class FreezerFragment: Fragment() {
         //When the add button is clicked
         addButton.setOnClickListener{
 
-            //add the new item to database and display in list
-            addItem(itemLayout,viewModel)
+            //If all fields have been filled out and none is empty
+            if(nameField.text.toString() != "" && quantityField.text.toString() != "" && unitField.text.toString() != "" && minimumField.text.toString() != ""){
+                //add the new item to database and display in list
+                addItem(itemLayout,viewModel)
 
-            //dismiss modal
-            dialog.dismiss()
+                //dismiss modal
+                dialog.dismiss()
+            }
+
+
         }
 
         //Display the dialog
@@ -209,7 +225,8 @@ class FreezerFragment: Fragment() {
         itemMinimumView.setText("")
     }
 
-    fun inputValidation(){
+    fun isAddItemFormComplete(itemLayout:View){
+
 
     }
 
@@ -402,33 +419,34 @@ class FreezerFragment: Fragment() {
 
         //When updateButton is clicked
         updateButton.setOnClickListener{
+            //If all fields are filled out and none is empty
+            if(nameField.text.toString() != "" && quantityField.text.toString() != "" && unitField.text.toString() != "" && minimumField.text.toString() != ""){
+                //Get text field values
+                var nameValue = nameField.text.toString()
+                var quantityValue = quantityField.text.toString().toInt()
+                var unitValue = unitField.text.toString()
+                var minimumValue = minimumField.text.toString().toInt()
 
-            //Get text field values
-            var nameValue = nameField.text.toString()
-            var quantityValue = quantityField.text.toString().toInt()
-            var unitValue = unitField.text.toString()
-            var minimumValue = minimumField.text.toString().toInt()
+                //Update existing freezer Item with new values
+                item.name = nameValue
+                item.quantity = quantityValue
+                item.unit = unitValue
+                item.minimum = minimumValue
+
+                //Update database
+                viewModel.updateFreezerItem(previousId,item)
+
+                //close context menu
+                actionMode.finish()
+
+                //Notify User of update
+                Toast.makeText(context, "Item updated",Toast.LENGTH_LONG).show()
+
+                //dismiss modal
+                dialog.dismiss()
+            }
 
 
-
-
-            //Update existing freezer Item with new values
-            item.name = nameValue
-            item.quantity = quantityValue
-            item.unit = unitValue
-            item.minimum = minimumValue
-
-            //Update database
-            viewModel.updateFreezerItem(previousId,item)
-
-            //close context menu
-            actionMode.finish()
-
-            //Notify User of update
-            Toast.makeText(context, "Item updated",Toast.LENGTH_LONG).show()
-
-            //dismiss modal
-            dialog.dismiss()
         }
 
         //Display the dialog
