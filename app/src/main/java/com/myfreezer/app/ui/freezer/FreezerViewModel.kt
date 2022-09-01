@@ -65,6 +65,40 @@ class FreezerViewModel(application: Application): ViewModel() {
 
     }
 
+    /**
+     * @method incrementFreezerItem
+     * @description Function used by the quick edit button to increment freezer item quantity by one
+     * @param {String} previousId: the id of the item being incremented
+     * @param {FreezerItem} freezerItem: the item being incremented
+     */
+    fun incrementFreezerItem(previousId:String, freezerItem:FreezerItem){
+
+        freezerItem.quantity = freezerItem.quantity + 1
+        updateFreezerItem(previousId,freezerItem)
+
+    }
+
+
+    /**
+     * @method decrementFreezerItem
+     * @description Function used by the quick edit button to decrement freezer item quantity by one
+     * @param {String} previousId: the id of the item being decremented
+     * @param {FreezerItem} freezerItem: the item being decremented
+     */
+    fun decrementFreezerItem(previousId:String, freezerItem:FreezerItem){
+
+        //if quantity is more than 1 then minus 1
+        if(freezerItem.quantity > 1){
+            freezerItem.quantity -= 1
+            updateFreezerItem(previousId,freezerItem)
+        } else {
+            //if it is 1 then delete it and remove it from the list
+            deleteFreezerItem(freezerItem)
+        }
+
+
+    }
+
 
 
     //TODO:Setup nav triggers
