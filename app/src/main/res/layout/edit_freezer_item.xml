@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="@dimen/modal_padding_default">
     <LinearLayout
-        android:id="@+id/editItemLayout"
+        android:id="@+id/dialogItemLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -36,7 +36,7 @@
             android:orientation="horizontal">
             <EditText
                 style="@style/body_1"
-                android:id="@+id/editItemNameField"
+                android:id="@+id/dialogItemNameField"
                 android:inputType="text"
                 android:hint="@string/hint_text_item"
                 android:layout_height="@dimen/text_field_height_default"
@@ -49,7 +49,7 @@
             android:orientation="horizontal">
             <EditText
                 style="@style/body_1"
-                android:id="@+id/editItemQuantityField"
+                android:id="@+id/dialogItemQuantityField"
                 android:inputType="number"
                 android:hint="@string/hint_text_quantity"
                 android:layout_height="@dimen/text_field_height_default"
@@ -58,7 +58,7 @@
                 android:layout_marginBottom="@dimen/text_field_space_between"/>
             <EditText
                 style="@style/body_1"
-                android:id="@+id/editItemUnitField"
+                android:id="@+id/dialogItemUnitField"
                 android:inputType="text"
                 android:hint="@string/hint_text_unit"
                 android:layout_height="@dimen/text_field_height_default"
@@ -71,7 +71,7 @@
             android:orientation="horizontal">
             <EditText
                 style="@style/body_1"
-                android:id="@+id/editItemMinimumField"
+                android:id="@+id/dialogItemMinimumField"
                 android:inputType="number"
                 android:hint="@string/hint_text_minimum"
                 android:layout_height="@dimen/text_field_height_default"
@@ -84,7 +84,7 @@
             android:orientation="horizontal"
             android:gravity="right">
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/editItemCancelButton"
+                android:id="@+id/dialogItemCancelButton"
                 style="@style/button_tertiary"
                 android:text="@string/button_text_cancel"
                 android:layout_height="@dimen/button_height_tall"
@@ -95,7 +95,7 @@
                 android:textColor="@color/primary"
                 app:rippleColor="@color/secondary"/>
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/editItemUpdateButton"
+                android:id="@+id/dialogItemSubmitButton"
                 style="@style/button_secondary"
                 android:text="@string/button_text_update"
                 android:layout_height="@dimen/button_height_tall"

@@ -1,19 +1,29 @@
 package com.myfreezer.app.ui.freezer
 
 import android.app.AlertDialog
+import android.content.res.ColorStateList
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.adapters.TextViewBindingAdapter
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.button.MaterialButton
 import com.myfreezer.app.R
 import com.myfreezer.app.databinding.FragmentFreezerBinding
 import com.myfreezer.app.models.FreezerItem
+import java.lang.reflect.Array.get
 
 
 /**
@@ -153,8 +163,14 @@ class FreezerFragment: Fragment() {
     private fun displayAddItemModal(dialog:AlertDialog, itemLayout:View,viewModel:FreezerViewModel){
 
         //Get the buttons within the custom layout
-        val cancelButton: Button = itemLayout.findViewById(R.id.addItemCancelButton)
-        val addButton: Button = itemLayout.findViewById(R.id.addItemAddButton)
+        val cancelButton: Button = itemLayout.findViewById(R.id.dialogItemCancelButton)
+        val addButton: MaterialButton = itemLayout.findViewById(R.id.dialogItemSubmitButton)
+        addButton.setEnabled(false)
+
+
+
+
+        isFormComplete(itemLayout)
 
         //When cancel button is clicked
         cancelButton.setOnClickListener{
@@ -165,15 +181,153 @@ class FreezerFragment: Fragment() {
         //When the add button is clicked
         addButton.setOnClickListener{
 
+            //If all fields have been filled out and none is empty
+
             //add the new item to database and display in list
             addItem(itemLayout,viewModel)
 
             //dismiss modal
             dialog.dismiss()
+
         }
 
         //Display the dialog
         dialog.show()
+    }
+
+    /**
+     * @method isFormComplete
+     * @description: Checks whether all fields are complete and Enables or disables submit button
+     * @param {View} itemLayout:  The layout of item dialog to check
+     */
+    private fun isFormComplete(
+        itemLayout:View
+    ){
+
+        //Get Views from layout
+        val submitButton:MaterialButton = itemLayout.findViewById(R.id.dialogItemSubmitButton)
+        val nameField:EditText = itemLayout.findViewById(R.id.dialogItemNameField)
+        val quantityField:EditText = itemLayout.findViewById(R.id.dialogItemQuantityField)
+        val unitField:EditText = itemLayout.findViewById(R.id.dialogItemUnitField)
+        val minimumField:EditText = itemLayout.findViewById(R.id.dialogItemMinimumField)
+
+        //Set Live data variable which will be used to check the state of form
+        var isFilledCheck = MutableLiveData<Boolean>()
+        isFilledCheck.value = false
+
+        //individual flags used to inform the stateChecker of the state of each individual field
+        var name = nameField.text.toString() != ""
+        var quantity = quantityField.text.toString() != ""
+        var unit = unitField.text.toString() != ""
+        var minimum = minimumField.text.toString() != ""
+
+        //Constantly checks the state of the form
+        //This check is triggered each time the user interacts with one of the fields
+        isFilledCheck.observe(viewLifecycleOwner,Observer{
+            //If all fields are completed
+            if(name && quantity && unit && minimum){
+                //Enable the submit button
+                submitButton.setEnabled(true)
+                submitButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.primary))
+                submitButton.setStrokeColor(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.primary)))
+            }else{
+                //If not then disable the submit button
+                submitButton.setEnabled(false)
+                submitButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.disabled))
+                submitButton.setStrokeColor(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.disabled)))
+            }
+        })
+
+        //Listens for changes on the nameField
+        nameField.addTextChangedListener(object:TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(p0.toString() != ""){
+                    name = true
+                    isFilledCheck.value = !isFilledCheck.value!!
+                }else{
+                    name = false
+                    isFilledCheck.value = !isFilledCheck.value!!
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                //
+            }
+
+        })
+
+        //Listens for changes on the quantityField
+        quantityField.addTextChangedListener(object:TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(p0.toString() != ""){
+                    quantity = true
+                    isFilledCheck.value = !isFilledCheck.value!!
+                }else{
+                    quantity = false
+                    isFilledCheck.value = !isFilledCheck.value!!
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                //
+            }
+
+        })
+
+        //Listens for changes on the unitField
+        unitField.addTextChangedListener(object:TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(p0.toString() != ""){
+                    unit = true
+                    isFilledCheck.value = !isFilledCheck.value!!
+                }else{
+                    unit = false
+                    isFilledCheck.value = !isFilledCheck.value!!
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                //
+            }
+
+        })
+
+        //Listens for changes on the minimumField
+        minimumField.addTextChangedListener(object:TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(p0.toString() != ""){
+                    minimum = true
+                    isFilledCheck.value = !isFilledCheck.value!!
+
+                }else{
+                    minimum = false
+                    isFilledCheck.value = !isFilledCheck.value!!
+
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                //
+            }
+
+        })
+
     }
 
     //TODO:
@@ -185,10 +339,10 @@ class FreezerFragment: Fragment() {
      */
     fun addItem(itemLayout:View,viewModel:FreezerViewModel){
         //Get all the EditText fields
-        val itemNameView: EditText = itemLayout.findViewById(R.id.addItemNameField)
-        val itemQuantityView: EditText = itemLayout.findViewById(R.id.addItemQuantityField)
-        val itemUnitView: EditText = itemLayout.findViewById(R.id.addItemUnitField)
-        val itemMinimumView: EditText = itemLayout.findViewById(R.id.addItemMinimumField)
+        val itemNameView: EditText = itemLayout.findViewById(R.id.dialogItemNameField)
+        val itemQuantityView: EditText = itemLayout.findViewById(R.id.dialogItemQuantityField)
+        val itemUnitView: EditText = itemLayout.findViewById(R.id.dialogItemUnitField)
+        val itemMinimumView: EditText = itemLayout.findViewById(R.id.dialogItemMinimumField)
 
         //get values from text fields
         //and create a new FreezerItem
@@ -209,9 +363,7 @@ class FreezerFragment: Fragment() {
         itemMinimumView.setText("")
     }
 
-    fun inputValidation(){
 
-    }
 
     /**
      * @method displayFreezerListItemContextMenu
@@ -374,14 +526,14 @@ class FreezerFragment: Fragment() {
     private fun displayEditItemDialog(dialog:AlertDialog,viewModel:FreezerViewModel,item:FreezerItem,itemLayout:View){
 
         //Get buttons in custom layout
-        val cancelButton: Button = itemLayout.findViewById(R.id.editItemCancelButton)
-        val updateButton: Button = itemLayout.findViewById(R.id.editItemUpdateButton)
+        val cancelButton: Button = itemLayout.findViewById(R.id.dialogItemCancelButton)
+        val updateButton: Button = itemLayout.findViewById(R.id.dialogItemSubmitButton)
 
         //Get text fields
-        val nameField:EditText = itemLayout.findViewById(R.id.editItemNameField)
-        val quantityField:EditText = itemLayout.findViewById(R.id.editItemQuantityField)
-        val unitField:EditText = itemLayout.findViewById(R.id.editItemUnitField)
-        val minimumField:EditText = itemLayout.findViewById(R.id.editItemMinimumField)
+        val nameField:EditText = itemLayout.findViewById(R.id.dialogItemNameField)
+        val quantityField:EditText = itemLayout.findViewById(R.id.dialogItemQuantityField)
+        val unitField:EditText = itemLayout.findViewById(R.id.dialogItemUnitField)
+        val minimumField:EditText = itemLayout.findViewById(R.id.dialogItemMinimumField)
 
         //Get PreviousId
         val previousId = item.name
@@ -393,6 +545,8 @@ class FreezerFragment: Fragment() {
         unitField.setText(item.unit)
         minimumField.setText(item.minimum.toString())
 
+        isFormComplete(itemLayout)
+
 
         //When cancel button is clicked
         cancelButton.setOnClickListener{
@@ -402,40 +556,36 @@ class FreezerFragment: Fragment() {
 
         //When updateButton is clicked
         updateButton.setOnClickListener{
+            //If all fields are filled out and none is empty
+            if(nameField.text.toString() != "" && quantityField.text.toString() != "" && unitField.text.toString() != "" && minimumField.text.toString() != ""){
+                //Get text field values
+                var nameValue = nameField.text.toString()
+                var quantityValue = quantityField.text.toString().toInt()
+                var unitValue = unitField.text.toString()
+                var minimumValue = minimumField.text.toString().toInt()
 
-            //Get text field values
-            var nameValue = nameField.text.toString()
-            var quantityValue = quantityField.text.toString().toInt()
-            var unitValue = unitField.text.toString()
-            var minimumValue = minimumField.text.toString().toInt()
+                //Update existing freezer Item with new values
+                item.name = nameValue
+                item.quantity = quantityValue
+                item.unit = unitValue
+                item.minimum = minimumValue
 
+                //Update database
+                viewModel.updateFreezerItem(previousId,item)
 
+                //close context menu
+                actionMode.finish()
 
+                //Notify User of update
+                Toast.makeText(context, "Item updated",Toast.LENGTH_LONG).show()
 
-            //Update existing freezer Item with new values
-            item.name = nameValue
-            item.quantity = quantityValue
-            item.unit = unitValue
-            item.minimum = minimumValue
-
-            //Update database
-            viewModel.updateFreezerItem(previousId,item)
-
-            //close context menu
-            actionMode.finish()
-
-            //Notify User of update
-            Toast.makeText(context, "Item updated",Toast.LENGTH_LONG).show()
-
-            //dismiss modal
-            dialog.dismiss()
+                //dismiss modal
+                dialog.dismiss()
+            }
         }
 
         //Display the dialog
         dialog.show()
-
-
-
     }
 
     /**
