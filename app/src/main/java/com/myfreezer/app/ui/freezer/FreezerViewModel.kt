@@ -73,8 +73,10 @@ class FreezerViewModel(application: Application): ViewModel() {
      */
     fun incrementFreezerItem(previousId:String, freezerItem:FreezerItem){
 
-        freezerItem.quantity = freezerItem.quantity + 1
-        updateFreezerItem(previousId,freezerItem)
+        if(freezerItem.quantity < 999){
+            freezerItem.quantity = freezerItem.quantity + 1
+            updateFreezerItem(previousId,freezerItem)
+        }
 
     }
 
