@@ -203,15 +203,25 @@ class FreezerFragment: Fragment() {
             } else {
                 //TODO:Refactor material edit box color
                 if(nameField.editText!!.text.toString() == "") {
-                    //nameField.getBackground().setTintMode(PorterDuff.Mode.DST_IN)
-                    nameField.boxBackgroundColor = ContextCompat.getColor(requireContext(), R.color.error_fade)
-                    nameField.setBoxStrokeColor(ContextCompat.getColor(requireContext(), R.color.error))
-
-
+                    nameField.error = "Give your item a name!"
+                }else{
+                    nameField.error = null
                 }
-                if(quantityField.editText!!.text.toString() == "") quantityField.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.error_fade))
-                if(unitField.editText!!.text.toString() == "") unitField.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.error_fade))
-                if(minimumField.editText!!.text.toString() == "") minimumField.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.error_fade))
+                if(quantityField.editText!!.text.toString() == "") {
+                    quantityField.error = "How many/much?"
+                }else{
+                    quantityField.error = null
+                }
+                if(unitField.editText!!.text.toString() == "") {
+                    unitField.error = "Kg? Pcs?"
+                }else{
+                    unitField.error = null
+                }
+                if(minimumField.editText!!.text.toString() == "") {
+                    minimumField.error="warn when lower than?"
+                }else{
+                    minimumField.error = null
+                }
             }
 
 
@@ -269,6 +279,7 @@ class FreezerFragment: Fragment() {
         nameField.editText?.doOnTextChanged { inputText, _, _, _ ->
             if(inputText.toString() != ""){
                 name = true
+                nameField.error = null
                 isFilledCheck.value = !isFilledCheck.value!!
 
             }else{
@@ -281,6 +292,7 @@ class FreezerFragment: Fragment() {
         quantityField.editText?.doOnTextChanged { inputText, _, _, _ ->
             if(inputText.toString() != ""){
                 quantity = true
+                quantityField.error = null
                 isFilledCheck.value = !isFilledCheck.value!!
 
             }else{
@@ -293,6 +305,7 @@ class FreezerFragment: Fragment() {
         unitField.editText?.doOnTextChanged { inputText, _, _, _ ->
             if(inputText.toString() != ""){
                 unit = true
+                unitField.error = null
                 isFilledCheck.value = !isFilledCheck.value!!
 
             }else{
@@ -305,6 +318,7 @@ class FreezerFragment: Fragment() {
         minimumField.editText?.doOnTextChanged { inputText, _, _, _ ->
             if(inputText.toString() != ""){
                 minimum = true
+                minimumField.error = null
                 isFilledCheck.value = !isFilledCheck.value!!
 
             }else{
@@ -570,6 +584,27 @@ class FreezerFragment: Fragment() {
 
                 //dismiss modal
                 dialog.dismiss()
+            }else{
+                if(nameField.editText!!.text.toString() == "") {
+                    nameField.error = "Give your item a name!"
+                }else{
+                    nameField.error = null
+                }
+                if(quantityField.editText!!.text.toString() == "") {
+                    quantityField.error = "How many/much?"
+                }else{
+                    quantityField.error = null
+                }
+                if(unitField.editText!!.text.toString() == "") {
+                    unitField.error = "Kg? Pcs?"
+                }else{
+                    unitField.error = null
+                }
+                if(minimumField.editText!!.text.toString() == "") {
+                    minimumField.error="warn when lower than?"
+                }else{
+                    minimumField.error = null
+                }
             }
         }
 
