@@ -33,54 +33,83 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                style="@style/body_1"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/text_field_space_between">
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/dialogItemNameField"
-                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="@string/hint_text_item"
-                android:layout_height="@dimen/text_field_height_default"
-                android:layout_width="match_parent"
-                android:layout_marginBottom="@dimen/text_field_space_between"
-                android:maxLength="18"/>
+                android:minHeight="@dimen/text_field_height_default">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="18"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                style="@style/body_1"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/text_field_space_between">
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/dialogItemQuantityField"
-                android:inputType="number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:hint="@string/hint_text_quantity"
-                android:layout_height="@dimen/text_field_height_default"
-                android:layout_width="200dp"
-                android:layout_weight="2"
-                android:layout_marginBottom="@dimen/text_field_space_between"
-                android:maxLength="3"/>
-            <EditText
-                style="@style/body_1"
+                android:minHeight="@dimen/text_field_height_default"
+                android:layout_marginRight="@dimen/text_field_space_between"
+                android:layout_weight="2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/dialogItemUnitField"
-                android:inputType="text"
-                android:hint="@string/hint_text_unit"
-                android:layout_height="@dimen/text_field_height_default"
                 android:layout_width="wrap_content"
-                android:layout_marginBottom="@dimen/text_field_space_between"
-                android:maxLength="4"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/hint_text_unit"
+                android:minHeight="@dimen/text_field_height_default">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="4"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                style="@style/body_1"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/text_field_space_between">
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/dialogItemMinimumField"
-                android:inputType="number"
-                android:hint="@string/hint_text_minimum"
-                android:layout_height="@dimen/text_field_height_default"
                 android:layout_width="match_parent"
-                android:layout_marginBottom="@dimen/text_field_space_between"
-                android:maxLength="3"/>
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text_minimum"
+                android:inputType="number"
+                android:minHeight="@dimen/text_field_height_default">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="3"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -101,18 +130,104 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/dialogItemSubmitButton"
                 style="@style/button_secondary"
-                android:text="@string/button_text_update"
+                android:text="@string/button_text_add"
                 android:layout_height="@dimen/button_height_tall"
                 android:layout_width="wrap_content"
                 android:paddingLeft="@dimen/button_padding_default"
                 android:paddingRight="@dimen/button_padding_default"
-                android:textColor="@color/primary"
+                android:textColor="@color/disabled"
+                android:enabled="true"
                 app:backgroundTint="@android:color/transparent"
                 app:cornerRadius="@dimen/radius_s"
                 app:rippleColor="@color/secondary"
-                app:strokeColor="@color/primary"
+                app:strokeColor="@color/disabled"
                 app:strokeWidth="@dimen/border_line_height_thick"/>
         </LinearLayout>
+
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+<!--            <EditText-->
+<!--                style="@style/body_1"-->
+<!--                android:id="@+id/dialogItemNameField"-->
+<!--                android:inputType="text"-->
+<!--                android:hint="@string/hint_text_item"-->
+<!--                android:layout_height="@dimen/text_field_height_default"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_marginBottom="@dimen/text_field_space_between"-->
+<!--                android:maxLength="18"/>-->
+<!--        </LinearLayout>-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+<!--            <EditText-->
+<!--                style="@style/body_1"-->
+<!--                android:id="@+id/dialogItemQuantityField"-->
+<!--                android:inputType="number"-->
+<!--                android:hint="@string/hint_text_quantity"-->
+<!--                android:layout_height="@dimen/text_field_height_default"-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_weight="2"-->
+<!--                android:layout_marginBottom="@dimen/text_field_space_between"-->
+<!--                android:maxLength="3"/>-->
+<!--            <EditText-->
+<!--                style="@style/body_1"-->
+<!--                android:id="@+id/dialogItemUnitField"-->
+<!--                android:inputType="text"-->
+<!--                android:hint="@string/hint_text_unit"-->
+<!--                android:layout_height="@dimen/text_field_height_default"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_marginBottom="@dimen/text_field_space_between"-->
+<!--                android:maxLength="4"/>-->
+<!--        </LinearLayout>-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+<!--            <EditText-->
+<!--                style="@style/body_1"-->
+<!--                android:id="@+id/dialogItemMinimumField"-->
+<!--                android:inputType="number"-->
+<!--                android:hint="@string/hint_text_minimum"-->
+<!--                android:layout_height="@dimen/text_field_height_default"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_marginBottom="@dimen/text_field_space_between"-->
+<!--                android:maxLength="3"/>-->
+<!--        </LinearLayout>-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:gravity="right">-->
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/dialogItemCancelButton"-->
+<!--                style="@style/button_tertiary"-->
+<!--                android:text="@string/button_text_cancel"-->
+<!--                android:layout_height="@dimen/button_height_tall"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:paddingLeft="@dimen/button_padding_default"-->
+<!--                android:paddingRight="@dimen/button_padding_default"-->
+<!--                android:layout_marginRight="@dimen/button_space_between"-->
+<!--                android:textColor="@color/primary"-->
+<!--                app:rippleColor="@color/secondary"/>-->
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/dialogItemSubmitButton"-->
+<!--                style="@style/button_secondary"-->
+<!--                android:text="@string/button_text_update"-->
+<!--                android:layout_height="@dimen/button_height_tall"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:paddingLeft="@dimen/button_padding_default"-->
+<!--                android:paddingRight="@dimen/button_padding_default"-->
+<!--                android:textColor="@color/primary"-->
+<!--                app:backgroundTint="@android:color/transparent"-->
+<!--                app:cornerRadius="@dimen/radius_s"-->
+<!--                app:rippleColor="@color/secondary"-->
+<!--                app:strokeColor="@color/primary"-->
+<!--                app:strokeWidth="@dimen/border_line_height_thick"/>-->
+<!--        </LinearLayout>-->
 
     </LinearLayout>
 
