@@ -47,6 +47,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun displayContextMenu(){
+        var currentTitle = getTitle()
+
+    }
+
 
     private fun bottomNavClickListener(
         bottomNavBar: BottomNavigationView,

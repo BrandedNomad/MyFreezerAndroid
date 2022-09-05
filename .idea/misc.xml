@@ -35,13 +35,17 @@
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/settings.xml" value="0.138" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/settings_filled.xml" value="0.1545" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/add_freezer_item.xml" value="0.13072916666666667" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/add_item.xml" value="0.2" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/delete_confirmation.xml" value="0.13072916666666667" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/edit_freezer_item.xml" value="0.1" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/fragment_favourite.xml" value="0.1265625" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/fragment_freezer.xml" value="0.264" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/fragment_recipes.xml" value="0.1935185185185185" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/fragment_shopping.xml" value="0.1265625" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/freezer_list_item.xml" value="0.27314814814814814" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.12760416666666666" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/menu/freezer_context_menu.xml" value="0.27447916666666666" />
       </map>
     </option>
   </component>

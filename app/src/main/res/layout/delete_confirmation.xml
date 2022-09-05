@@ -4,8 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/modal_padding_default">
+    android:paddingTop="@dimen/confirmation_modal_padding_Top"
+    android:paddingLeft="@dimen/confirmation_modal_padding_Left"
+    android:paddingBottom="@dimen/confirmation_modal_padding_Bottom"
+    android:paddingRight="@dimen/confirmation_modal_padding_Right">
     <LinearLayout
+        android:id="@+id/deleteConfirmationLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -15,65 +19,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/confirmation_modal_title_bottom_margin"
             android:gravity="center_vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/modal_title_add"
+                android:text="@string/dialogue_delete_title"
                 android:textColor="@color/on_primary"
                 style="@style/heading_6"
-                android:layout_weight="2" />
+                android:layout_weight="2"/>
             <ImageView
                 android:layout_width="@dimen/icon_l"
                 android:layout_height="@dimen/icon_l"
-                android:src="@drawable/add"
+                android:src="@drawable/delete_filled"
                 app:tint="@color/black" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <EditText
-                style="@style/body_1"
-                android:id="@+id/addItemNameField"
-                android:inputType="text"
-                android:hint="@string/hint_text_item"
-                android:layout_height="@dimen/text_field_height_default"
-                android:layout_width="match_parent"
-                android:layout_marginBottom="@dimen/text_field_space_between"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                style="@style/body_1"
-                android:id="@+id/addItemQuantityField"
-                android:inputType="number"
-                android:hint="@string/hint_text_quantity"
-                android:layout_height="@dimen/text_field_height_default"
-                android:layout_width="200dp"
-                android:layout_weight="2"
-                android:layout_marginBottom="@dimen/text_field_space_between"/>
-            <EditText
-                style="@style/body_1"
-                android:id="@+id/addItemUnitField"
-                android:inputType="text"
-                android:hint="@string/hint_text_unit"
-                android:layout_height="@dimen/text_field_height_default"
-                android:layout_width="wrap_content"
-                android:layout_marginBottom="@dimen/text_field_space_between"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
+            <TextView
                 style="@style/body_1"
                 android:id="@+id/addItemMinimumField"
-                android:inputType="number"
-                android:hint="@string/hint_text_minimum"
-                android:layout_height="@dimen/text_field_height_default"
+                android:text="@string/dialogue_delete_body"
+                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:layout_marginBottom="@dimen/text_field_space_between"/>
         </LinearLayout>
@@ -81,9 +50,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="right">
+            android:gravity="right"
+            android:layout_marginTop="@dimen/confirmation_modal_buttons_top_margin">
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/addItemCancelButton"
+                android:id="@+id/deleteConfirmationCancelButton"
                 style="@style/button_tertiary"
                 android:text="@string/button_text_cancel"
                 android:layout_height="@dimen/button_height_tall"
@@ -94,9 +64,9 @@
                 android:textColor="@color/primary"
                 app:rippleColor="@color/secondary"/>
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/addItemAddButton"
+                android:id="@+id/deleteConfirmationConfirmButton"
                 style="@style/button_secondary"
-                android:text="@string/button_text_add"
+                android:text="@string/button_text_confirm"
                 android:layout_height="@dimen/button_height_tall"
                 android:layout_width="wrap_content"
                 android:paddingLeft="@dimen/button_padding_default"

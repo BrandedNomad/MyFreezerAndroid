@@ -21,6 +21,7 @@
     <color name="grey_four">#A9A9A9</color>
     <color name="grey_five">#808080</color>
     <color name="error">#B00020</color>
+    <color name="error_fade">#B9A4A7</color>
     <color name="success">#00C853</color>
     <color name="icon_active">#0097A7</color>
     <color name="icon_inactive">#4A4949</color>
@@ -35,4 +36,5 @@
     <color name="shadow">#8B8888</color>
     <color name="hint_text">#737171</color>
     <color name="disabled">#B0ADAD</color>
+    <color name="contextBg">#333333</color>
 </resources>
