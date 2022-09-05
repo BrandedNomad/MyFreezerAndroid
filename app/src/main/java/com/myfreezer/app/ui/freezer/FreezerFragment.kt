@@ -1,7 +1,9 @@
 package com.myfreezer.app.ui.freezer
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,6 +14,9 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.BlendModeColorFilterCompat
+import androidx.core.graphics.BlendModeCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.adapters.TextViewBindingAdapter
 import androidx.fragment.app.Fragment
@@ -20,9 +25,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputLayout
 import com.myfreezer.app.R
 import com.myfreezer.app.databinding.FragmentFreezerBinding
 import com.myfreezer.app.models.FreezerItem
+import org.w3c.dom.Text
 import java.lang.reflect.Array.get
 
 
@@ -165,8 +172,12 @@ class FreezerFragment: Fragment() {
         //Get the buttons within the custom layout
         val cancelButton: Button = itemLayout.findViewById(R.id.dialogItemCancelButton)
         val addButton: MaterialButton = itemLayout.findViewById(R.id.dialogItemSubmitButton)
-        addButton.setEnabled(false)
+        addButton.setEnabled(true)
 
+        val nameField:TextInputLayout = itemLayout.findViewById(R.id.dialogItemNameField)
+        val quantityField:TextInputLayout= itemLayout.findViewById(R.id.dialogItemQuantityField)
+        val unitField:TextInputLayout = itemLayout.findViewById(R.id.dialogItemUnitField)
+        val minimumField:TextInputLayout = itemLayout.findViewById(R.id.dialogItemMinimumField)
 
 
 
@@ -181,13 +192,39 @@ class FreezerFragment: Fragment() {
         //When the add button is clicked
         addButton.setOnClickListener{
 
+
             //If all fields have been filled out and none is empty
+            if(nameField.editText!!.text.toString() != "" && quantityField.editText!!.text.toString() != "" && unitField.editText!!.text.toString() != "" && minimumField.editText!!.text.toString() != ""){
+                //add the new item to database and display in list
+                addItem(itemLayout,viewModel)
 
-            //add the new item to database and display in list
-            addItem(itemLayout,viewModel)
+                //dismiss modal
+                dialog.dismiss()
+            } else {
+                //TODO:Refactor material edit box color
+                if(nameField.editText!!.text.toString() == "") {
+                    nameField.error = "Give your item a name!"
+                }else{
+                    nameField.error = null
+                }
+                if(quantityField.editText!!.text.toString() == "") {
+                    quantityField.error = "How many/much?"
+                }else{
+                    quantityField.error = null
+                }
+                if(unitField.editText!!.text.toString() == "") {
+                    unitField.error = "Kg? Pcs?"
+                }else{
+                    unitField.error = null
+                }
+                if(minimumField.editText!!.text.toString() == "") {
+                    minimumField.error="warn when lower than?"
+                }else{
+                    minimumField.error = null
+                }
+            }
 
-            //dismiss modal
-            dialog.dismiss()
+
 
         }
 
@@ -206,20 +243,20 @@ class FreezerFragment: Fragment() {
 
         //Get Views from layout
         val submitButton:MaterialButton = itemLayout.findViewById(R.id.dialogItemSubmitButton)
-        val nameField:EditText = itemLayout.findViewById(R.id.dialogItemNameField)
-        val quantityField:EditText = itemLayout.findViewById(R.id.dialogItemQuantityField)
-        val unitField:EditText = itemLayout.findViewById(R.id.dialogItemUnitField)
-        val minimumField:EditText = itemLayout.findViewById(R.id.dialogItemMinimumField)
+        val nameField:TextInputLayout = itemLayout.findViewById(R.id.dialogItemNameField)
+        val quantityField:TextInputLayout = itemLayout.findViewById(R.id.dialogItemQuantityField)
+        val unitField:TextInputLayout = itemLayout.findViewById(R.id.dialogItemUnitField)
+        val minimumField:TextInputLayout = itemLayout.findViewById(R.id.dialogItemMinimumField)
 
         //Set Live data variable which will be used to check the state of form
         var isFilledCheck = MutableLiveData<Boolean>()
         isFilledCheck.value = false
 
         //individual flags used to inform the stateChecker of the state of each individual field
-        var name = nameField.text.toString() != ""
-        var quantity = quantityField.text.toString() != ""
-        var unit = unitField.text.toString() != ""
-        var minimum = minimumField.text.toString() != ""
+        var name = nameField.editText!!.text.toString() !=""
+        var quantity = quantityField.editText!!.text.toString() != ""
+        var unit = unitField.editText!!.text.toString() != ""
+        var minimum = minimumField.editText!!.text.toString() != ""
 
         //Constantly checks the state of the form
         //This check is triggered each time the user interacts with one of the fields
@@ -227,107 +264,68 @@ class FreezerFragment: Fragment() {
             //If all fields are completed
             if(name && quantity && unit && minimum){
                 //Enable the submit button
-                submitButton.setEnabled(true)
+                //submitButton.setEnabled(true)
                 submitButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.primary))
                 submitButton.setStrokeColor(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.primary)))
             }else{
                 //If not then disable the submit button
-                submitButton.setEnabled(false)
+                //submitButton.setEnabled(false)
                 submitButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.disabled))
                 submitButton.setStrokeColor(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.disabled)))
             }
         })
 
-        //Listens for changes on the nameField
-        nameField.addTextChangedListener(object:TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                //
+        //When the user types into the name field
+        nameField.editText?.doOnTextChanged { inputText, _, _, _ ->
+            if(inputText.toString() != ""){
+                name = true
+                nameField.error = null
+                isFilledCheck.value = !isFilledCheck.value!!
+
+            }else{
+                name = false
+                isFilledCheck.value = !isFilledCheck.value!!
             }
+        }
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if(p0.toString() != ""){
-                    name = true
-                    isFilledCheck.value = !isFilledCheck.value!!
-                }else{
-                    name = false
-                    isFilledCheck.value = !isFilledCheck.value!!
-                }
+        //When the user types into the quantity field
+        quantityField.editText?.doOnTextChanged { inputText, _, _, _ ->
+            if(inputText.toString() != ""){
+                quantity = true
+                quantityField.error = null
+                isFilledCheck.value = !isFilledCheck.value!!
+
+            }else{
+                quantity = false
+                isFilledCheck.value = !isFilledCheck.value!!
             }
+        }
 
-            override fun afterTextChanged(p0: Editable?) {
-                //
+        //When the user types into the unit field
+        unitField.editText?.doOnTextChanged { inputText, _, _, _ ->
+            if(inputText.toString() != ""){
+                unit = true
+                unitField.error = null
+                isFilledCheck.value = !isFilledCheck.value!!
+
+            }else{
+                unit = false
+                isFilledCheck.value = !isFilledCheck.value!!
             }
+        }
 
-        })
+        //When the user types into the minimum field
+        minimumField.editText?.doOnTextChanged { inputText, _, _, _ ->
+            if(inputText.toString() != ""){
+                minimum = true
+                minimumField.error = null
+                isFilledCheck.value = !isFilledCheck.value!!
 
-        //Listens for changes on the quantityField
-        quantityField.addTextChangedListener(object:TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                //
+            }else{
+                minimum = false
+                isFilledCheck.value = !isFilledCheck.value!!
             }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if(p0.toString() != ""){
-                    quantity = true
-                    isFilledCheck.value = !isFilledCheck.value!!
-                }else{
-                    quantity = false
-                    isFilledCheck.value = !isFilledCheck.value!!
-                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                //
-            }
-
-        })
-
-        //Listens for changes on the unitField
-        unitField.addTextChangedListener(object:TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                //
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if(p0.toString() != ""){
-                    unit = true
-                    isFilledCheck.value = !isFilledCheck.value!!
-                }else{
-                    unit = false
-                    isFilledCheck.value = !isFilledCheck.value!!
-                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                //
-            }
-
-        })
-
-        //Listens for changes on the minimumField
-        minimumField.addTextChangedListener(object:TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                //
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if(p0.toString() != ""){
-                    minimum = true
-                    isFilledCheck.value = !isFilledCheck.value!!
-
-                }else{
-                    minimum = false
-                    isFilledCheck.value = !isFilledCheck.value!!
-
-                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                //
-            }
-
-        })
-
+        }
     }
 
     //TODO:
@@ -339,28 +337,28 @@ class FreezerFragment: Fragment() {
      */
     fun addItem(itemLayout:View,viewModel:FreezerViewModel){
         //Get all the EditText fields
-        val itemNameView: EditText = itemLayout.findViewById(R.id.dialogItemNameField)
-        val itemQuantityView: EditText = itemLayout.findViewById(R.id.dialogItemQuantityField)
-        val itemUnitView: EditText = itemLayout.findViewById(R.id.dialogItemUnitField)
-        val itemMinimumView: EditText = itemLayout.findViewById(R.id.dialogItemMinimumField)
+        val itemNameView: TextInputLayout = itemLayout.findViewById(R.id.dialogItemNameField)
+        val itemQuantityView: TextInputLayout = itemLayout.findViewById(R.id.dialogItemQuantityField)
+        val itemUnitView: TextInputLayout = itemLayout.findViewById(R.id.dialogItemUnitField)
+        val itemMinimumView: TextInputLayout = itemLayout.findViewById(R.id.dialogItemMinimumField)
 
         //get values from text fields
         //and create a new FreezerItem
         var newFreezerItem = FreezerItem(
-            itemNameView.text.toString(),
-            itemQuantityView.text.toString().toInt(),
-            itemUnitView.text.toString(),
-            itemMinimumView.text.toString().toInt()
+            itemNameView.editText!!.text.toString(),
+            itemQuantityView.editText!!.text.toString().toInt(),
+            itemUnitView.editText!!.text.toString(),
+            itemMinimumView.editText!!.text.toString().toInt()
         )
 
         //Add Item to database and disply in list
         viewModel.addItem(newFreezerItem)
 
         //clear text fields
-        itemNameView.setText("")
-        itemQuantityView.setText("")
-        itemUnitView.setText("")
-        itemMinimumView.setText("")
+        itemNameView.editText!!.text.clear()
+        itemQuantityView.editText!!.text.clear()
+        itemUnitView.editText!!.text.clear()
+        itemMinimumView.editText!!.text.clear()
     }
 
 
@@ -530,20 +528,20 @@ class FreezerFragment: Fragment() {
         val updateButton: Button = itemLayout.findViewById(R.id.dialogItemSubmitButton)
 
         //Get text fields
-        val nameField:EditText = itemLayout.findViewById(R.id.dialogItemNameField)
-        val quantityField:EditText = itemLayout.findViewById(R.id.dialogItemQuantityField)
-        val unitField:EditText = itemLayout.findViewById(R.id.dialogItemUnitField)
-        val minimumField:EditText = itemLayout.findViewById(R.id.dialogItemMinimumField)
+        val nameField:TextInputLayout = itemLayout.findViewById(R.id.dialogItemNameField)
+        val quantityField:TextInputLayout = itemLayout.findViewById(R.id.dialogItemQuantityField)
+        val unitField:TextInputLayout = itemLayout.findViewById(R.id.dialogItemUnitField)
+        val minimumField:TextInputLayout = itemLayout.findViewById(R.id.dialogItemMinimumField)
 
         //Get PreviousId
         val previousId = item.name
 
 
         //Fill out fields with existng values
-        nameField.setText(item.name)
-        quantityField.setText(item.quantity.toString())
-        unitField.setText(item.unit)
-        minimumField.setText(item.minimum.toString())
+        nameField.editText!!.setText(item.name)
+        quantityField.editText!!.setText(item.quantity.toString())
+        unitField.editText!!.setText(item.unit)
+        minimumField.editText!!.setText(item.minimum.toString())
 
         isFormComplete(itemLayout)
 
@@ -557,12 +555,17 @@ class FreezerFragment: Fragment() {
         //When updateButton is clicked
         updateButton.setOnClickListener{
             //If all fields are filled out and none is empty
-            if(nameField.text.toString() != "" && quantityField.text.toString() != "" && unitField.text.toString() != "" && minimumField.text.toString() != ""){
+            if(
+                nameField.editText!!.text.toString() != ""
+                && quantityField.editText!!.text.toString() != ""
+                && unitField.editText!!.text.toString() != ""
+                && minimumField.editText!!.text.toString() != ""
+            ){
                 //Get text field values
-                var nameValue = nameField.text.toString()
-                var quantityValue = quantityField.text.toString().toInt()
-                var unitValue = unitField.text.toString()
-                var minimumValue = minimumField.text.toString().toInt()
+                var nameValue = nameField.editText!!.text.toString()
+                var quantityValue = quantityField.editText!!.text.toString().toInt()
+                var unitValue = unitField.editText!!.text.toString()
+                var minimumValue = minimumField.editText!!.text.toString().toInt()
 
                 //Update existing freezer Item with new values
                 item.name = nameValue
@@ -581,6 +584,27 @@ class FreezerFragment: Fragment() {
 
                 //dismiss modal
                 dialog.dismiss()
+            }else{
+                if(nameField.editText!!.text.toString() == "") {
+                    nameField.error = "Give your item a name!"
+                }else{
+                    nameField.error = null
+                }
+                if(quantityField.editText!!.text.toString() == "") {
+                    quantityField.error = "How many/much?"
+                }else{
+                    quantityField.error = null
+                }
+                if(unitField.editText!!.text.toString() == "") {
+                    unitField.error = "Kg? Pcs?"
+                }else{
+                    unitField.error = null
+                }
+                if(minimumField.editText!!.text.toString() == "") {
+                    minimumField.error="warn when lower than?"
+                }else{
+                    minimumField.error = null
+                }
             }
         }
 

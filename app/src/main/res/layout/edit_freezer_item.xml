@@ -16,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/text_field_space_between">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -33,50 +34,105 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                style="@style/body_1"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/text_field_space_between">
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/dialogItemNameField"
-                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="@string/hint_text_item"
-                android:layout_height="@dimen/text_field_height_default"
-                android:layout_width="match_parent"
-                android:layout_marginBottom="@dimen/text_field_space_between"/>
+                android:minHeight="@dimen/text_field_height_default"
+                app:errorEnabled="true"
+                app:errorTextColor="@color/error"
+                app:boxStrokeErrorColor="@color/error"
+                app:counterEnabled="true"
+                app:counterMaxLength="18"
+                app:helperTextEnabled="true"
+                app:helperText="The name that will appear in the list.">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="18"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                style="@style/body_1"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/text_field_space_between">
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/dialogItemQuantityField"
-                android:inputType="number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:hint="@string/hint_text_quantity"
-                android:layout_height="@dimen/text_field_height_default"
-                android:layout_width="200dp"
+                android:minHeight="@dimen/text_field_height_default"
+                android:layout_marginRight="@dimen/text_field_space_between"
                 android:layout_weight="2"
-                android:layout_marginBottom="@dimen/text_field_space_between"/>
-            <EditText
-                style="@style/body_1"
+                app:errorEnabled="true"
+                app:errorTextColor="@color/error"
+                app:boxStrokeErrorColor="@color/error"
+                app:helperTextEnabled="true"
+                app:helperText="max:999">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/dialogItemUnitField"
-                android:inputType="text"
-                android:hint="@string/hint_text_unit"
-                android:layout_height="@dimen/text_field_height_default"
                 android:layout_width="wrap_content"
-                android:layout_marginBottom="@dimen/text_field_space_between"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/hint_text_unit"
+                android:minHeight="@dimen/text_field_height_default"
+                app:errorEnabled="true"
+                app:errorTextColor="@color/error"
+                app:boxStrokeErrorColor="@color/error"
+                app:helperTextEnabled="true"
+                app:helperText="kg/pcs etc.">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="4"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                style="@style/body_1"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/text_field_space_between">
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/dialogItemMinimumField"
-                android:inputType="number"
-                android:hint="@string/hint_text_minimum"
-                android:layout_height="@dimen/text_field_height_default"
                 android:layout_width="match_parent"
-                android:layout_marginBottom="@dimen/text_field_space_between"/>
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_text_minimum"
+                android:inputType="number"
+                android:minHeight="@dimen/text_field_height_default"
+                app:errorEnabled="true"
+                app:errorTextColor="@color/error"
+                app:boxStrokeErrorColor="@color/error"
+                app:helperTextEnabled="true"
+                app:helperText="Low items are added to shopping list">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="3"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,16 +153,17 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/dialogItemSubmitButton"
                 style="@style/button_secondary"
-                android:text="@string/button_text_update"
+                android:text="@string/button_text_add"
                 android:layout_height="@dimen/button_height_tall"
                 android:layout_width="wrap_content"
                 android:paddingLeft="@dimen/button_padding_default"
                 android:paddingRight="@dimen/button_padding_default"
-                android:textColor="@color/primary"
+                android:textColor="@color/disabled"
+                android:enabled="true"
                 app:backgroundTint="@android:color/transparent"
                 app:cornerRadius="@dimen/radius_s"
                 app:rippleColor="@color/secondary"
-                app:strokeColor="@color/primary"
+                app:strokeColor="@color/disabled"
                 app:strokeWidth="@dimen/border_line_height_thick"/>
         </LinearLayout>
 
