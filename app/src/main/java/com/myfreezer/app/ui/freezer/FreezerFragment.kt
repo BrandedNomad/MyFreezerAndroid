@@ -437,6 +437,9 @@ class FreezerFragment: Fragment() {
                 //Set title for context menu
                 mode.setTitle("Options");
 
+                //inform the adapter that view model is open
+                viewModel.setContextMenuOpen()
+
                 return true
             }
 
@@ -460,7 +463,7 @@ class FreezerFragment: Fragment() {
                         displayEditItemDialog(editItemDialog,viewModel,freezerItem,editItemLayout)
                     }
                     else -> {
-                        //do nothing
+                        actionMode.finish()
 
                     }
 
@@ -473,6 +476,8 @@ class FreezerFragment: Fragment() {
              */
             override fun onDestroyActionMode(mode: ActionMode?) {
                 //TODO("Not yet implemented")
+                //inform adapter the context menu is closed
+                viewModel.setContextMenuClosed()
 
             }
 
@@ -621,6 +626,7 @@ class FreezerFragment: Fragment() {
         //Close the appbar context menu when navigating away from the fragment
         if(this::actionMode.isInitialized){
             actionMode.finish()
+
         }
 
     }

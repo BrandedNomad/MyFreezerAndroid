@@ -1,21 +1,25 @@
 package com.myfreezer.app.ui.freezer
 
 import android.app.Application
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.myfreezer.app.models.FreezerItem
 import com.myfreezer.app.repository.Repository
 import com.myfreezer.app.repository.local.FreezerItemDatabase
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 /**
  * @class FreezerViewModel
  * @Description Contains the implementation for the FreezerViewModel
  */
 class FreezerViewModel(application: Application): ViewModel() {
+
+    //variables
+    var isContextMenuOpen = false
 
     //Setup exception handling for coroutines
     val coroutineExceptionHandler = CoroutineExceptionHandler{_, throwable ->
@@ -26,10 +30,18 @@ class FreezerViewModel(application: Application): ViewModel() {
     private val database = FreezerItemDatabase.getDatabase(application)
     private val repository = Repository(database)
 
+
     //TODO: Create live data
+
+
+
 
     init{
         //TODO
+
+        isContextMenuOpen = false
+
+
     }
 
 
@@ -99,6 +111,25 @@ class FreezerViewModel(application: Application): ViewModel() {
         }
 
 
+    }
+
+
+    fun triggerContextMenuFlow(): Flow<Boolean?> {
+       return flow {
+           while(true){
+               emit(isContextMenuOpen)
+               delay(1000)
+           }
+
+       }
+    }
+
+    fun setContextMenuOpen(){
+        isContextMenuOpen = true
+    }
+
+    fun setContextMenuClosed(){
+        isContextMenuOpen = false
     }
 
 
