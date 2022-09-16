@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
+import androidx.core.view.MenuProvider
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.adapters.TextViewBindingAdapter
@@ -27,6 +28,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import com.myfreezer.app.R
+import com.myfreezer.app.databinding.FragmentFavouriteBinding.inflate
 import com.myfreezer.app.databinding.FragmentFreezerBinding
 import com.myfreezer.app.models.FreezerItem
 import org.w3c.dom.Text
@@ -37,7 +39,7 @@ import java.lang.reflect.Array.get
  * @class FreezerFragment
  * @description Contains the implementaiton of the FreezerFragment
  */
-class FreezerFragment: Fragment() {
+class FreezerFragment: Fragment(), MenuProvider {
 
     //ActionMode used for appbar context menu
     lateinit var actionMode:ActionMode
@@ -156,9 +158,29 @@ class FreezerFragment: Fragment() {
 
 
 
+
         return binding.root
 
     }
+
+    //Menu
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        activity?.addMenuProvider(this,viewLifecycleOwner)
+    }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.freezer_filter_menu,menu)
+
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        //do nothing
+        return true
+    }
+
+
 
     /**
      * @method displayAddItemModal
