@@ -151,8 +151,11 @@ class FreezerAdapter(val onClickListener: OnClickListener,val viewModel:FreezerV
         //When user longClicks the item, a context menu for editing and deleting item is displayed
         holder.itemView.setOnLongClickListener{
             //TODO: Create item selection background color change
-             //var x = it.findViewById<FreezerListItem>(R.id.freezerListItem)
-            //it.setBackgroundColor(Color.parseColor("#9DB2B4"))
+
+            var itemBG = it.findViewById<View>(R.id.freezerListItem)
+            //"#9DB2B4"
+            itemBG.setBackgroundColor(Color.parseColor("#82E9DE"))
+
 
 
 
