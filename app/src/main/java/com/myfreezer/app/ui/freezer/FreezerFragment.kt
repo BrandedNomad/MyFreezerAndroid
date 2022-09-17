@@ -13,6 +13,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
@@ -31,8 +33,10 @@ import com.myfreezer.app.R
 import com.myfreezer.app.databinding.FragmentFavouriteBinding.inflate
 import com.myfreezer.app.databinding.FragmentFreezerBinding
 import com.myfreezer.app.models.FreezerItem
+import com.myfreezer.app.shared.utils.Utils
 import org.w3c.dom.Text
 import java.lang.reflect.Array.get
+import java.util.*
 
 
 /**
@@ -74,6 +78,8 @@ class FreezerFragment: Fragment(), MenuProvider {
 
         //set lifecycle owner
         binding.lifecycleOwner = this
+
+
 
 
 
@@ -165,11 +171,6 @@ class FreezerFragment: Fragment(), MenuProvider {
         }
 
         //SETUP AND INITIALISATION
-
-
-
-
-
         return binding.root
 
     }
@@ -178,11 +179,13 @@ class FreezerFragment: Fragment(), MenuProvider {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.addMenuProvider(this,viewLifecycleOwner)
+        activity?.addMenuProvider(this,viewLifecycleOwner) //adding the viewLifecycleOwner, means it does the cleanup automaically
+
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.freezer_filter_menu,menu)
+
 
     }
 
@@ -404,7 +407,9 @@ class FreezerFragment: Fragment(), MenuProvider {
             itemNameView.editText!!.text.toString(),
             itemQuantityView.editText!!.text.toString().toInt(),
             itemUnitView.editText!!.text.toString(),
-            itemMinimumView.editText!!.text.toString().toInt()
+            itemMinimumView.editText!!.text.toString().toInt(),
+            Utils.dateToString(Date()),
+            Date()
         )
 
         //Add Item to database and disply in list

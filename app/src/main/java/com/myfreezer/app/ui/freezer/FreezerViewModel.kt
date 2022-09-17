@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.myfreezer.app.models.FreezerItem
 import com.myfreezer.app.repository.Repository
 import com.myfreezer.app.repository.local.FreezerItemDatabase
+import com.myfreezer.app.shared.utils.Utils
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -177,9 +178,16 @@ class FreezerViewModel(application: Application): ViewModel() {
             }
         }else if(sortListBy.value =="oldest"){
             //do nothing
+            freezerItemList.value?.let{
+
+                sortedList = it.sortedBy{ it.dateAdded }
+            }
 
         }else if(sortListBy.value == "latest"){
             //do nothing
+            freezerItemList.value?.let{
+                sortedList = it.sortedByDescending{it.dateAdded}
+            }
         }else {
             freezerItemList.value?.let{
                 sortedList = it

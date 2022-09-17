@@ -3,6 +3,7 @@ package com.myfreezer.app.models
 import android.os.Parcelable
 import com.myfreezer.app.repository.local.DatabaseFreezerItem
 import kotlinx.android.parcel.Parcelize
+import java.util.*
 
 @Parcelize
 data class FreezerItem(
@@ -11,21 +12,9 @@ data class FreezerItem(
     var quantity:Int,
     var unit:String,
     var minimum:Int,
-    //val date:String,
+    var dateAddedString: String,
+    var dateAdded:Date
 ): Parcelable
 
 
-/**
- * @description: returns a list of freezerItems to be used for display
- */
-//fun FreezerItem.asDataModel():DatabaseFreezerItem{
-//
-//
-//    return DatabaseFreezerItem(
-//            name = it.name,
-//            quantity = it.quantity,
-//            unit = it.unit,
-//            minimum = it.minimum
-//        )
-//
-//}
+
