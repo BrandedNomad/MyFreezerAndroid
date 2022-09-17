@@ -1,6 +1,7 @@
 package com.myfreezer.app.repository
 
 import android.provider.ContactsContract
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -10,6 +11,8 @@ import com.myfreezer.app.repository.local.FreezerItemDatabase
 import com.myfreezer.app.repository.local.asDomainModel
 import com.myfreezer.app.shared.freezerList
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
 
@@ -29,6 +32,12 @@ class Repository(val database: FreezerItemDatabase) {
     var freezerItemList = Transformations.map(database.freezerDao.getFreezerItems()){
         it.asDomainModel()
     }
+
+
+
+
+
+
 
 
 
@@ -71,6 +80,13 @@ class Repository(val database: FreezerItemDatabase) {
             freezerItem.unit,
             freezerItem.minimum
         )
+
+    }
+
+    fun getFreezerItemListOrderedHighestToLowest():List<FreezerItem>{
+        var x = database.freezerDao.getFreezerItemsSortedHighestToLowest().asDomainModel()
+        return x
+
 
     }
 

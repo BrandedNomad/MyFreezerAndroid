@@ -1,6 +1,7 @@
 package com.myfreezer.app.ui.freezer
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -32,21 +33,32 @@ class FreezerViewModel(application: Application): ViewModel() {
 
 
     //TODO: Create live data
+    //populate the freezer item list with the items stored in database
+    var freezerItemList = repository.freezerItemList
+
+
+
+    private var _sortListBy = MutableLiveData<String>()
+    val sortListBy:LiveData<String>
+        get() = _sortListBy
 
 
 
 
     init{
         //TODO
-
         isContextMenuOpen = false
+        _sortListBy.value = "alpha"
 
 
     }
 
 
-    //populate the freezer item list with the items stored in database
-    var freezerItemList = repository.freezerItemList
+
+
+
+
+
 
     /**
      * @method addItem
@@ -55,6 +67,7 @@ class FreezerViewModel(application: Application): ViewModel() {
      */
     fun addItem(item: FreezerItem) = viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
         repository.addFreezerItem(item)
+
     }
 
     /**
@@ -113,7 +126,11 @@ class FreezerViewModel(application: Application): ViewModel() {
 
     }
 
-
+    /**
+     * @method triggerContextMenuFlow
+     * @description: Emits the status of context menu to interested modules (the adapter)
+     * @return {Flow} an observable
+     */
     fun triggerContextMenuFlow(): Flow<Boolean?> {
        return flow {
            while(true){
@@ -124,12 +141,56 @@ class FreezerViewModel(application: Application): ViewModel() {
        }
     }
 
+    /**
+     * @method setContextMenuOpen
+     * @description sets the isContextMenuOpen flag to true
+     */
     fun setContextMenuOpen(){
         isContextMenuOpen = true
     }
 
+    /**
+     * @method setContextMenuClosed
+     * @description sets the isContextMenuOpen flag to false
+     */
     fun setContextMenuClosed(){
         isContextMenuOpen = false
+    }
+
+    //sorting functions
+    fun sortList():List<FreezerItem>?{
+
+        var sortedList = freezerItemList.value
+
+        if(sortListBy.value == "lowest"){
+            freezerItemList.value?.let{
+                sortedList = it.sortedBy{it.quantity}
+            }
+        }else if(sortListBy.value == "highest"){
+            freezerItemList.value?.let{
+                sortedList = it.sortedByDescending{it.quantity}
+            }
+
+        }else if(sortListBy.value == "alpha"){
+            freezerItemList.value?.let{
+                sortedList = it.sortedBy{it.name}
+            }
+        }else if(sortListBy.value =="oldest"){
+            //do nothing
+
+        }else if(sortListBy.value == "latest"){
+            //do nothing
+        }else {
+            freezerItemList.value?.let{
+                sortedList = it
+            }
+        }
+        return sortedList
+    }
+
+    fun setSortListBy(sortBy:String){
+        _sortListBy.value = sortBy
+
     }
 
 

@@ -43,6 +43,9 @@ class FreezerFragment: Fragment(), MenuProvider {
 
     //ActionMode used for appbar context menu
     lateinit var actionMode:ActionMode
+    lateinit var viewModel: FreezerViewModel
+    lateinit var adapter: FreezerAdapter
+    var sortByFlag = "alpha"
 
     /**
      * @method onCreateView
@@ -73,7 +76,7 @@ class FreezerFragment: Fragment(), MenuProvider {
         binding.lifecycleOwner = this
 
 
-        //SETUP AND INITIALISATION
+
 
 
 
@@ -105,12 +108,12 @@ class FreezerFragment: Fragment(), MenuProvider {
         //initialize viewModel
         val application = requireNotNull(this.activity).application
         val viewModelFactory = FreezerViewModelFactory(application)
-        val viewModel = ViewModelProvider(this,viewModelFactory).get(FreezerViewModel::class.java)
+        viewModel = ViewModelProvider(this,viewModelFactory).get(FreezerViewModel::class.java)
 
         //ADAPTER
 
         //get adapter
-        val adapter = FreezerAdapter(FreezerAdapter.OnClickListener{
+        adapter = FreezerAdapter(FreezerAdapter.OnClickListener{
             //TODO:Add the navigation observer
 
 
@@ -145,9 +148,14 @@ class FreezerFragment: Fragment(), MenuProvider {
                 binding.freezerEmptyMessage.setVisibility(View.GONE)
             }
             //resubmit the new list to the adapter for display
+
             adapter.submitList(it)
         })
 
+        viewModel.sortListBy.observe(viewLifecycleOwner,Observer{
+            var sortedList = viewModel.sortList()
+            adapter.submitList(sortedList)
+        })
         //FAB
 
         //When the add button is clicked
@@ -155,6 +163,9 @@ class FreezerFragment: Fragment(), MenuProvider {
             //open the add item popup dialog
             displayAddItemModal(addDialog,addItemLayout,viewModel)
         }
+
+        //SETUP AND INITIALISATION
+
 
 
 
@@ -177,6 +188,29 @@ class FreezerFragment: Fragment(), MenuProvider {
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         //do nothing
+        when(menuItem.itemId){
+            R.id.freezerFilterMenuItemAlphabetically -> {
+                viewModel.setSortListBy("alpha")
+
+            }
+            R.id.freezerFilterMenuItemHighest -> {
+                viewModel.setSortListBy("highest")
+
+            }
+            R.id.freezerFilterMenuItemLowest -> {
+                viewModel.setSortListBy("lowest")
+            }
+            R.id.freezerFilterMenuItemOldest -> {
+                viewModel.setSortListBy("oldest")
+            }
+            R.id.freezerFilterMenuItemLatest -> {
+                viewModel.setSortListBy("latest")
+
+            } else -> {
+                //Do nothing
+            }
+        }
+
         return true
     }
 

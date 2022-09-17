@@ -1,5 +1,7 @@
 package com.myfreezer.app.repository.local
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.myfreezer.app.models.FreezerItem
@@ -27,14 +29,7 @@ fun List<DatabaseFreezerItem>.asDomainModel():List<FreezerItem>{
     }
 }
 
-//TODO:ADD transform freezerItem to databasefreezerItem
-//fun FreezerItem.asDatabaseModel():DatabaseFreezerItem{
-//    return DatabaseFreezerItem(
-//            it.name,
-//            FreezerItem::quantity,
-//            FreezerItem::unit,
-//            FreezerItem::minimum
-//        )
-//    }
-//}
+
+
+
 
