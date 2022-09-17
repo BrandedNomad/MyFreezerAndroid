@@ -2,6 +2,7 @@ package com.myfreezer.app.repository.local
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.myfreezer.app.models.FreezerItem
 
@@ -14,8 +15,11 @@ interface FreezerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg freezerItem:DatabaseFreezerItem)
 
-    @Query("SELECT * FROM databasefreezeritem")
+    @Query("SELECT * FROM databasefreezeritem ORDER BY name")
     fun getFreezerItems(): LiveData<List<DatabaseFreezerItem>>
+
+    @Query("SELECT * FROM databasefreezeritem ORDER BY quantity DESC")
+    fun getFreezerItemsSortedHighestToLowest():List<DatabaseFreezerItem>
 
     @Query("DELETE FROM databasefreezeritem WHERE name = :itemName")
     suspend fun deleteFreezerItem(itemName:String)
@@ -26,7 +30,7 @@ interface FreezerDao {
     suspend fun updateFreezerItem(previousId:String,name:String,quantity:Int,unit:String,minimum:Int)
 }
 
-@Database(entities=[DatabaseFreezerItem::class],version = 1)
+@Database(entities=[DatabaseFreezerItem::class],version = 2)
 abstract class FreezerItemDatabase:RoomDatabase() {
 
     abstract val freezerDao:FreezerDao

@@ -39,7 +39,6 @@ class FreezerAdapter(val onClickListener: OnClickListener,val viewModel:FreezerV
         //
         GlobalScope.launch{
             viewModel.triggerContextMenuFlow().collectLatest{
-                Log.e("IsOpen","triggered!!!")
 
                 contextMenuIsOpen = it!!
 
@@ -151,13 +150,6 @@ class FreezerAdapter(val onClickListener: OnClickListener,val viewModel:FreezerV
         //When user longClicks the item, a context menu for editing and deleting item is displayed
         holder.itemView.setOnLongClickListener{
             //TODO: Create item selection background color change
-
-            var itemBG = it.findViewById<View>(R.id.freezerListItem)
-            //"#9DB2B4"
-            itemBG.setBackgroundColor(Color.parseColor("#82E9DE"))
-
-
-
 
             onClickListener.onClick(item)
             return@setOnLongClickListener true

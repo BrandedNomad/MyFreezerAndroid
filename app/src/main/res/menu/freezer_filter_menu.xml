@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/freezerFilterMenuItemAlphabetically"
+        android:enabled="true"
+        android:title="@string/filter_menu_item_alphabetically"
+        android:width = "@dimen/filter_menu_width"
+        android:height = "@dimen/filter_menu_item_height" />
+    <item
+        android:id="@+id/freezerFilterMenuItemHighest"
+        android:enabled="true"
+        android:title="@string/filter_menu_item_highest"
+        android:width = "@dimen/filter_menu_width"
+        android:height = "@dimen/filter_menu_item_height" />
+    <item
+        android:id="@+id/freezerFilterMenuItemLowest"
+        android:enabled="true"
+        android:title="@string/filter_menu_item_lowest"
+        android:width = "@dimen/filter_menu_width"
+        android:height = "@dimen/filter_menu_item_height" />
+    <item
+        android:id="@+id/freezerFilterMenuItemOldest"
+        android:enabled="true"
+        android:title="@string/filter_menu_item_oldest"
+        android:width = "@dimen/filter_menu_width"
+        android:height = "@dimen/filter_menu_item_height" />
+    <item
+        android:id="@+id/freezerFilterMenuItemLatest"
+        android:enabled="true"
+        android:title="@string/filter_menu_item_latest"
+        android:width = "@dimen/filter_menu_width"
+        android:height = "@dimen/filter_menu_item_height" />
+
+</menu>
