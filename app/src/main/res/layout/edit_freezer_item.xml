@@ -153,7 +153,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/dialogItemSubmitButton"
                 style="@style/button_secondary"
-                android:text="@string/button_text_add"
+                android:text="@string/button_text_update"
                 android:layout_height="@dimen/button_height_tall"
                 android:layout_width="wrap_content"
                 android:paddingLeft="@dimen/button_padding_default"

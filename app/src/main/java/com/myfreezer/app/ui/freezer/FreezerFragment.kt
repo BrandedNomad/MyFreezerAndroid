@@ -13,9 +13,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
+import androidx.core.view.MenuProvider
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.adapters.TextViewBindingAdapter
@@ -27,20 +30,26 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import com.myfreezer.app.R
+import com.myfreezer.app.databinding.FragmentFavouriteBinding.inflate
 import com.myfreezer.app.databinding.FragmentFreezerBinding
 import com.myfreezer.app.models.FreezerItem
+import com.myfreezer.app.shared.utils.Utils
 import org.w3c.dom.Text
 import java.lang.reflect.Array.get
+import java.util.*
 
 
 /**
  * @class FreezerFragment
  * @description Contains the implementaiton of the FreezerFragment
  */
-class FreezerFragment: Fragment() {
+class FreezerFragment: Fragment(), MenuProvider {
 
     //ActionMode used for appbar context menu
     lateinit var actionMode:ActionMode
+    lateinit var viewModel: FreezerViewModel
+    lateinit var adapter: FreezerAdapter
+    var sortByFlag = "alpha"
 
     /**
      * @method onCreateView
@@ -71,7 +80,9 @@ class FreezerFragment: Fragment() {
         binding.lifecycleOwner = this
 
 
-        //SETUP AND INITIALISATION
+
+
+
 
 
 
@@ -103,12 +114,12 @@ class FreezerFragment: Fragment() {
         //initialize viewModel
         val application = requireNotNull(this.activity).application
         val viewModelFactory = FreezerViewModelFactory(application)
-        val viewModel = ViewModelProvider(this,viewModelFactory).get(FreezerViewModel::class.java)
+        viewModel = ViewModelProvider(this,viewModelFactory).get(FreezerViewModel::class.java)
 
         //ADAPTER
 
         //get adapter
-        val adapter = FreezerAdapter(FreezerAdapter.OnClickListener{
+        adapter = FreezerAdapter(FreezerAdapter.OnClickListener{
             //TODO:Add the navigation observer
 
 
@@ -143,9 +154,14 @@ class FreezerFragment: Fragment() {
                 binding.freezerEmptyMessage.setVisibility(View.GONE)
             }
             //resubmit the new list to the adapter for display
+
             adapter.submitList(it)
         })
 
+        viewModel.sortListBy.observe(viewLifecycleOwner,Observer{
+            var sortedList = viewModel.sortList()
+            adapter.submitList(sortedList)
+        })
         //FAB
 
         //When the add button is clicked
@@ -154,11 +170,54 @@ class FreezerFragment: Fragment() {
             displayAddItemModal(addDialog,addItemLayout,viewModel)
         }
 
-
-
+        //SETUP AND INITIALISATION
         return binding.root
 
     }
+
+    //Menu
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        activity?.addMenuProvider(this,viewLifecycleOwner) //adding the viewLifecycleOwner, means it does the cleanup automaically
+
+    }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.freezer_filter_menu,menu)
+
+
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        //do nothing
+        when(menuItem.itemId){
+            R.id.freezerFilterMenuItemAlphabetically -> {
+                viewModel.setSortListBy("alpha")
+
+            }
+            R.id.freezerFilterMenuItemHighest -> {
+                viewModel.setSortListBy("highest")
+
+            }
+            R.id.freezerFilterMenuItemLowest -> {
+                viewModel.setSortListBy("lowest")
+            }
+            R.id.freezerFilterMenuItemOldest -> {
+                viewModel.setSortListBy("oldest")
+            }
+            R.id.freezerFilterMenuItemLatest -> {
+                viewModel.setSortListBy("latest")
+
+            } else -> {
+                //Do nothing
+            }
+        }
+
+        return true
+    }
+
+
 
     /**
      * @method displayAddItemModal
@@ -348,7 +407,9 @@ class FreezerFragment: Fragment() {
             itemNameView.editText!!.text.toString(),
             itemQuantityView.editText!!.text.toString().toInt(),
             itemUnitView.editText!!.text.toString(),
-            itemMinimumView.editText!!.text.toString().toInt()
+            itemMinimumView.editText!!.text.toString().toInt(),
+            Utils.dateToString(Date()),
+            Date()
         )
 
         //Add Item to database and disply in list
@@ -437,6 +498,9 @@ class FreezerFragment: Fragment() {
                 //Set title for context menu
                 mode.setTitle("Options");
 
+                //inform the adapter that view model is open
+                viewModel.setContextMenuOpen()
+
                 return true
             }
 
@@ -460,7 +524,7 @@ class FreezerFragment: Fragment() {
                         displayEditItemDialog(editItemDialog,viewModel,freezerItem,editItemLayout)
                     }
                     else -> {
-                        //do nothing
+                        actionMode.finish()
 
                     }
 
@@ -473,6 +537,8 @@ class FreezerFragment: Fragment() {
              */
             override fun onDestroyActionMode(mode: ActionMode?) {
                 //TODO("Not yet implemented")
+                //inform adapter the context menu is closed
+                viewModel.setContextMenuClosed()
 
             }
 
@@ -621,6 +687,7 @@ class FreezerFragment: Fragment() {
         //Close the appbar context menu when navigating away from the fragment
         if(this::actionMode.isInitialized){
             actionMode.finish()
+
         }
 
     }
