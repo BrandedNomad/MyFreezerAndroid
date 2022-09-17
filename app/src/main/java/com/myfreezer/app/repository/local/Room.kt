@@ -30,7 +30,7 @@ interface FreezerDao {
     suspend fun updateFreezerItem(previousId:String,name:String,quantity:Int,unit:String,minimum:Int)
 }
 
-@Database(entities=[DatabaseFreezerItem::class],version = 1)
+@Database(entities=[DatabaseFreezerItem::class],version = 2)
 abstract class FreezerItemDatabase:RoomDatabase() {
 
     abstract val freezerDao:FreezerDao

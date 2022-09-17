@@ -24,7 +24,6 @@ import com.microsoft.appcenter.espresso.Factory
 import com.myfreezer.app.R
 import com.myfreezer.app.databinding.FreezerListItemBinding
 import com.myfreezer.app.models.FreezerItem
-import com.myfreezer.app.shared.freezerList
 import com.myfreezer.app.ui.main.MainActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
