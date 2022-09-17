@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyFreezer</string>
+    <string name="app_name">My Freezer</string>
 
     <string name="appbar_title_freezer">Freezer</string>
 
@@ -13,19 +13,28 @@
 
     <string name="hint_text_item">Item Name</string>
     <string name="hint_text_quantity">Quantity</string>
-    <string name="hint_text_unit">kg/g/pcs/pkg ?</string>
+    <string name="hint_text_unit">Unit</string>
     <string name="hint_text_minimum">Minimum Amount</string>
     <string name="hint_text_category">Category</string>
 
     <string name="button_text_add">ADD</string>
     <string name="button_text_cancel">CANCEL</string>
     <string name="button_text_confirm">CONFIRM</string>
+    <string name="button_text_update">UPDATE</string>
 
     <string name="context_selected">Selected</string>
 
     <string name="dialogue_delete_title">Delete Item?</string>
     <string name="dialogue_delete_body">Are you sure you want to remove this item?</string>
 
+    <string name="background_message_freezer_empty_title">EMPTY FREEZER</string>
+    <string name="background_message_freezer_empty_body">Add some items by clicking on the "+" button.</string>
+
+    <string name="filter_menu_item_alphabetically">a to z</string>
+    <string name="filter_menu_item_highest">highest</string>
+    <string name="filter_menu_item_lowest">lowest</string>
+    <string name="filter_menu_item_oldest">oldest</string>
+    <string name="filter_menu_item_latest">latest</string>
 
 
 </resources>

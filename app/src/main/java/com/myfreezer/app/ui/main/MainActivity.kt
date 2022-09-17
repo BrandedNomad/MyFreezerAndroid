@@ -47,6 +47,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun displayContextMenu(){
+        var currentTitle = getTitle()
+
+    }
+
 
     private fun bottomNavClickListener(
         bottomNavBar: BottomNavigationView,
@@ -91,7 +96,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun replaceFragment(fragment: Fragment){
+    fun replaceFragment(fragment: Fragment){
         if(fragment !=null){
             val transaction = supportFragmentManager.beginTransaction()
             transaction.replace(R.id.navHostFragment, fragment)

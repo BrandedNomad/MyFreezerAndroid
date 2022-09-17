@@ -9,6 +9,12 @@
     <dimen name="space_xl">32dp</dimen>
     <dimen name="space_xxl">36dp</dimen>
 
+    <dimen name="radius_s">4dp</dimen>
+    <dimen name="radius_m">8dp</dimen>
+    <dimen name="radius_l">10dp</dimen>
+
+
+
     <dimen name="margin_horizontal_default">16dp</dimen>
 
     <dimen name="appbar_height_default">56dp</dimen>
@@ -34,11 +40,26 @@
     <dimen name="icon_l">40dp</dimen>
     <dimen name="icon_xl">100dp</dimen>
 
+    <dimen name="button_height_tall">56dp</dimen>
     <dimen name="button_height_default">36dp</dimen>
     <dimen name="button_padding_default">16dp</dimen>
     <dimen name="button_space_between">8dp</dimen>
 
     <dimen name="modal_padding_default">8dp</dimen>
     <dimen name="modal_item_margin">8dp</dimen>
+
+    <dimen name="confirmation_modal_padding_Top">22dp</dimen>
+    <dimen name="confirmation_modal_padding_Left">24dp</dimen>
+    <dimen name="confirmation_modal_padding_Right">8dp</dimen>
+    <dimen name="confirmation_modal_padding_Bottom">8dp</dimen>
+    <dimen name="confirmation_modal_title_bottom_margin">18dp</dimen>
+    <dimen name="confirmation_modal_buttons_top_margin">33dp</dimen>
+
+    <dimen name="filter_menu_width">112dp</dimen>
+    <dimen name="filter_menu_item_height">48dp</dimen>
+    <dimen name="filter_menu_item_padding_left">16dp</dimen>
+    <dimen name="filter_menu_item_padding_right">8dp</dimen>
+    <dimen name="filter_menu_padding">8dp</dimen>
+
 
 </resources>

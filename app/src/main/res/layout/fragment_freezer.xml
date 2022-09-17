@@ -9,7 +9,25 @@
         android:layout_height="match_parent"
         android:id="@+id/FreezerFragment"
         android:background="@color/background">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/freezerRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:listitem="@layout/freezer_list_item"/>
+
+
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/freezerEmptyMessage"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -20,19 +38,24 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/construction"
+                android:src="@drawable/sentiment_dissatisfied"
                 android:layout_gravity="center_horizontal"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Coming Soon"
+                android:text="@string/background_message_freezer_empty_title"
                 style="@style/heading_4"
                 android:textAlignment="center"/>
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/background_message_freezer_empty_body"
+                style="@style/body_1"
+                android:textAlignment="center"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
+            android:id="@+id/fabAddItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"

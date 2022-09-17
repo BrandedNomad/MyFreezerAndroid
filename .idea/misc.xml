@@ -6,9 +6,12 @@
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1545" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/ac_unit-48px.xml" value="0.1545" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/add-48px.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/add.xml" value="0.1" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/arrow_back.xml" value="0.1545" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/arrow_outward-48px.xml" value="0.1545" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/assignment-48px.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/button_secondary.xml" value="0.1" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/close.xml" value="0.138" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/construction.xml" value="0.1" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/delete-filled.xml" value="0.1545" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/delete.xml" value="0.1545" />
@@ -20,6 +23,8 @@
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/heart_plus-48px (1).xml" value="0.1545" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1545" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/menu-48px.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/more.xml" value="0.138" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/remove.xml" value="0.138" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/restaurant-48px.xml" value="0.1545" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/save-48px.xml" value="0.1545" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/search-48px.xml" value="0.1545" />
@@ -27,13 +32,21 @@
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/sentiment_dissatisfied-48px (1).xml" value="0.1545" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/sentiment_dissatisfied-48px.xml" value="0.1545" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/settings-48px.xml" value="0.1545" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/settings.xml" value="0.138" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/drawable/settings_filled.xml" value="0.1545" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/add_freezer_item.xml" value="0.13072916666666667" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/add_item.xml" value="0.2" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/delete_confirmation.xml" value="0.13072916666666667" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/edit_freezer_item.xml" value="0.1" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/fragment_favourite.xml" value="0.1265625" />
-        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/fragment_freezer.xml" value="0.152" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/fragment_freezer.xml" value="0.264" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/fragment_recipes.xml" value="0.1935185185185185" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/fragment_shopping.xml" value="0.1265625" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/freezer_list_item.xml" value="0.27314814814814814" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.12760416666666666" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/menu/freezer_context_menu.xml" value="0.27447916666666666" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/menu/freezer_filter_menu.xml" value="0.2" />
       </map>
     </option>
   </component>
