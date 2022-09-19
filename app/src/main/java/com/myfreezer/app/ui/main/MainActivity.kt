@@ -53,6 +53,16 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    /**
+     * @method bottomNavClickListener
+     * @description Listens for touch events on bottom navigation bar and
+     * navigates to the appropriate fragment
+     * @param {BottomNavigationView} bottomNavBar- the bottom navigation bar
+     * @param {Fragment} freezerFragment - the fragment for the freezer view
+     * @param {Fragment} recipeFragment - the fragment for the freezer view
+     * @param {Fragment} favouriteFragment - the fragment for the freezer view
+     * @param {Fragment} shoppingFragment - the fragment for the freezer view
+     */
     private fun bottomNavClickListener(
         bottomNavBar: BottomNavigationView,
         freezerFragment: FreezerFragment,
@@ -96,6 +106,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * @method replaceFragment
+     * @description swaps fragments within the NavHost
+     * @param {Fragment} the fragment to change to
+     */
     fun replaceFragment(fragment: Fragment){
         if(fragment !=null){
             val transaction = supportFragmentManager.beginTransaction()

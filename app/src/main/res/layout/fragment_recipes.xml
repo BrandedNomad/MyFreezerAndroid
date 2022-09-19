@@ -8,7 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background">
+
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/recipeEmptyMessage"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -19,15 +22,20 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/construction"
+                android:src="@drawable/sentiment_dissatisfied"
                 android:layout_gravity="center_horizontal"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Coming Soon"
+                android:text="@string/background_message_recipe_none_title"
                 style="@style/heading_4"
                 android:textAlignment="center"/>
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/background_message_recipe_none_body"
+                style="@style/body_1"
+                android:textAlignment="center"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 
