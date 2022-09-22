@@ -4,19 +4,22 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintSet.VISIBLE
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.transition.Visibility
 import com.myfreezer.app.R
 import com.myfreezer.app.databinding.FragmentFreezerBinding
 import com.myfreezer.app.databinding.FragmentRecipesBinding
-import com.myfreezer.app.shared.mock.mockDataList
+
 import com.myfreezer.app.ui.freezer.FreezerViewModel
 import com.myfreezer.app.ui.freezer.FreezerViewModelFactory
-import kotlinx.coroutines.flow.collectLatest
+
 
 class RecipesFragment: Fragment() {
 
@@ -59,14 +62,20 @@ class RecipesFragment: Fragment() {
         //adapter.submitList(mockDataList)
 
         //OBSERVERS
-        viewModel._recipeList.observe(viewLifecycleOwner,Observer{
-            adapter.submitList(it)
-            Log.e("Fragment - recipeListObserver",it.toString())
+        viewModel.recipeList.observe(viewLifecycleOwner,Observer{
+
+            if(it.size > 0){
+                binding.recipeEmptyMessage.setVisibility(View.GONE)
+                adapter.submitList(it)
+            }else{
+                binding.recipeEmptyMessage.setVisibility(View.VISIBLE)
+            }
+
+
         })
 
 
 
-        viewModel.getRecipes()
         return binding.root
     }
 }

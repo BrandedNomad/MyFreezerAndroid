@@ -64,6 +64,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
+                        android:gravity="center"
                         android:layout_marginRight="@dimen/space_default">
                         <ImageView
                             android:layout_width="@dimen/icon_standard"
@@ -81,6 +82,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
+                        android:gravity="center"
                         android:layout_marginRight="@dimen/space_default">
                         <ImageView
                             android:layout_width="@dimen/icon_standard"
@@ -98,14 +100,16 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:gravity="center">
                         <ImageView
+                            android:id="@+id/recipe_card_preference_icon"
                             android:layout_width="@dimen/icon_standard"
                             android:layout_height="@dimen/icon_standard"
                             android:src="@drawable/vegan"
                             app:tint="@color/icon_green"/>
                         <TextView
-                            android:id="@+id/recipe_card_icon_veg"
+                            android:id="@+id/recipe_card_preference_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="vegan"

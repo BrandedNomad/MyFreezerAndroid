@@ -34,9 +34,7 @@ class RecipesViewModel(application: Application): ViewModel(){
 
     //Setup Data Flows
 
-    var _recipeList = MutableLiveData<List<RecipeItem>>()
-    val recipeList:LiveData<List<RecipeItem>>
-        get() = _recipeList
+    var recipeList = repository.recipeList
 
 
     //Initialization
@@ -49,28 +47,10 @@ class RecipesViewModel(application: Application): ViewModel(){
 
     //Methods
 
-    fun getRecipes(){
-
-        viewModelScope.launch(Dispatchers.Main + coroutineExceptionHandler){
-
-            var response  = repository.getRecipes()
-            Log.e("ViewModel - getRecipes - 1", response.toString())
-            var listOfRecipeItems = response.results.map{
-                RecipeItem(
-                    it.title
-                )
-            }
-            Log.e("ViewModel - getRecipes - 2", listOfRecipeItems.toString())
-            listOfRecipeItems.let{
-                _recipeList.setValue(it)
-            }
-            Log.e("ViewModel - getRecipes -3", recipeList.value.toString())
 
 
-        }
 
 
-    }
 
     //Cleanup
 }

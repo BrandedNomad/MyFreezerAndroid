@@ -11,6 +11,7 @@ import com.myfreezer.app.repository.local.MyFreezerDatabase
 import com.myfreezer.app.repository.local.entities.DatabaseFreezerItem
 import com.myfreezer.app.repository.local.entities.asDomainModel
 import com.myfreezer.app.repository.remote.responseclasses.GetRecipesResponse
+import com.myfreezer.app.repository.remote.responseclasses.asDataBaseModel
 import com.myfreezer.app.repository.remote.services.Network
 
 import kotlinx.coroutines.Dispatchers
@@ -37,6 +38,10 @@ class Repository(val database: MyFreezerDatabase) {
         it.asDomainModel()
     }
 
+    var recipeList =  Transformations.map(database.freezerDao.getRecipes()){
+        it.asDomainModel()
+    }
+
 
 
 
@@ -50,6 +55,7 @@ class Repository(val database: MyFreezerDatabase) {
         val itemToInsert: DatabaseFreezerItem = DatabaseFreezerItem(item.name,item.quantity,item.unit,item.minimum,item.dateAddedString)
         database.freezerDao.insert(itemToInsert)
 
+        getRecipes(item.name)
 
     }
 
@@ -60,8 +66,8 @@ class Repository(val database: MyFreezerDatabase) {
      */
     suspend fun deleteFreezerItem(item:FreezerItem){
         val itemName = item.name
+        database.freezerDao.deleteAllRecipes(itemName)
         database.freezerDao.deleteFreezerItem(itemName)
-
     }
 
     /**
@@ -72,6 +78,9 @@ class Repository(val database: MyFreezerDatabase) {
      * @param {FreezerItem} freezerItem: the new updated item
      */
     suspend fun updateFreezerItem(previousId:String, freezerItem:FreezerItem){
+
+        database.freezerDao.deleteAllRecipes(previousId)
+
         database.freezerDao.updateFreezerItem(
             previousId,
             freezerItem.name,
@@ -79,6 +88,8 @@ class Repository(val database: MyFreezerDatabase) {
             freezerItem.unit,
             freezerItem.minimum
         )
+
+        getRecipes(freezerItem.name)
 
     }
 
@@ -89,15 +100,25 @@ class Repository(val database: MyFreezerDatabase) {
 
     }
 
-    suspend fun getRecipes():GetRecipesResponse{
+    suspend fun getRecipes(title:String){
         lateinit var response: GetRecipesResponse
-        try{
-            response = Network.recipesAPI.getRecipes("Chicken").await()
-            Log.e("Repo - getRecipes Success",response.toString())
-        }catch(exception:Exception){
-            Log.e("Repo - getRecipes failed", exception.toString())
+        var tryAgain = true
+        while(tryAgain){
+            try{
+                response = Network.recipesAPI.getRecipes(title).await()
+                Log.e("Repo - getRecipes Success",response.results.size.toString())
+                tryAgain = false
+            }catch(exception:Exception){
+                Log.e("Repo - getRecipes failed", exception.toString())
+                tryAgain = true
+            }
         }
-        return response
+
+        var itemsToInsert = response.asDataBaseModel(title)
+        Log.e("Repo - itemsToInsert", itemsToInsert.size.toString())
+        database.freezerDao.insertRecipeResults(*itemsToInsert)
+        Log.e("Repo -getRecipes -asDataBase",itemsToInsert[0].toString())
+
     }
 
 

@@ -66,7 +66,7 @@ class FreezerViewModel(application: Application): ViewModel() {
      * @description: Adds a new item to the list by saving it to the database
      * @param {FreezerItem} item: The new item to be saved
      */
-    fun addItem(item: FreezerItem) = viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
+    fun addItem(item: FreezerItem) = GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
         repository.addFreezerItem(item)
 
     }
@@ -76,7 +76,7 @@ class FreezerViewModel(application: Application): ViewModel() {
      * @description: Deletes freezer item
      * @param {FreezerItem} item: The item to be deleted
      */
-    fun deleteFreezerItem(item:FreezerItem) = viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler){
+    fun deleteFreezerItem(item:FreezerItem) = GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler){
         repository.deleteFreezerItem(item)
     }
 
@@ -86,7 +86,7 @@ class FreezerViewModel(application: Application): ViewModel() {
      * @param {String} previousId: the id of the freezerItem before it was edited
      * @param {FreezerItem} item: The item to be deleted
      */
-    fun updateFreezerItem(previousId:String, freezerItem:FreezerItem) = viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler){
+    fun updateFreezerItem(previousId:String, freezerItem:FreezerItem) = GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler){
         repository.updateFreezerItem(previousId,freezerItem)
 
     }

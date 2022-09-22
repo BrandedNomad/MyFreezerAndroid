@@ -17,6 +17,13 @@ class Utils {
             return date
 
         }
+
+        fun shortenDiscription(description:String):String {
+            var shortDescription = description.slice(0..65)
+            var completeShortDescription = shortDescription.plus("...")
+            return completeShortDescription
+
+        }
     }
 
 

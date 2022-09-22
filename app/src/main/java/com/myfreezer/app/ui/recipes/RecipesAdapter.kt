@@ -1,16 +1,28 @@
 package com.myfreezer.app.ui.recipes
 
+import android.graphics.Color
+import android.graphics.Typeface
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.getColor
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.myfreezer.app.R
 import com.myfreezer.app.models.FreezerItem
 import com.myfreezer.app.models.RecipeItem
+import com.myfreezer.app.shared.utils.Utils
 import com.myfreezer.app.ui.freezer.FreezerAdapter
 import org.w3c.dom.Text
 
@@ -19,11 +31,12 @@ class RecipesAdapter(onClickListener:RecipesAdapter.OnClickListener): ListAdapte
     class RecipesViewHolder(viewItem: View): RecyclerView.ViewHolder(viewItem){
 
         var textViewRecipeTitle = viewItem.findViewById<TextView>(R.id.recipe_card_title)
-        var textViewRecipeDescription = viewItem.findViewById<TextView>(R.id.recipe_card_body)
+        var textViewSource = viewItem.findViewById<TextView>(R.id.recipe_card_body)
         var imageViewRecipeImage = viewItem.findViewById<ImageView>(R.id.recipe_card_image)
         var textViewRecipeLike = viewItem.findViewById<TextView>(R.id.recipe_card_icon_like)
         var textViewRecipeTime = viewItem.findViewById<TextView>(R.id.recipe_card_icon_time)
-        var textViewRecipeVeg = viewItem.findViewById<TextView>(R.id.recipe_card_icon_veg)
+        var textViewRecipePreference = viewItem.findViewById<TextView>(R.id.recipe_card_preference_text)
+        var imageViewRecipePreference = viewItem.findViewById<ImageView>(R.id.recipe_card_preference_icon)
 
         /**
          * @method bind
@@ -33,13 +46,35 @@ class RecipesAdapter(onClickListener:RecipesAdapter.OnClickListener): ListAdapte
          */
         fun bind(holder: RecipesAdapter.RecipesViewHolder, item:RecipeItem){
 
+            //Create and style source string
+            var tempString = "Source: " + item.sourceName
+            var spanString = SpannableString(tempString)
+            spanString.setSpan(StyleSpan(Typeface.BOLD),0,8,0)
+            spanString.setSpan(StyleSpan(Typeface.ITALIC),8, spanString.length,0)
+            spanString.setSpan(ForegroundColorSpan(textViewRecipePreference.getContext().getColor(R.color.primary)),8,spanString.length,0)
+            var sourceString = spanString
 
+
+            //Buffer image
+            var requestOptions = RequestOptions()
+                .centerCrop()
+                .placeholder(R.drawable.fake_recipe)
+                .error(R.drawable.fake_recipe)
+
+            Glide.with(imageViewRecipeImage.getContext()).load(item.image).apply(requestOptions).into(holder.imageViewRecipeImage)
+
+            //Bind values
             holder.textViewRecipeTitle.text = item.title
-            holder.textViewRecipeDescription.text = "Authentic Italian tomato based pasta with a bacon bits and rich sauce"
-            //holder.imageViewRecipeImage = item.image
-            //holder.textViewRecipeLike =
-            //holder.textViewRecipeTime =
-            //holder.textViewRecipeVeg =
+            holder.textViewSource.text = sourceString
+            holder.textViewRecipeLike.text = item.likes.toString()
+            holder.textViewRecipeTime.text = item.time.toString()
+
+            //if preferences is false
+            if(item.vegan == false){
+                //Then set the icon and text to grey
+                holder.imageViewRecipePreference.setColorFilter(imageViewRecipePreference.getContext().getColor(R.color.grey_five))
+                holder.textViewRecipePreference.setTextColor(textViewRecipePreference.getContext().getColor(R.color.grey_five))
+            }
         }
 
 

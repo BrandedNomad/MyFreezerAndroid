@@ -7,9 +7,10 @@ import androidx.room.*
 import com.myfreezer.app.models.FreezerItem
 import com.myfreezer.app.repository.local.dao.FreezerDao
 import com.myfreezer.app.repository.local.entities.DatabaseFreezerItem
+import com.myfreezer.app.repository.local.entities.DatabaseRecipe
 
 
-@Database(entities=[DatabaseFreezerItem::class],version = 2)
+@Database(entities=[DatabaseFreezerItem::class,DatabaseRecipe::class],version = 2)
 abstract class MyFreezerDatabase:RoomDatabase() {
 
     abstract val freezerDao: FreezerDao
@@ -25,7 +26,7 @@ abstract class MyFreezerDatabase:RoomDatabase() {
                     val instance = Room.databaseBuilder(
                         context.applicationContext,
                         MyFreezerDatabase::class.java,
-                        "freezeritemdatabase"
+                        "MyFreezerDatabase"
                     ).build()
 
                     INSTANCE = instance

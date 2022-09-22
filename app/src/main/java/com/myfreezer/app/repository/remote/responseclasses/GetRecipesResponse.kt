@@ -1,5 +1,7 @@
 package com.myfreezer.app.repository.remote.responseclasses
 
+import com.myfreezer.app.models.RecipeItem
+import com.myfreezer.app.repository.local.entities.DatabaseRecipe
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Json
 
@@ -38,7 +40,7 @@ data class GetRecipesResponse(
         @Json(name = "weightWatcherSmartPoints")
         val weightWatcherSmartPoints: Int = 0,
         @Json(name = "gaps")
-        val gaps: String = "",
+        val gaps: String? = null,
         @Json(name = "preparationMinutes")
         val preparationMinutes: Int = 0,
         @Json(name = "cookingMinutes")
@@ -58,19 +60,19 @@ data class GetRecipesResponse(
         @Json(name = "id")
         val id: Int = 0,
         @Json(name = "title")
-        val title: String = "",
+        val title: String? = null,
         @Json(name = "readyInMinutes")
         val readyInMinutes: Int = 0,
         @Json(name = "servings")
         val servings: Int = 0,
         @Json(name = "sourceUrl")
-        val sourceUrl: String = "",
+        val sourceUrl: String? = null,
         @Json(name = "image")
-        val image: String = "",
+        val image: String? = null,
         @Json(name = "imageType")
-        val imageType: String = "",
+        val imageType: String? = null,
         @Json(name = "summary")
-        val summary: String = "",
+        val summary: String? = null,
         @Json(name = "cuisines")
         val cuisines: List<String> = listOf(),
         @Json(name = "dishTypes")
@@ -99,23 +101,23 @@ data class GetRecipesResponse(
             @Json(name = "id")
             val id: Int = 0,
             @Json(name = "aisle")
-            val aisle: String = "",
+            val aisle: String? = null,
             @Json(name = "image")
             val image: String? = null,
             @Json(name = "consistency")
-            val consistency: String = "",
+            val consistency: String? = null,
             @Json(name = "name")
-            val name: String = "",
+            val name: String? = null,
             @Json(name = "nameClean")
             val nameClean: String? = null,
             @Json(name = "original")
-            val original: String = "",
+            val original: String? = null,
             @Json(name = "originalName")
-            val originalName: String = "",
+            val originalName: String? = null,
             @Json(name = "amount")
             val amount: Double = 0.0,
             @Json(name = "unit")
-            val unit: String = "",
+            val unit: String? = null,
             @Json(name = "meta")
             val meta: List<String> = listOf(),
             @Json(name = "measures")
@@ -133,9 +135,9 @@ data class GetRecipesResponse(
                     @Json(name = "amount")
                     val amount: Double = 0.0,
                     @Json(name = "unitShort")
-                    val unitShort: String = "",
+                    val unitShort: String? = null,
                     @Json(name = "unitLong")
-                    val unitLong: String = ""
+                    val unitLong: String? = null
                 )
 
                 @JsonClass(generateAdapter = true)
@@ -143,9 +145,9 @@ data class GetRecipesResponse(
                     @Json(name = "amount")
                     val amount: Double = 0.0,
                     @Json(name = "unitShort")
-                    val unitShort: String = "",
+                    val unitShort: String? = null,
                     @Json(name = "unitLong")
-                    val unitLong: String = ""
+                    val unitLong: String? = null
                 )
             }
         }
@@ -153,7 +155,7 @@ data class GetRecipesResponse(
         @JsonClass(generateAdapter = true)
         data class AnalyzedInstruction(
             @Json(name = "name")
-            val name: String = "",
+            val name: String? = null,
             @Json(name = "steps")
             val steps: List<Step> = listOf()
         ) {
@@ -232,4 +234,49 @@ data class GetRecipesResponse(
             val extendedName: String? = ""
         )
     }
+}
+
+fun GetRecipesResponse.asDataBaseModel(itemName:String):Array<DatabaseRecipe>{
+    var listToProcess: ArrayList<DatabaseRecipe> = arrayListOf()
+
+    var array = results.map{
+        DatabaseRecipe(
+            itemName,
+            it.title!!,
+            it.summary!!,
+            it.aggregateLikes,
+            it.vegan,
+            it.preparationMinutes,
+            it.sourceName!!,
+            it.image!!
+        )
+    }
+
+    return array.toTypedArray()
+
+//    for(item in nearEarthObjects.entries.iterator()){
+//        val array = nearEarthObjects[item.key]!!.map{
+//            DatabaseAsteroid(
+//                id = it.id,
+//                name = it.name,
+//                date = item.key,
+//                absolute_magnitude = it.absoluteMagnitudeH,
+//                close_approach_date = it.closeApproachData.get(0).closeApproachDate,
+//                relative_velocity = it.closeApproachData.get(0).relativeVelocity.kilometersPerSecond,
+//                estimated_diameter = it.estimatedDiameter.kilometers.estimatedDiameterMax,
+//                distance_from_earth = it.closeApproachData.get(0).missDistance.astronomical,
+//                status = it.isPotentiallyHazardousAsteroid
+//            )
+//        }.toTypedArray()
+//
+//        array.map{
+//            listToProcess.add(it)
+//        }
+//    }
+//
+//    val returnData = listToProcess.map{
+//        it
+//    }.toTypedArray()
+//
+//    return returnData
 }
