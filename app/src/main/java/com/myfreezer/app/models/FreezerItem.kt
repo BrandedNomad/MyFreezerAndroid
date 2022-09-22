@@ -1,7 +1,6 @@
 package com.myfreezer.app.models
 
 import android.os.Parcelable
-import com.myfreezer.app.repository.local.DatabaseFreezerItem
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 

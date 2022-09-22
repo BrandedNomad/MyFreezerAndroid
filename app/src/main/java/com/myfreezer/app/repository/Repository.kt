@@ -6,14 +6,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.myfreezer.app.models.FreezerItem
-import com.myfreezer.app.repository.local.DatabaseFreezerItem
-import com.myfreezer.app.repository.local.FreezerItemDatabase
-import com.myfreezer.app.repository.local.asDomainModel
+import com.myfreezer.app.repository.local.MyFreezerDatabase
+
+import com.myfreezer.app.repository.local.entities.DatabaseFreezerItem
+import com.myfreezer.app.repository.local.entities.asDomainModel
+import com.myfreezer.app.repository.remote.responseclasses.GetRecipesResponse
+import com.myfreezer.app.repository.remote.services.Network
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import retrofit2.await
 
 
 /**
@@ -21,7 +25,7 @@ import kotlinx.coroutines.withContext
  * @descrition: contains the implementation for the Repository
  */
 
-class Repository(val database: FreezerItemDatabase) {
+class Repository(val database: MyFreezerDatabase) {
 
 
 
@@ -36,11 +40,6 @@ class Repository(val database: FreezerItemDatabase) {
 
 
 
-
-
-
-
-
     /**
      * @method addFreezerItem
      * @description: Inserts freezerItem into the database
@@ -48,7 +47,7 @@ class Repository(val database: FreezerItemDatabase) {
      */
     suspend fun addFreezerItem(item:FreezerItem){
         //convert item to databaseFreezerItem
-        val itemToInsert:DatabaseFreezerItem = DatabaseFreezerItem(item.name,item.quantity,item.unit,item.minimum,item.dateAddedString)
+        val itemToInsert: DatabaseFreezerItem = DatabaseFreezerItem(item.name,item.quantity,item.unit,item.minimum,item.dateAddedString)
         database.freezerDao.insert(itemToInsert)
 
 
@@ -88,6 +87,17 @@ class Repository(val database: FreezerItemDatabase) {
         return x
 
 
+    }
+
+    suspend fun getRecipes():GetRecipesResponse{
+        lateinit var response: GetRecipesResponse
+        try{
+            response = Network.recipesAPI.getRecipes("Chicken").await()
+            Log.e("Repo - getRecipes Success",response.toString())
+        }catch(exception:Exception){
+            Log.e("Repo - getRecipes failed", exception.toString())
+        }
+        return response
     }
 
 

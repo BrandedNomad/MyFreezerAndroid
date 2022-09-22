@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.internal.ContextUtils.getActivity
 import com.myfreezer.app.R
 import com.myfreezer.app.models.FreezerItem
-import com.myfreezer.app.repository.local.FreezerItemDatabase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

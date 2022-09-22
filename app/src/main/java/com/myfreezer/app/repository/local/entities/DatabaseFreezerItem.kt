@@ -1,4 +1,4 @@
-package com.myfreezer.app.repository.local
+package com.myfreezer.app.repository.local.entities
 
 import android.util.Log
 import androidx.lifecycle.LiveData

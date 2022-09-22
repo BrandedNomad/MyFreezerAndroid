@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.myfreezer.app.models.FreezerItem
 import com.myfreezer.app.repository.Repository
-import com.myfreezer.app.repository.local.FreezerItemDatabase
+import com.myfreezer.app.repository.local.MyFreezerDatabase
 import com.myfreezer.app.shared.utils.Utils
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
@@ -29,7 +29,7 @@ class FreezerViewModel(application: Application): ViewModel() {
     }
 
     //Get Repository
-    private val database = FreezerItemDatabase.getDatabase(application)
+    private val database = MyFreezerDatabase.getDatabase(application)
     private val repository = Repository(database)
 
 
