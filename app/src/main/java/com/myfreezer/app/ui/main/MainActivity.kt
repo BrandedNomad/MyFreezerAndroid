@@ -1,26 +1,23 @@
 package com.myfreezer.app.ui.main
 
-import android.content.pm.ApplicationInfo
-import android.content.pm.PackageManager
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.myfreezer.app.R
-import com.microsoft.appcenter.AppCenter;
-import com.microsoft.appcenter.analytics.Analytics;
-import com.microsoft.appcenter.crashes.Crashes;
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
 import com.myfreezer.app.BuildConfig
+import com.myfreezer.app.R
+import com.myfreezer.app.models.RecipeItem
 import com.myfreezer.app.ui.favourites.FavouriteFragment
 import com.myfreezer.app.ui.freezer.FreezerFragment
-import com.myfreezer.app.ui.freezer.FreezerFragmentDirections
 import com.myfreezer.app.ui.recipes.RecipesFragment
+import com.myfreezer.app.ui.recipes.recipedetail.RecipeDetailFragment
 import com.myfreezer.app.ui.shopping.ShoppingFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),Communicator {
 
     private val freezerFragment = FreezerFragment()
     private val recipesFragment = RecipesFragment()
@@ -30,6 +27,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+
+
+//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+//        val navController = navHostFragment.navController
 
         //Instantiated here otherwise it produces an error
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
@@ -73,6 +75,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavBar.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.bottomNavItemFreezer -> {
+                    //supportFragmentManager.getFragment()
 
                     replaceFragment(freezerFragment)
                     setTitle("My Freezer")
@@ -117,6 +120,27 @@ class MainActivity : AppCompatActivity() {
             transaction.replace(R.id.navHostFragment, fragment)
             transaction.commit()
         }
+    }
+
+    override fun transferData(data: RecipeItem) {
+        var bundle = Bundle()
+        bundle.putParcelable("RecipeItem",data)
+        var recipeDetailFragment = RecipeDetailFragment()
+        recipeDetailFragment.arguments = bundle
+
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+
+        replaceFragment(recipeDetailFragment)
+    }
+
+
+
+    override fun onSupportNavigateUp(): Boolean{
+        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+        replaceFragment(RecipesFragment())
+        setTitle("Recipe Suggestions")
+        return true
     }
 
 

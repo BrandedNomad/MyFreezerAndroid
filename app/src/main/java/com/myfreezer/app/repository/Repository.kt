@@ -101,12 +101,14 @@ class Repository(val database: MyFreezerDatabase) {
     }
 
     suspend fun getRecipes(title:String){
+
         lateinit var response: GetRecipesResponse
         var tryAgain = true
+
         while(tryAgain){
             try{
                 response = Network.recipesAPI.getRecipes(title).await()
-                Log.e("Repo - getRecipes Success",response.results.size.toString())
+                Log.e("Repo - getRecipes Success",response.results.toString())
                 tryAgain = false
             }catch(exception:Exception){
                 Log.e("Repo - getRecipes failed", exception.toString())

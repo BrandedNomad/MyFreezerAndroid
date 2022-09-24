@@ -26,7 +26,7 @@ import com.myfreezer.app.shared.utils.Utils
 import com.myfreezer.app.ui.freezer.FreezerAdapter
 import org.w3c.dom.Text
 
-class RecipesAdapter(onClickListener:RecipesAdapter.OnClickListener): ListAdapter<RecipeItem,RecipesAdapter.RecipesViewHolder>(RecipesDiffCallback()) {
+class RecipesAdapter(val onClickListener:RecipesAdapter.OnClickListener): ListAdapter<RecipeItem,RecipesAdapter.RecipesViewHolder>(RecipesDiffCallback()) {
 
     class RecipesViewHolder(viewItem: View): RecyclerView.ViewHolder(viewItem){
 
@@ -107,6 +107,10 @@ class RecipesAdapter(onClickListener:RecipesAdapter.OnClickListener): ListAdapte
     override fun onBindViewHolder(holder: RecipesViewHolder, position: Int) {
         var item = getItem(position)
         holder.bind(holder,item)
+
+        holder.itemView.setOnClickListener{
+            onClickListener.onClick(item)
+        }
     }
 
     /**

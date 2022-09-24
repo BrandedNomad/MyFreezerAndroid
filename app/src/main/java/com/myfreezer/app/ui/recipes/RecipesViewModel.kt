@@ -36,6 +36,10 @@ class RecipesViewModel(application: Application): ViewModel(){
 
     var recipeList = repository.recipeList
 
+    private var _navigationTrigger = MutableLiveData<RecipeItem>()
+    val navigationTrigger: LiveData<RecipeItem>
+        get() = _navigationTrigger
+
 
     //Initialization
     init {
@@ -46,6 +50,14 @@ class RecipesViewModel(application: Application): ViewModel(){
     }
 
     //Methods
+
+    fun navigate(recipe:RecipeItem){
+        _navigationTrigger.value = recipe
+    }
+
+    fun doneNavigating(){
+        _navigationTrigger.value = null
+    }
 
 
 

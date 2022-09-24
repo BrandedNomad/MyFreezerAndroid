@@ -2,6 +2,7 @@ package com.myfreezer.app.repository.remote.responseclasses
 
 import com.myfreezer.app.models.RecipeItem
 import com.myfreezer.app.repository.local.entities.DatabaseRecipe
+import com.myfreezer.app.shared.utils.Utils
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Json
 
@@ -243,9 +244,14 @@ fun GetRecipesResponse.asDataBaseModel(itemName:String):Array<DatabaseRecipe>{
         DatabaseRecipe(
             itemName,
             it.title!!,
-            it.summary!!,
+            Utils.htmlToText(it.summary!!),
             it.aggregateLikes,
+            it.glutenFree,
+            it.dairyFree,
             it.vegan,
+            it.veryHealthy,
+            it.vegetarian,
+            it.lowFodmap,
             it.preparationMinutes,
             it.sourceName!!,
             it.image!!

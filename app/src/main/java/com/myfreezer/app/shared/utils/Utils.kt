@@ -1,5 +1,6 @@
 package com.myfreezer.app.shared.utils
 
+import org.jsoup.Jsoup
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,6 +24,10 @@ class Utils {
             var completeShortDescription = shortDescription.plus("...")
             return completeShortDescription
 
+        }
+
+        fun htmlToText(html:String):String {
+                return Jsoup.parse(html).text()
         }
     }
 
