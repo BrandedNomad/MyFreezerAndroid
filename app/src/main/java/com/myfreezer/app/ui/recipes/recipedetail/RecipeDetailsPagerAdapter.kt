@@ -11,13 +11,26 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.myfreezer.app.models.RecipeItem
 import com.myfreezer.app.ui.freezer.FreezerFragment
 
+/**
+ * @class RecipeDetailsPagerAdapter
+ * @description The viewPager adapter for the viewPager. Manages the fragments in the viewPager.
+ * @param {FragmentManager} fragmentManager - The activity fragment manager
+ * @param {LifeCycle} lifecycle - The lifecycle of the provider
+ * @param {RecipeItem} recipeItem - The recipeItem to display
+ */
 class RecipeDetailsPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle, recipeItem:RecipeItem): FragmentStateAdapter(fragmentManager,lifecycle) {
 
+    //Create bundle
     var bundle = Bundle()
+
+    //Get fragments for viewPager
     var recipeOverviewFragment = RecipeOverviewFragment()
     var recipeIngredientsFragment = RecipeIngredientsFragment()
     var recipeInstructionsFragment = RecipeInstructionsFragment()
+
+    //initialize variables
     init{
+        //pass the recipeItem to the fragments of the viewPager
         bundle.putParcelable("RecipeItem",recipeItem)
         recipeOverviewFragment.arguments = bundle
         recipeIngredientsFragment.arguments = bundle
@@ -25,16 +38,22 @@ class RecipeDetailsPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lif
     }
 
 
-
-
+    /**
+     * @method returnItemCount
+     * @description returns the number of views in the view pager
+     * @return {Int} integer
+     */
     override fun getItemCount(): Int {
         return 3
-
     }
 
 
+    /**
+     * @method createFragment
+     * @description creates and displays the appropriate fragment based on selected tab
+     * @param {Int} position - the tab position
+     */
     override fun createFragment(position: Int): Fragment {
-        Log.e("Inside pageView Adapter",bundle.getParcelable<RecipeItem>("RecipeItem").toString())
 
         return when(position){
             0-> recipeOverviewFragment
@@ -42,9 +61,6 @@ class RecipeDetailsPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lif
             2-> recipeInstructionsFragment
             else -> recipeOverviewFragment
         }
-
-
-
 
     }
 }

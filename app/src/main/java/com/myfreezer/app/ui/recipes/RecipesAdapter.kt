@@ -26,8 +26,18 @@ import com.myfreezer.app.shared.utils.Utils
 import com.myfreezer.app.ui.freezer.FreezerAdapter
 import org.w3c.dom.Text
 
+/**
+ * @class RecipesAdapter
+ * @description: The adapter for the recipe item recycler view
+ * @param {OnClickListener} onClickListener - The clickListener that will be attached to every instance of the viewHolder
+ */
 class RecipesAdapter(val onClickListener:RecipesAdapter.OnClickListener): ListAdapter<RecipeItem,RecipesAdapter.RecipesViewHolder>(RecipesDiffCallback()) {
 
+    /**
+     * @class RecipesViewHolder
+     * @description: The view holder for recipe_list_item
+     * @param {View} viewItem - The layout or view of the list item
+     */
     class RecipesViewHolder(viewItem: View): RecyclerView.ViewHolder(viewItem){
 
         var textViewRecipeTitle = viewItem.findViewById<TextView>(R.id.recipe_card_title)
@@ -40,9 +50,9 @@ class RecipesAdapter(val onClickListener:RecipesAdapter.OnClickListener): ListAd
 
         /**
          * @method bind
-         * @description binds freezerItem content to individual freezer_list_item
-         * @param {FreezerViewHolder} holder: The view holder that holds the freezer_list_item
-         * @param {FreezerItem} item: The content to be bound
+         * @description binds RecipesItem content to individual recipe_list_item
+         * @param {RecipesViewHolder} holder: The view holder that holds the recipe_list_item
+         * @param {RecipeItem} item: The content to be bound
          */
         fun bind(holder: RecipesAdapter.RecipesViewHolder, item:RecipeItem){
 
@@ -55,7 +65,7 @@ class RecipesAdapter(val onClickListener:RecipesAdapter.OnClickListener): ListAd
             var sourceString = spanString
 
 
-            //Buffer image
+            //Buffer and load image
             var requestOptions = RequestOptions()
                 .centerCrop()
                 .placeholder(R.drawable.fake_recipe)
@@ -77,15 +87,15 @@ class RecipesAdapter(val onClickListener:RecipesAdapter.OnClickListener): ListAd
             }
         }
 
-
         companion object{
             /**
              * @method from
-             * @description: Inflates the freezer_list_item view
+             * @description: Inflates the recipe_list_item view
              * @param {ViewGroup} parent: The parent context
-             * @return {Object} FreezerViewHolder
+             * @return {RecipesViewHolder} recipeViewHolder
              */
             fun from(parent: ViewGroup): RecipesAdapter.RecipesViewHolder {
+                //inflate view
                 val view:View = LayoutInflater.from(parent.context)
                     .inflate(
                         R.layout.recipe_list_item,
@@ -93,22 +103,36 @@ class RecipesAdapter(val onClickListener:RecipesAdapter.OnClickListener): ListAd
                         false
                     )
 
-                return RecipesAdapter.RecipesViewHolder(view)
-
+                return RecipesViewHolder(view)
             }
         }
-
     }
 
+    /**
+     * @method onCreateViewHolder
+     * @description lifecycle method that inflates the view on create.
+     * @param {ViewGroup} parent: The parent view for context
+     * @param {Int} viewType: The type of view as an integer
+     * @return RecipesViewHolder - inflated view
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipesViewHolder {
         return RecipesViewHolder.from(parent)
     }
 
+    /**
+     * @method onBindViewHolder
+     * @description lifecycle method that handles the binding of inflated view
+     * @param {RecipesViewHolder} holder: The inflated view
+     * @param {Int} position: the item position in list
+     */
     override fun onBindViewHolder(holder: RecipesViewHolder, position: Int) {
         var item = getItem(position)
         holder.bind(holder,item)
 
+        //Set onClickListener on each recipe
         holder.itemView.setOnClickListener{
+
+            //When clicked navigates to recipe detail view
             onClickListener.onClick(item)
         }
     }
@@ -124,11 +148,31 @@ class RecipesAdapter(val onClickListener:RecipesAdapter.OnClickListener): ListAd
 
 }
 
+/**
+ * @class RecipesDiffCallBack
+ * @description Provides an implementation of DiffUtill which performs diffing
+ * for individual list items, this ensures that individual list items are updated when they change
+ * and that only those that change are updated.
+ */
 class RecipesDiffCallback():DiffUtil.ItemCallback<RecipeItem>(){
+    /**
+     * @method: areItemsTheSame
+     * @description compares items to see if they are the same type
+     * @param {FreezerItem} oldItem
+     * @param {FreezerItem} newItem
+     * @return {Boolean} true if the items are the same type
+     */
     override fun areItemsTheSame(oldItem: RecipeItem, newItem: RecipeItem): Boolean {
         return oldItem == newItem
     }
 
+    /**
+     * @method: areContentsTheSame
+     * @description compares contents of items to see if they are the same.
+     * @param {FreezerItem} oldItem
+     * @param {FreezerItem} newItem
+     * @return {Boolean} true if the items are the same
+     */
     override fun areContentsTheSame(oldItem: RecipeItem, newItem: RecipeItem): Boolean {
         return oldItem.title == newItem.title
     }

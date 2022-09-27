@@ -17,14 +17,27 @@ import com.myfreezer.app.databinding.FragmentRecipeInstructionsBinding
 import com.myfreezer.app.databinding.FragmentRecipeOverviewBinding
 import com.myfreezer.app.models.RecipeItem
 
+/**
+ * @class RecipeOverviewFragment
+ * @description: contains the implementation of RecipeOverviewFragment which provides the overview or summary of a recipe
+ */
 class RecipeOverviewFragment: Fragment() {
 
+    /**
+     * @method onCreateView
+     * @description Inflates and displays the fragment
+     * @param {LayoutInflater} inflator
+     * @param {ViewGroup?} container
+     * @param {Bundle?} savedInstanceState
+     * @return {FragmentRecipeOverviewBinding} binding.root
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
+        //Create databinding
         val binding: FragmentRecipeOverviewBinding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_recipe_overview,
@@ -32,21 +45,21 @@ class RecipeOverviewFragment: Fragment() {
             false
         )
 
-        //Initialize variables
+        //Get Recipe Item
         var recipeItem:RecipeItem? = arguments?.getParcelable("RecipeItem")
 
-        //GET LAYOUTS
-
-
+        //Bind Recipe data to view
+        //Download and buffer image
         var requestOptions = RequestOptions()
             .centerCrop()
             .placeholder(R.drawable.fake_recipe)
             .error(R.drawable.fake_recipe)
-
         Glide.with(binding.recipeOverviewImage.getContext()).load(recipeItem!!.image).apply(requestOptions).into(binding.recipeOverviewImage)
 
+        //set title
         binding.recipeOverviewTitle.text = recipeItem!!.title
 
+        //The following conditional statements sets the icons and text colors to green if the preference is met
         if(recipeItem.glutenFree){
             binding.preferenceGlutenIcon.setImageDrawable(AppCompatResources.getDrawable(requireContext(),R.drawable.check))
             binding.preferenceGlutenIcon.setColorFilter(binding.preferenceGlutenIcon.context.getColor(R.color.icon_green))
@@ -83,9 +96,10 @@ class RecipeOverviewFragment: Fragment() {
             binding.preferenceFodmapText.setTextColor(binding.preferenceFodmapText.context.getColor(R.color.icon_green))
         }
 
+        //Sets the description or summary which describes the recipe
         binding.recipeOverviewDescription.text = recipeItem!!.description
 
-
+        //returns the view
         return binding.root
     }
 }

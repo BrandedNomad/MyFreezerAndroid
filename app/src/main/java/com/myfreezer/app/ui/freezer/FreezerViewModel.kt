@@ -1,15 +1,12 @@
 package com.myfreezer.app.ui.freezer
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.myfreezer.app.models.FreezerItem
 import com.myfreezer.app.repository.Repository
-import com.myfreezer.app.repository.local.MyFreezerDatabase
-import com.myfreezer.app.shared.utils.Utils
+import com.myfreezer.app.repository.local.database.MyFreezerDatabase
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,6 +14,7 @@ import kotlinx.coroutines.flow.flow
 /**
  * @class FreezerViewModel
  * @Description Contains the implementation for the FreezerViewModel
+ * @param {Application} application - The application
  */
 class FreezerViewModel(application: Application): ViewModel() {
 
@@ -33,37 +31,26 @@ class FreezerViewModel(application: Application): ViewModel() {
     private val repository = Repository(database)
 
 
-    //TODO: Create live data
     //populate the freezer item list with the items stored in database
     var freezerItemList = repository.freezerItemList
 
-
-
+    //LiveData used to set the list sorting flag
     private var _sortListBy = MutableLiveData<String>()
     val sortListBy:LiveData<String>
         get() = _sortListBy
 
-
-
-
+    //Initialize variables
     init{
-        //TODO
         isContextMenuOpen = false
         _sortListBy.value = "alpha"
-
 
     }
 
 
-
-
-
-
-
-
     /**
      * @method addItem
-     * @description: Adds a new item to the list by saving it to the database
+     * @description: Adds a new item to the list by saving it to the database. GlobalScope is used instead of viewModelScope
+     * so that the coroutine is not canceled when navigating away from the freezerView.
      * @param {FreezerItem} item: The new item to be saved
      */
     fun addItem(item: FreezerItem) = GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
@@ -73,7 +60,8 @@ class FreezerViewModel(application: Application): ViewModel() {
 
     /**
      * @method deleteFreezerItem
-     * @description: Deletes freezer item
+     * @description: Deletes freezer item. GlobalScope is used instead of viewModelScope
+     * so that the coroutine is not canceled when navigating away from the freezerView.
      * @param {FreezerItem} item: The item to be deleted
      */
     fun deleteFreezerItem(item:FreezerItem) = GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler){
@@ -82,7 +70,8 @@ class FreezerViewModel(application: Application): ViewModel() {
 
     /**
      * @method updateFreezerItem
-     * @description: updates existing freezer item
+     * @description: updates existing freezer item. GlobalScope is used instead of viewModelScope
+     * so that the coroutine is not canceled when navigating away from the freezerView.
      * @param {String} previousId: the id of the freezerItem before it was edited
      * @param {FreezerItem} item: The item to be deleted
      */
@@ -158,37 +147,45 @@ class FreezerViewModel(application: Application): ViewModel() {
         isContextMenuOpen = false
     }
 
-    //sorting functions
+    /**
+     * @method sortList
+     * @description When the user selects a filter option, it sorts the list of FreezerItems retrieved from the database in accordance with
+     * the user's preference
+     * @return {List<FreezerItem>} the sorted list
+     */
     fun sortList():List<FreezerItem>?{
 
+        //The list to be sorted
         var sortedList = freezerItemList.value
 
+
         if(sortListBy.value == "lowest"){
+            //Sort from lowest to highest quantity
             freezerItemList.value?.let{
                 sortedList = it.sortedBy{it.quantity}
             }
         }else if(sortListBy.value == "highest"){
+            //Sort from highest to lowest
             freezerItemList.value?.let{
                 sortedList = it.sortedByDescending{it.quantity}
             }
-
         }else if(sortListBy.value == "alpha"){
+            //Sort in alphabetical order
             freezerItemList.value?.let{
                 sortedList = it.sortedBy{it.name}
             }
         }else if(sortListBy.value =="oldest"){
-            //do nothing
+            //Sort from oldest to latest
             freezerItemList.value?.let{
-
                 sortedList = it.sortedBy{ it.dateAdded }
             }
-
         }else if(sortListBy.value == "latest"){
-            //do nothing
+            //Sort from latest to oldest
             freezerItemList.value?.let{
                 sortedList = it.sortedByDescending{it.dateAdded}
             }
         }else {
+            //return the list as is (alphabetically sorted)
             freezerItemList.value?.let{
                 sortedList = it
             }
@@ -196,18 +193,21 @@ class FreezerViewModel(application: Application): ViewModel() {
         return sortedList
     }
 
+    /**
+     * @method setSortListBy
+     * @description sets the value to filter option selected by user
+     */
     fun setSortListBy(sortBy:String){
         _sortListBy.value = sortBy
 
     }
 
 
-
-    //TODO:Setup nav triggers
-
-
-
-    //cleans up after the viewModel has been destroyed
+    /**
+     * @method onCleared()
+     * @description lifeCycle method that performs cleanup tasks
+     * @
+     */
     override fun onCleared() {
         super.onCleared()
     }

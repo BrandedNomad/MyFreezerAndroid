@@ -1,7 +1,6 @@
 package com.myfreezer.app.ui.recipes
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,21 +8,30 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.myfreezer.app.R
 import com.myfreezer.app.databinding.FragmentRecipesBinding
 import com.myfreezer.app.ui.main.Communicator
-import com.myfreezer.app.ui.recipes.recipedetail.RecipeDetailFragment
 
 
 
+/**
+ * @class RecipesFragment
+ * @description Contains the implementation for the RecipesFragment
+ */
 class RecipesFragment: Fragment() {
 
     //Declare Variables
     lateinit var viewModel:RecipesViewModel
     lateinit var adapter:RecipesAdapter
 
+    /**
+     * @method onCreateView
+     * @description Inflates and displays the fragment
+     * @param {LayoutInflater} inflator
+     * @param {ViewGroup?} container
+     * @param {Bundle?} savedInstanceState
+     * @return {FragmentRecipesBinding} binding.root
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,73 +47,51 @@ class RecipesFragment: Fragment() {
 
         binding.lifecycleOwner = this
 
-        //INITIALIZE
 
-
-
-        //LAYOUTS
-
-        //VIEWMODEL
-
+        //Setup viewModel
         val application = requireNotNull(this.activity).application
         val viewModelFactory = RecipesViewModelFactory(application)
         viewModel = ViewModelProvider(this,viewModelFactory)[RecipesViewModel::class.java]
 
-        //ADAPTER
+        //setup adapter
         adapter = RecipesAdapter(RecipesAdapter.OnClickListener{
-            //Do nothing
-            Log.e("Adapter", "inside")
+            //Navigate to recipe detail view
             viewModel.navigate(it)
-
         })
 
         binding.recipesRecyclerView.adapter = adapter
 
-        //adapter.submitList(mockDataList)
-
-        //OBSERVERS
+        //Set Observers
+        //Watch for recipes
         viewModel.recipeList.observe(viewLifecycleOwner,Observer{
 
-            if(it.size > 0){
+            if(it.size > 0){ //If the list contains recipes
+                //Remove the "no recipes" background message and display the list of recipes
                 binding.recipeEmptyMessage.setVisibility(View.GONE)
                 adapter.submitList(it)
             }else{
+                //Display background "no recipes" message
                 binding.recipeEmptyMessage.setVisibility(View.VISIBLE)
             }
 
         })
 
+        //When the navigation trigger changes
         viewModel.navigationTrigger.observe(viewLifecycleOwner,Observer{
+            //recipe has been selected
             if(it != null){
-                Log.e("NavigationTrigger","inside")
-                var fragment = RecipeDetailFragment()
-                var communicator = requireActivity() as Communicator
+                //Get communicator class
+                val communicator = requireActivity() as Communicator
+                //reset navigation trigger before navigating
                 viewModel.doneNavigating()
+                //navigate to details fragment
                 communicator.transferData(it)
-
             }
-
         })
 
-
-
+        //return view
         return binding.root
     }
-
-    /**
-     * @method replaceFragment
-     * @description swaps fragments within the NavHost
-     * @param {Fragment} the fragment to change to
-     */
-    fun replaceFragment(fragment: Fragment){
-        if(fragment !=null){
-            parentFragmentManager
-                .beginTransaction().replace(R.id.navHostFragment,fragment).commit()
-            activity?.setTitle("Recipe")
-
-        }
-    }
-
 
 }
 

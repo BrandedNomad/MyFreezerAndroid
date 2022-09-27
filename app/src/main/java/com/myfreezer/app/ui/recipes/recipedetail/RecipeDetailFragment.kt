@@ -15,21 +15,34 @@ import com.myfreezer.app.R
 import com.myfreezer.app.databinding.FragmentRecipeDetailBinding
 import com.myfreezer.app.models.RecipeItem
 
-
+/**
+ * @class RecipeDetailFragment
+ * @description Contains the implementation of the RecipeDetailFragment
+ */
 class RecipeDetailFragment: Fragment() {
 
+    //Declare variables
     lateinit var tabLayout:TabLayout.TabView
     lateinit var tabOverview: TabItem
     lateinit var tabIngredients: TabItem
     lateinit var tabInstructions: TabItem
     lateinit var viewPager: ViewPager2
 
+    /**
+     * @method onCreateView
+     * @description Inflates and displays the fragment
+     * @param {LayoutInflater} inflator
+     * @param {ViewGroup?} container
+     * @param {Bundle?} savedInstanceState
+     * @return {FragmentRecipeDetailBinding} binding.root
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
+        //Create Binding
         val binding: FragmentRecipeDetailBinding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_recipe_detail,
@@ -37,17 +50,19 @@ class RecipeDetailFragment: Fragment() {
             false
         )
 
-        //Initialize
-        var recipeItem: RecipeItem = arguments?.getParcelable("RecipeItem")!!
-        Log.e("Detail -RecipeItem",recipeItem.toString())
-        var activity = requireActivity()
-        activity!!.setTitle("Recipe")
+        //Get RecipeItem
+        val recipeItem: RecipeItem = arguments?.getParcelable("RecipeItem")!!
 
-        //Get Layouts
-        val adapter = RecipeDetailsPagerAdapter(activity?.supportFragmentManager!!,lifecycle,recipeItem)
 
+        //set title in action bar
+        val activity = requireActivity()
+        activity.setTitle("Recipe")
+
+        //Create and set adapter
+        val adapter = RecipeDetailsPagerAdapter(activity.supportFragmentManager,lifecycle,recipeItem)
         binding.recipeViewPager.adapter = adapter
 
+        //Setup Tabs
         TabLayoutMediator(binding.recipeTabLayout,binding.recipeViewPager){tab,position->
             when(position){
                 0-> tab.text = "OVERVIEW"
@@ -60,6 +75,7 @@ class RecipeDetailFragment: Fragment() {
         }.attach()
 
 
+        //return view
         return binding.root
 
     }

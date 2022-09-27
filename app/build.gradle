@@ -29,6 +29,7 @@ android {
 
     buildTypes.each{
         it.buildConfigField("String", "APP_CENTER_API_KEY", "\"$System.env.APP_CENTER_API_KEY\"")
+        it.buildConfigField("String", "SPOON_API_KEY", "\"$System.env.SPOON_API_KEY\"")
     }
 
     buildFeatures{

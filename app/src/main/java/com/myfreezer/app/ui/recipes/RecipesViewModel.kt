@@ -1,26 +1,20 @@
 package com.myfreezer.app.ui.recipes
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.myfreezer.app.models.RecipeItem
 import com.myfreezer.app.repository.Repository
-import com.myfreezer.app.repository.local.MyFreezerDatabase
-import com.myfreezer.app.repository.remote.responseclasses.GetRecipesResponse
+import com.myfreezer.app.repository.local.database.MyFreezerDatabase
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
 
+/**
+ * @class RecipesViewModel
+ * @description Contains the implementation for the RecipesViewModel
+ * @param {Application} application - The Application
+ */
 class RecipesViewModel(application: Application): ViewModel(){
-    //DRED-MC
-
     //Declare variables
 
     //Setup repository
@@ -34,8 +28,10 @@ class RecipesViewModel(application: Application): ViewModel(){
 
     //Setup Data Flows
 
+    //The list of reicpes to display
     var recipeList = repository.recipeList
 
+    //Navigation trigger used to navigate to specific recipe
     private var _navigationTrigger = MutableLiveData<RecipeItem>()
     val navigationTrigger: LiveData<RecipeItem>
         get() = _navigationTrigger
@@ -51,18 +47,30 @@ class RecipesViewModel(application: Application): ViewModel(){
 
     //Methods
 
+    /**
+     * @method navigate
+     * @description sets navigation trigger with the value of the recipe selected. This triggers an observer
+     * in the fragment which then handles the navigation
+     * @param {RecipeItem} recipe - the selected recipe
+     */
     fun navigate(recipe:RecipeItem){
         _navigationTrigger.value = recipe
     }
 
+
+    /**
+     * @method doneNavigating
+     * @description sets navigation trigger to null after navigation is complete
+     */
     fun doneNavigating(){
         _navigationTrigger.value = null
     }
 
-
-
-
-
-
-    //Cleanup
+    /**
+     * @method onCleared()
+     * @description lifecycle method that handles cleanup of tasks
+     */
+    override fun onCleared() {
+        super.onCleared()
+    }
 }
