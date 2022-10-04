@@ -28,6 +28,7 @@
     <color name="icon_red">#F44336</color>
     <color name="icon_green">#00C853</color>
     <color name="icon_yellow">#EEFE3A</color>
+    <color name="icon_orange">#FF8F00</color>
     <color name="icon_white">#EEFE3A</color>
     <color name="divider">#A3A0A0</color>
     <color name="snack_bar">#202020</color>

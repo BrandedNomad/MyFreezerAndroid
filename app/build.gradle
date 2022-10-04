@@ -29,6 +29,7 @@ android {
 
     buildTypes.each{
         it.buildConfigField("String", "APP_CENTER_API_KEY", "\"$System.env.APP_CENTER_API_KEY\"")
+        it.buildConfigField("String", "SPOON_API_KEY", "\"$System.env.SPOON_API_KEY\"")
     }
 
     buildFeatures{
@@ -106,6 +107,9 @@ dependencies {
     //For buffering, downloading and displaying images
     implementation "com.github.bumptech.glide:glide:4.13.1"
     implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    //For parsing Strings
+    implementation 'org.jsoup:jsoup:1.15.3'
 
     // WorkManager
     //implementation "android.arch.work:work-runtime-ktx:1.0.1"

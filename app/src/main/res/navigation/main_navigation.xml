@@ -2,34 +2,73 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/freezerFragment">
+    app:startDestination="@id/freezerFragmentDestination">
 
     <fragment
-        android:id="@+id/freezerFragment"
+        android:id="@+id/freezerFragmentDestination"
         android:name="com.myfreezer.app.ui.freezer.FreezerFragment"
         android:label="FreezerFragment" >
         <action
-            android:id="@+id/action_freezerFragment_to_favouriteFragment"
-            app:destination="@id/favouriteFragment"
-            app:popUpTo="@id/freezerFragment" />
+            android:id="@+id/action_freezerFragmentDestination_to_recipesFragmentDestination"
+            app:destination="@id/recipesFragmentDestination" />
         <action
-            android:id="@+id/action_freezerFragment_to_recipesFragment"
-            app:destination="@id/recipesFragment"
-            app:popUpTo="@id/freezerFragment" />
+            android:id="@+id/action_freezerFragmentDestination_to_favouriteFragmentDestination"
+            app:destination="@id/favouriteFragmentDestination" />
         <action
-            android:id="@+id/action_freezerFragment_to_shoppingFragment"
-            app:destination="@id/shoppingFragment" />
+            android:id="@+id/action_freezerFragmentDestination_to_shoppingFragmentDestination"
+            app:destination="@id/shoppingFragmentDestination" />
     </fragment>
     <fragment
-        android:id="@+id/recipesFragment"
+        android:id="@+id/recipesFragmentDestination"
         android:name="com.myfreezer.app.ui.recipes.RecipesFragment"
-        android:label="RecipesFragment" />
+        android:label="RecipesFragment" >
+        <action
+            android:id="@+id/action_recipesFragmentDestination_to_freezerFragmentDestination"
+            app:destination="@id/freezerFragmentDestination" />
+        <action
+            android:id="@+id/action_recipesFragmentDestination_to_shoppingFragmentDestination"
+            app:destination="@id/shoppingFragmentDestination" />
+        <action
+            android:id="@+id/action_recipesFragmentDestination_to_favouriteFragmentDestination"
+            app:destination="@id/favouriteFragmentDestination" />
+        <action
+            android:id="@+id/action_recipesFragmentDestination_to_recipeOverviewFragmentDestination"
+            app:destination="@id/recipeOverviewFragmentDestination" />
+    </fragment>
     <fragment
-        android:id="@+id/shoppingFragment"
+        android:id="@+id/shoppingFragmentDestination"
         android:name="com.myfreezer.app.ui.shopping.ShoppingFragment"
-        android:label="ShoppingFragment" />
+        android:label="ShoppingFragment" >
+        <action
+            android:id="@+id/action_shoppingFragmentDestination_to_freezerFragmentDestination"
+            app:destination="@id/freezerFragmentDestination" />
+        <action
+            android:id="@+id/action_shoppingFragmentDestination_to_recipesFragmentDestination"
+            app:destination="@id/recipesFragmentDestination" />
+        <action
+            android:id="@+id/action_shoppingFragmentDestination_to_favouriteFragmentDestination"
+            app:destination="@id/favouriteFragmentDestination" />
+    </fragment>
     <fragment
-        android:id="@+id/favouriteFragment"
+        android:id="@+id/favouriteFragmentDestination"
         android:name="com.myfreezer.app.ui.favourites.FavouriteFragment"
-        android:label="FavouriteFragment" />
+        android:label="FavouriteFragment" >
+        <action
+            android:id="@+id/action_favouriteFragmentDestination_to_freezerFragmentDestination"
+            app:destination="@id/freezerFragmentDestination" />
+        <action
+            android:id="@+id/action_favouriteFragmentDestination_to_recipesFragmentDestination"
+            app:destination="@id/recipesFragmentDestination" />
+        <action
+            android:id="@+id/action_favouriteFragmentDestination_to_shoppingFragmentDestination"
+            app:destination="@id/shoppingFragmentDestination" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeOverviewFragmentDestination"
+        android:name="com.myfreezer.app.ui.recipes.recipedetail.overview.RecipeOverviewFragment"
+        android:label="RecipeOverview" >
+        <action
+            android:id="@+id/action_recipeOverviewFragmentDestination_to_recipesFragmentDestination"
+            app:destination="@id/recipesFragmentDestination" />
+    </fragment>
 </navigation>

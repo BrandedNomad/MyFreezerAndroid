@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/instructionCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="10dp"
+        android:layout_marginRight="@dimen/space_s"
+        android:layout_marginLeft="@dimen/space_s"
+        android:layout_marginBottom="@dimen/space_s">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/space_default"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/instructionStep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_default"
+                style="@style/heading_italic"
+                android:textColor="@color/primary"
+                android:text="Step 1"/>
+            <TextView
+                android:id="@+id/instructionDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/body_1"
+                android:text="Mix 1 cup barbecue sauce, lime juice and water; pour over ribs in shallow dish.  Turn to evenly coat both sides of ribs.  Refrigerate 2 hours to marinate."/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.cardview.widget.CardView>
+</layout>
