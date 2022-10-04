@@ -11,11 +11,11 @@ import com.myfreezer.app.repository.local.entities.DatabaseRecipe
  * @param {DatabaseRecipe} databaseRecipe - the recipe entity
  * @param {DatabaseFreezerItem} databaseFreezerItem - the freezerItem entity
  */
-data class RecipeAndFreezerItem(
-    @Embedded val databaseRecipe: DatabaseRecipe,
+data class FreezerItemWithRecipe(
+    @Embedded val freezerItem: DatabaseFreezerItem,
     @Relation(
-        parentColumn = "FreezerItem_ID",
-        entityColumn = "name"
+        parentColumn = "name",
+        entityColumn = "freezerItem_ID"
     )
-    val databaseFreezerItem: DatabaseFreezerItem
+    val recipe: List<DatabaseRecipe>
 )

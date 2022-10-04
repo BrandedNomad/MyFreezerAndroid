@@ -4,10 +4,12 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.myfreezer.app.models.RecipeItem
 import com.myfreezer.app.repository.Repository
 import com.myfreezer.app.repository.local.database.MyFreezerDatabase
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.launch
 
 /**
  * @class RecipesViewModel
@@ -20,6 +22,7 @@ class RecipesViewModel(application: Application): ViewModel(){
     //Setup repository
     private val database = MyFreezerDatabase.getDatabase(application)
     private val repository = Repository(database)
+
 
     //Setup exceptions handling
     val coroutineExceptionHandler = CoroutineExceptionHandler{_, throwable ->
@@ -39,8 +42,9 @@ class RecipesViewModel(application: Application): ViewModel(){
 
     //Initialization
     init {
-
-
+        viewModelScope.launch {
+            repository.test()
+        }
 
 
     }

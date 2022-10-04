@@ -1,4 +1,4 @@
-package com.myfreezer.app.ui.recipes.recipedetail
+package com.myfreezer.app.ui.recipes.recipedetail.overview
 
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod

@@ -21,6 +21,7 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 data class RecipeItem(
+    var recipeId:Long,
     var title:String?,
     var description:String?,
     var likes:Int,

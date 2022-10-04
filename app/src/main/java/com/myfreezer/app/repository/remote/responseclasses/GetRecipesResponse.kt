@@ -1,6 +1,10 @@
 package com.myfreezer.app.repository.remote.responseclasses
 
+import com.myfreezer.app.models.IngredientItem
+import com.myfreezer.app.models.InstructionItem
 import com.myfreezer.app.models.RecipeItem
+import com.myfreezer.app.models.RecipeResponse
+import com.myfreezer.app.repository.local.entities.DatabaseIngredientItem
 import com.myfreezer.app.repository.local.entities.DatabaseRecipe
 import com.myfreezer.app.shared.utils.Utils
 import com.squareup.moshi.JsonClass
@@ -237,11 +241,29 @@ data class GetRecipesResponse(
     }
 }
 
-fun GetRecipesResponse.asDataBaseModel(itemName:String):Array<DatabaseRecipe>{
+fun GetRecipesResponse.asDomainModel(itemName:String):List<RecipeResponse>{
     var listToProcess: ArrayList<DatabaseRecipe> = arrayListOf()
+    var ingredientList = mutableListOf<IngredientItem>()
+    var listOfIngredientLists = mutableListOf<MutableList<IngredientItem>>()
 
-    var array = results.map{
-        DatabaseRecipe(
+    for(item in results.iterator()){
+        for(ingredient in item.extendedIngredients.iterator()){
+            var ingredientItem = IngredientItem(
+                ingredient.name,
+                ingredient.amount,
+                ingredient.unit,
+                ingredient.image,
+            )
+
+            ingredientList.add(ingredientItem)
+
+        }
+        listOfIngredientLists.add(ingredientList)
+        ingredientList.clear()
+    }
+
+    var recipe = results.map{
+        RecipeResponse(
             itemName,
             it.title!!,
             Utils.htmlToText(it.summary!!),
@@ -254,35 +276,46 @@ fun GetRecipesResponse.asDataBaseModel(itemName:String):Array<DatabaseRecipe>{
             it.lowFodmap,
             it.preparationMinutes,
             it.sourceName!!,
-            it.image!!
+            it.image!!,
+            it.extendedIngredients.map{
+                IngredientItem(
+                    it.name,
+                    it.amount,
+                    it.unit,
+                    it.image
+                )
+            },
+            it.analyzedInstructions[0].steps.map{
+                InstructionItem(
+                    it.number,
+                    it.step
+                )
+            }
+
         )
     }
 
-    return array.toTypedArray()
+    return recipe
 
-//    for(item in nearEarthObjects.entries.iterator()){
-//        val array = nearEarthObjects[item.key]!!.map{
-//            DatabaseAsteroid(
-//                id = it.id,
-//                name = it.name,
-//                date = item.key,
-//                absolute_magnitude = it.absoluteMagnitudeH,
-//                close_approach_date = it.closeApproachData.get(0).closeApproachDate,
-//                relative_velocity = it.closeApproachData.get(0).relativeVelocity.kilometersPerSecond,
-//                estimated_diameter = it.estimatedDiameter.kilometers.estimatedDiameterMax,
-//                distance_from_earth = it.closeApproachData.get(0).missDistance.astronomical,
-//                status = it.isPotentiallyHazardousAsteroid
-//            )
-//        }.toTypedArray()
-//
-//        array.map{
-//            listToProcess.add(it)
-//        }
+//    var array = results.map{
+//        DatabaseRecipe(
+//            itemName,
+//            it.title!!,
+//            Utils.htmlToText(it.summary!!),
+//            it.aggregateLikes,
+//            it.glutenFree,
+//            it.dairyFree,
+//            it.vegan,
+//            it.veryHealthy,
+//            it.vegetarian,
+//            it.lowFodmap,
+//            it.preparationMinutes,
+//            it.sourceName!!,
+//            it.image!!
+//        )
 //    }
 //
-//    val returnData = listToProcess.map{
-//        it
-//    }.toTypedArray()
 //
-//    return returnData
+//    return array.toTypedArray()
+
 }

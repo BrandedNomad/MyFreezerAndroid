@@ -65,7 +65,7 @@
     </fragment>
     <fragment
         android:id="@+id/recipeOverviewFragmentDestination"
-        android:name="com.myfreezer.app.ui.recipes.recipedetail.RecipeOverviewFragment"
+        android:name="com.myfreezer.app.ui.recipes.recipedetail.overview.RecipeOverviewFragment"
         android:label="RecipeOverview" >
         <action
             android:id="@+id/action_recipeOverviewFragmentDestination_to_recipesFragmentDestination"

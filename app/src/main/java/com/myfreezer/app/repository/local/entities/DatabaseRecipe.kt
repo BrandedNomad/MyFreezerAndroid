@@ -1,6 +1,7 @@
 package com.myfreezer.app.repository.local.entities
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.myfreezer.app.models.RecipeItem
 
@@ -23,7 +24,14 @@ import com.myfreezer.app.models.RecipeItem
  * @param {String} sourceName - the source from where the recipe has been retrieved
  * @param {String} image - the image url as a string.
  */
-@Entity
+@Entity(
+    foreignKeys = arrayOf(
+        ForeignKey(entity = DatabaseFreezerItem::class,
+        parentColumns = arrayOf("name"),
+        childColumns = arrayOf("freezerItem_ID"),
+        onDelete = ForeignKey.CASCADE) //supposed to delete all recipes
+    )
+)
 data class DatabaseRecipe(
     @PrimaryKey(autoGenerate = true)
     var recipe_ID:Int? = 0,
@@ -81,6 +89,7 @@ fun List<DatabaseRecipe>.asDomainModel():List<RecipeItem>{
 
     return map{
         RecipeItem(
+            recipeId = it.recipe_ID!!.toLong(),
             title = it.title,
             description = it.description,
             likes = it.likes,

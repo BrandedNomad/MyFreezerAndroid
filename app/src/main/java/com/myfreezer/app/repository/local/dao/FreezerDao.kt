@@ -1,12 +1,13 @@
 package com.myfreezer.app.repository.local.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.myfreezer.app.repository.local.entities.DatabaseFreezerItem
+import com.myfreezer.app.repository.local.entities.DatabaseIngredientItem
+import com.myfreezer.app.repository.local.entities.DatabaseInstructionItem
 import com.myfreezer.app.repository.local.entities.DatabaseRecipe
+import com.myfreezer.app.repository.local.entities.relations.FreezerItemWithRecipe
+import com.myfreezer.app.repository.local.entities.relations.RecipeWithIngredientItem
 
 /**
  * @interface FreezerDao
@@ -36,7 +37,14 @@ interface FreezerDao {
      * @param {*List<DatabaseRecipe>} recipe - the list of recipes returned from api (use spread operator)
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertRecipeResults(vararg recipe: DatabaseRecipe)
+    suspend fun insertRecipeResults(vararg recipe: DatabaseRecipe):LongArray
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertIngredientItems(vararg ingredient:DatabaseIngredientItem):LongArray
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertInstructionItems(vararg instruction:DatabaseInstructionItem):LongArray
 
     /**
      * @method getFreezerItems
@@ -54,13 +62,27 @@ interface FreezerDao {
     @Query("SELECT * FROM databaserecipe ORDER BY title")
     fun getRecipes(): LiveData<List<DatabaseRecipe>>
 
+    @Query("SELECT * FROM databaseingredientitem WHERE recipe_ID = :recipeId")
+    suspend fun getRecipeIngredientList(recipeId:Long):List<DatabaseIngredientItem>
+
+    @Query("SELECT * FROM databaseinstructionitem WHERE recipe_ID = :recipeId")
+    suspend fun getRecipeInstructionsList(recipeId:Long):List<DatabaseInstructionItem>
+
+    @Transaction
+    @Query("SELECT * FROM databaserecipe WHERE recipe_ID = :recipeId")
+    suspend fun getRecipeWithIngredients(recipeId:Long):List<RecipeWithIngredientItem>
+
+    @Transaction
+    @Query("SELECT * FROM databasefreezerItem WHERE name = :itemName")
+    suspend fun getFreezerItemWithRecipes(itemName:String):List<FreezerItemWithRecipe>
+
     /**
      * @method deleteFreezerItem
      * @description deletes item from database
      * @param {String} itemName - the primaryKey of item
      */
     @Query("DELETE FROM databasefreezeritem WHERE name = :itemName")
-    suspend fun deleteFreezerItem(itemName: String)
+    suspend fun deleteFreezerItem(itemName: String):Int
 
     /**
      * @method deleteAllRecipes
@@ -68,7 +90,7 @@ interface FreezerDao {
      * @param {String} freezerItem - the freezerItem associated with recipe
      */
     @Query("DELETE FROM databaserecipe WHERE freezerItem_ID = :freezerItem")
-    suspend fun deleteAllRecipes(freezerItem: String)
+    suspend fun deleteAllRecipes(freezerItem: String):Int
 
     /**
      * @method updateFreezerItem

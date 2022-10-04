@@ -1,15 +1,15 @@
 package com.myfreezer.app.ui.recipes.recipedetail
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.myfreezer.app.models.RecipeItem
-import com.myfreezer.app.ui.freezer.FreezerFragment
+import com.myfreezer.app.ui.recipes.recipedetail.ingredients.RecipeIngredientsFragment
+import com.myfreezer.app.ui.recipes.recipedetail.instructions.RecipeInstructionsFragment
+import com.myfreezer.app.ui.recipes.recipedetail.overview.RecipeOverviewFragment
 
 /**
  * @class RecipeDetailsPagerAdapter
