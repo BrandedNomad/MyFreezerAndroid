@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.myfreezer.app.R
 import com.myfreezer.app.models.FreezerItem
+
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -23,12 +25,14 @@ import kotlinx.coroutines.launch
  * @param {OnClickListener} onClickListener - The clickListener that will be attached to every instance of the viewHolder
  * @param {FreezerViewModel} viewModel - The viewModel of the FreezerView
  */
+
 class FreezerAdapter(val onClickListener: OnClickListener,val viewModel:FreezerViewModel): ListAdapter<FreezerItem,FreezerAdapter.FreezerViewHolder>(FreezerDiffCallback()) {
 
     //Flag for context menu
     var contextMenuIsOpen = false
 
     init{
+
         //initialize Flow that informs adapter whether context menu is open or closed
         GlobalScope.launch{
             viewModel.triggerContextMenuFlow().collectLatest{
@@ -41,6 +45,7 @@ class FreezerAdapter(val onClickListener: OnClickListener,val viewModel:FreezerV
      * @class FreezerViewHolder
      * @description: The view holder for freezer_list_item
      * @param {View} viewItem - The layout or view of the list item
+
      */
     class FreezerViewHolder(viewItem:View): RecyclerView.ViewHolder(viewItem){
 
@@ -68,10 +73,12 @@ class FreezerAdapter(val onClickListener: OnClickListener,val viewModel:FreezerV
              * @method from
              * @description: Inflates the freezer_list_item view
              * @param {ViewGroup} parent: The parent context
+
              * @return {FreezerViewHolder} FreezerViewHolder - an instance of inflated viewHolder
              */
             fun from(parent: ViewGroup):FreezerViewHolder{
                 //inflate the layout of list item
+
                 val view:View = LayoutInflater.from(parent.context)
                     .inflate(
                         R.layout.freezer_list_item,
@@ -83,10 +90,12 @@ class FreezerAdapter(val onClickListener: OnClickListener,val viewModel:FreezerV
 
             }
         }
+
     }
 
     /**
      * @method onCreateViewHolder
+
      * @description lifecycle method that inflates the view on create.
      * @param {ViewGroup} parent: The parent view for context
      * @param {Int} viewType: The type of view as an integer
@@ -94,7 +103,9 @@ class FreezerAdapter(val onClickListener: OnClickListener,val viewModel:FreezerV
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FreezerViewHolder {
 
+
         //Instead of inflating the viewHolder here, the viewholder calls its own method to inflate inself
+
         return FreezerViewHolder.from(parent)
     }
 
@@ -158,7 +169,9 @@ class FreezerAdapter(val onClickListener: OnClickListener,val viewModel:FreezerV
 
     /**
      * @class OnClickListener
+
      * @description Provides an instantiation of onClick to pass click listener to individual list items
+
      */
     class OnClickListener(val clickListener:(freezerItem:FreezerItem)-> Unit){
         fun onClick(freezerItem:FreezerItem) =  clickListener(freezerItem)
