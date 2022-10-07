@@ -49,6 +49,7 @@
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/fragment_favourite.xml" value="0.1265625" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/fragment_freezer.xml" value="0.264" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/fragment_recipe_detail.xml" value="0.264" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/fragment_recipe_filter.xml" value="0.264" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/fragment_recipe_ingredients.xml" value="0.176" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/fragment_recipe_instructions.xml" value="0.1" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/fragment_recipe_overview.xml" value="0.10400000000000001" />
@@ -59,9 +60,15 @@
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/instruction_list_item.xml" value="0.536" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/recipe_list_item.xml" value="0.22" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/recipe_overview.xml" value="0.1" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/recipe_toolbar.xml" value="0.1" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/recipes_filter_header.xml" value="0.1" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/layout/recipes_filter_list_item.xml" value="0.27447916666666666" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.12760416666666666" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/menu/freezer_context_menu.xml" value="0.27447916666666666" />
         <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/menu/freezer_filter_menu.xml" value="0.2" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/menu/menu_main.xml" value="0.1" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/menu/recipe_action_items.xml" value="0.1" />
+        <entry key="..\:/Google Drive/Branded Nomad/Current Projects/Jo's Freezer App/app/app/src/main/res/menu/recipes_filter_menu.xml" value="0.1" />
       </map>
     </option>
   </component>

@@ -168,6 +168,7 @@ class FreezerFragment: Fragment(), MenuProvider {
 
     }
 
+
     /**
      * @method onViewCreated
      * @description a fragment lifecycle method, called directly after createView has returned and the view hierarchy has

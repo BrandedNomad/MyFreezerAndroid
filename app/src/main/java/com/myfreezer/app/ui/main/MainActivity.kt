@@ -1,8 +1,6 @@
 package com.myfreezer.app.ui.main
 
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -14,7 +12,9 @@ import com.myfreezer.app.R
 import com.myfreezer.app.models.RecipeItem
 import com.myfreezer.app.ui.favourites.FavouriteFragment
 import com.myfreezer.app.ui.freezer.FreezerFragment
+import com.myfreezer.app.ui.recipes.recipesFilter.RecipesFilterFragment
 import com.myfreezer.app.ui.recipes.RecipesFragment
+import com.myfreezer.app.ui.recipes.RecipesViewModel
 import com.myfreezer.app.ui.recipes.recipedetail.RecipeDetailFragment
 import com.myfreezer.app.ui.shopping.ShoppingFragment
 
@@ -23,7 +23,7 @@ import com.myfreezer.app.ui.shopping.ShoppingFragment
  * @description: The main activity class. This class contains the navigation and fragment host view
  * as well as the bottom navigation bar, and the top action bar.
  */
-class MainActivity : AppCompatActivity(),Communicator {
+class MainActivity : AppCompatActivity(),NavigationHandler {
 
     //Declare variables
     private val freezerFragment = FreezerFragment()
@@ -54,6 +54,9 @@ class MainActivity : AppCompatActivity(),Communicator {
         bottomNavClickListener(bottomNav,freezerFragment,recipesFragment,favouriteFragment,shoppingFragment)
 
     }
+
+
+
 
     /**
      * @method bottomNavClickListener
@@ -140,6 +143,20 @@ class MainActivity : AppCompatActivity(),Communicator {
 
         //navigate to recipeDetail view
         replaceFragment(recipeDetailFragment)
+    }
+
+    override fun filterNavTrigger(viewModel:RecipesViewModel){
+
+
+        val filterMenu = RecipesFilterFragment(viewModel)
+        if(filterMenu !=null){
+
+
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.add(R.id.navHostFragment, filterMenu)
+            transaction.addToBackStack("Filter")
+            transaction.commit()
+        }
     }
 
 

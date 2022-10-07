@@ -1,6 +1,7 @@
 package com.myfreezer.app.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.myfreezer.app.models.*
 import com.myfreezer.app.repository.local.database.MyFreezerDatabase
@@ -44,6 +45,12 @@ class Repository(val database: MyFreezerDatabase) {
     suspend fun getRecipeInstructionsList(recipeId:Long):List<InstructionItem>{
         Log.e("Repo - inside getRecipeInstructionList",recipeId.toString())
         return database.freezerDao.getRecipeInstructionsList(recipeId).asDomainModel()
+    }
+
+    fun getFreezerItemsForFilter(): LiveData<List<FreezerItem>> {
+        return Transformations.map(database.freezerDao.getFreezerItems()){
+            it.asDomainModel()
+        }
     }
 
 
@@ -135,6 +142,11 @@ class Repository(val database: MyFreezerDatabase) {
 
     suspend fun saveRecipesToDataBase(recipesToInsert: List<DatabaseRecipe>):LongArray{
         return database.freezerDao.insertRecipeResults(*recipesToInsert.toTypedArray())
+
+    }
+
+
+    suspend fun recipeSearch(searchTerm:String){
 
     }
 

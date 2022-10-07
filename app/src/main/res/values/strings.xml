@@ -38,5 +38,8 @@
     <string name="filter_menu_item_oldest">oldest</string>
     <string name="filter_menu_item_latest">latest</string>
 
+    <string name="open">open</string>
+    <string name="closed">closed</string>
+
 
 </resources>
