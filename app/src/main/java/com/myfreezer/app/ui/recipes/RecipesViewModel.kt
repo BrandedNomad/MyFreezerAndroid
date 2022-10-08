@@ -44,6 +44,10 @@ class RecipesViewModel(application: Application): ViewModel(){
     val recipesFilter: LiveData<MutableList<String>>
         get() = _recipesFilter
 
+    private var _preferenceFilter = MutableLiveData<MutableList<String>>()
+    val preferenceFilter: LiveData<MutableList<String>>
+        get() = _preferenceFilter
+
 
     //Initialization
     init {
@@ -52,11 +56,40 @@ class RecipesViewModel(application: Application): ViewModel(){
         }
 
         _recipesFilter.value = mutableListOf()
+        _preferenceFilter.value = mutableListOf()
 
 
     }
 
     //Methods
+
+    fun getRecipeList():List<RecipeItem>?{
+        return recipeList.value
+    }
+
+    fun getPreferences():MutableList<String>?{
+        return preferenceFilter.value
+    }
+
+    fun addToPreferences(name:String){
+        Log.e("AddToPreference in ViewModel","inside")
+        var list = _preferenceFilter.value
+        list?.add(name)
+        _preferenceFilter.postValue(list!!)
+        Log.e("_preferenceFilterContent",_preferenceFilter.value.toString())
+    }
+
+    fun removeFromPreferences(name:String){
+        Log.e("RemovePreference in ViewModel","inside")
+        var list = _preferenceFilter.value
+        list?.remove(name)
+        _preferenceFilter.postValue(list!!)
+        Log.e("_preferenceFilterContent",_preferenceFilter.value.toString())
+    }
+
+    fun getFilter():MutableList<String>?{
+        return recipesFilter.value
+    }
 
     fun addToFilter(name:String){
         Log.e("AddToFilter in ViewModel","inside")

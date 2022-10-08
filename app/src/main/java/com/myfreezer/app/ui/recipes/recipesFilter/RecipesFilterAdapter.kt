@@ -19,21 +19,25 @@ import com.myfreezer.app.ui.recipes.RecipesAdapter
 import com.myfreezer.app.ui.recipes.RecipesViewModel
 import kotlinx.coroutines.launch
 
-class RecipesFilterAdapter(val onClickListener: RecipesFilterAdapter.OnClickListener,val addItem:(String)-> Unit,val removeItem:(String)->Unit): ListAdapter<FreezerItem, RecipesFilterAdapter.RecipesFilterViewHolder>(RecipesFilterDiffCallback()) {
+class RecipesFilterAdapter(val onClickListener: RecipesFilterAdapter.OnClickListener,val getFilter:() -> MutableList<String>?,val addItem:(String)-> Unit,val removeItem:(String)->Unit): ListAdapter<FreezerItem, RecipesFilterAdapter.RecipesFilterViewHolder>(RecipesFilterDiffCallback()) {
 
 
 
-
-    class RecipesFilterViewHolder(viewItem: View, val addItem:(String)->Unit,val removeItem:(String)->Unit): RecyclerView.ViewHolder(viewItem) {
+    class RecipesFilterViewHolder(viewItem: View,val getFilter: () -> MutableList<String>? ,val addItem:(String)->Unit,val removeItem:(String)->Unit): RecyclerView.ViewHolder(viewItem) {
 
 
         val textViewItemName: TextView = viewItem.findViewById(R.id.recipeFilterFreezerMenuItemText)
         val checkBox: CheckBox = viewItem.findViewById(R.id.recipeFilterFreezerMenuItemCheckbox)
+        val filter =  getFilter()
 
 
         fun bind(holder: RecipesFilterViewHolder,item:FreezerItem){
 
             textViewItemName.text = item.name
+            if(filter!!.contains(item.name)){
+                checkBox.isChecked = true
+            }
+
             checkBox.setOnCheckedChangeListener{ buttonView,isChecked ->
 
 
@@ -62,7 +66,7 @@ class RecipesFilterAdapter(val onClickListener: RecipesFilterAdapter.OnClickList
              * @param {ViewGroup} parent: The parent context
              * @return {RecipesViewHolder} recipeViewHolder
              */
-            fun from(parent: ViewGroup,addItem:(String)-> Unit,removeItem:(String)->Unit): RecipesFilterAdapter.RecipesFilterViewHolder {
+            fun from(parent: ViewGroup,getFilter: () -> MutableList<String>?, addItem:(String)-> Unit,removeItem:(String)->Unit): RecipesFilterAdapter.RecipesFilterViewHolder {
                 //inflate view
                 val view:View = LayoutInflater.from(parent.context)
                     .inflate(
@@ -71,14 +75,14 @@ class RecipesFilterAdapter(val onClickListener: RecipesFilterAdapter.OnClickList
                         false
                     )
 
-                return RecipesFilterAdapter.RecipesFilterViewHolder(view,addItem,removeItem)
+                return RecipesFilterAdapter.RecipesFilterViewHolder(view,getFilter,addItem,removeItem)
             }
         }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipesFilterViewHolder {
-        return RecipesFilterViewHolder.from(parent,addItem,removeItem)
+        return RecipesFilterViewHolder.from(parent,getFilter,addItem,removeItem)
     }
 
     override fun onBindViewHolder(holder: RecipesFilterViewHolder, position: Int) {

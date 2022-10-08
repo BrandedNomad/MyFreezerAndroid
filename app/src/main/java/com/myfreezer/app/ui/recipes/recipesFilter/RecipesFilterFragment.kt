@@ -34,10 +34,13 @@ class RecipesFilterFragment(val viewModel: RecipesViewModel): Fragment() {
 
         val addItem = viewModel::addToFilter
         val removeItem = viewModel::removeFromFilter
+        val getFilter = viewModel::getFilter
 
         val adapter = RecipesFilterAdapter(RecipesFilterAdapter.OnClickListener{
 
-        },addItem,removeItem)
+        },getFilter,addItem,removeItem)
+
+
 
         binding.recipeFilterFreezerMenuRecyclerView.adapter = adapter
 
@@ -48,7 +51,64 @@ class RecipesFilterFragment(val viewModel: RecipesViewModel): Fragment() {
 
         viewModel.recipesFilter.observe(viewLifecycleOwner,Observer{
             Log.e("The MutableList",it.toString())
+
         })
+
+        //Chips
+
+        binding.recipeFilterPreferenceChipVegan.setOnCheckedChangeListener { chip, isChecked ->
+            if(isChecked){
+                viewModel.addToPreferences("vegan")
+            }else{
+                viewModel.removeFromPreferences("vegan")
+            }
+            Log.e("veganOnClick",viewModel.getPreferences().toString())
+        }
+
+        binding.recipeFilterPreferenceChipVegetarian.setOnCheckedChangeListener { chip, isChecked ->
+            if(isChecked){
+                viewModel.addToPreferences("vegetarian")
+            }else{
+                viewModel.removeFromPreferences("vegetarian")
+            }
+            Log.e("vegetarianOnClick",viewModel.getPreferences().toString())
+        }
+
+        binding.recipeFilterPreferenceChipGlutenFree.setOnCheckedChangeListener { chip, isChecked ->
+            if(isChecked){
+                viewModel.addToPreferences("gluten free")
+            }else{
+                viewModel.removeFromPreferences("gluten free")
+            }
+            Log.e("glutenfreeOnClick",viewModel.getPreferences().toString())
+        }
+
+        binding.recipeFilterPreferenceChipDairyFree.setOnCheckedChangeListener { chip, isChecked ->
+            if(isChecked){
+                viewModel.addToPreferences("dairy free")
+            }else{
+                viewModel.removeFromPreferences("dairy free")
+            }
+            Log.e("dairyfreeOnClick",viewModel.getPreferences().toString())
+        }
+
+        binding.recipeFilterPreferenceChipHealthy.setOnCheckedChangeListener { chip, isChecked ->
+            if(isChecked){
+                viewModel.addToPreferences("healthy")
+            }else{
+                viewModel.removeFromPreferences("healthy")
+            }
+            Log.e("healthyOnClick",viewModel.getPreferences().toString())
+        }
+
+        binding.recipeFilterPreferenceChipFodmap.setOnCheckedChangeListener { chip, isChecked ->
+            if(isChecked){
+                viewModel.addToPreferences("fodmap")
+            }else{
+                viewModel.removeFromPreferences("fodmap")
+            }
+            Log.e("fodmapOnClick",viewModel.getPreferences().toString())
+        }
 
 
         //Log.e("filter",viewModel.getFreezerItems().toString())

@@ -23,6 +23,7 @@ import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.constraintlayout.widget.ConstraintSet.GONE
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import com.myfreezer.app.models.RecipeItem
 import com.myfreezer.app.ui.main.NavigationHandler
 
 
@@ -37,6 +38,7 @@ class RecipesFragment: Fragment(), MenuProvider {
     lateinit var adapter:RecipesAdapter
     lateinit var searchActionMode:ActionMode
     lateinit var navigationHandler: NavigationHandler
+    lateinit var filteredList:MutableList<RecipeItem>
 
 
     /**
@@ -64,6 +66,8 @@ class RecipesFragment: Fragment(), MenuProvider {
         binding.lifecycleOwner = this
 
         navigationHandler = requireActivity() as NavigationHandler
+
+        filteredList = mutableListOf<RecipeItem>()
 
 
         //Setup viewModel
@@ -106,17 +110,73 @@ class RecipesFragment: Fragment(), MenuProvider {
             }
         })
 
-        viewModel.recipesFilter.observe(viewLifecycleOwner,Observer{
+        viewModel.recipesFilter.observe(viewLifecycleOwner,Observer{filterKeys ->
+
+            //create filtered list
+            var filteredList = mutableListOf<RecipeItem>()
 
 
-            var x = viewModel.recipeList.value
-            Log.e("RecipeFragment",x.toString())
+            //get the recipe list
+            var recipeList = viewModel.recipeList.value
+
+
+            //modify filtered list
+            filterKeys.forEach{ key ->
+                for(item in recipeList!!.iterator()){
+                    if(item.freezerItem == key ){
+                        filteredList.add(item)
+                    }
+                }
+            }
+
+            //submit that list
+            Log.e("RecipeFragment - filteredlist-2",filteredList.toString())
+            if(filteredList.size > 0){
+                var listToDisplay = filterForPreferences(filteredList,viewModel.getPreferences()!!)
+                    //TODO implement preferences filter
+                adapter.submitList(filteredList)
+                Log.e("DisplayveganOnClick",viewModel.getPreferences().toString())
+            }else{
+                adapter.submitList(recipeList)
+            }
+
         })
+
 
 
 
         //return view
         return binding.root
+    }
+
+    fun filterForPreferences(recipeList:List<RecipeItem>?,filter:MutableList<String>):List<RecipeItem>? {
+        Log.e("A","inside")
+
+        if(filter.isNullOrEmpty()){
+            Log.e("B","inside")
+            return recipeList
+        }
+
+        Log.e("C","inside")
+
+        if(filter!!.size!! > 0){
+            Log.e("D","inside")
+            var newRecipeList = mutableListOf<RecipeItem>()
+            filter.forEach{
+                Log.e("E","inside")
+                for(recipe in recipeList!!.iterator()){
+                    Log.e("F","inside")
+                    if(recipe.getPreference(it)){
+                        Log.e("G","inside")
+                        newRecipeList.add(recipe)
+                    }
+                }
+            }
+            return newRecipeList
+        }else{
+            return recipeList
+        }
+
     }
 
     /**
