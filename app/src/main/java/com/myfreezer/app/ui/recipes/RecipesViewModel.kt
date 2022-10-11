@@ -1,15 +1,16 @@
 package com.myfreezer.app.ui.recipes
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+
+import android.util.Log
+import androidx.lifecycle.*
+import com.myfreezer.app.models.FreezerItem
 import com.myfreezer.app.models.RecipeItem
 import com.myfreezer.app.repository.Repository
 import com.myfreezer.app.repository.local.database.MyFreezerDatabase
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.launch
+import com.myfreezer.app.repository.local.entities.asDomainModel
+import kotlinx.coroutines.*
+
 
 /**
  * @class RecipesViewModel
@@ -34,10 +35,22 @@ class RecipesViewModel(application: Application): ViewModel(){
     //The list of reicpes to display
     var recipeList = repository.recipeList
 
+
+
+
     //Navigation trigger used to navigate to specific recipe
-    private var _navigationTrigger = MutableLiveData<RecipeItem>()
-    val navigationTrigger: LiveData<RecipeItem>
+    private var _navigationTrigger = MutableLiveData<RecipeItem?>()
+    val navigationTrigger: LiveData<RecipeItem?>
         get() = _navigationTrigger
+
+    private var _recipesFilter = MutableLiveData<MutableList<String>>()
+    val recipesFilter: LiveData<MutableList<String>>
+        get() = _recipesFilter
+
+    private var _preferenceFilter = MutableLiveData<MutableList<String>>()
+    val preferenceFilter: LiveData<MutableList<String>>
+        get() = _preferenceFilter
+
 
 
     //Initialization
@@ -47,9 +60,58 @@ class RecipesViewModel(application: Application): ViewModel(){
         }
 
 
+        _recipesFilter.value = mutableListOf()
+        _preferenceFilter.value = mutableListOf()
+
+
     }
 
     //Methods
+
+    fun getRecipeList():List<RecipeItem>?{
+        return recipeList.value
+    }
+
+    fun getPreferences():MutableList<String>?{
+        return preferenceFilter.value
+    }
+
+    fun addToPreferences(name:String){
+        Log.e("AddToPreference in ViewModel","inside")
+        var list = _preferenceFilter.value
+        list?.add(name)
+        _preferenceFilter.postValue(list!!)
+        Log.e("_preferenceFilterContent",_preferenceFilter.value.toString())
+    }
+
+    fun removeFromPreferences(name:String){
+        Log.e("RemovePreference in ViewModel","inside")
+        var list = _preferenceFilter.value
+        list?.remove(name)
+        _preferenceFilter.postValue(list!!)
+        Log.e("_preferenceFilterContent",_preferenceFilter.value.toString())
+    }
+
+    fun getFilter():MutableList<String>?{
+        return recipesFilter.value
+    }
+
+    fun addToFilter(name:String){
+        Log.e("AddToFilter in ViewModel","inside")
+        var list = _recipesFilter.value
+        list?.add(name)
+        _recipesFilter.postValue(list!!)
+        Log.e("_reicpesFilterContent",_recipesFilter.value.toString())
+    }
+
+    fun removeFromFilter(name:String){
+        Log.e("removeFromFilter in ViewModel","inside")
+        var list = _recipesFilter.value
+        list?.remove(name)
+        _recipesFilter.postValue(list!!)
+        Log.e("_reicpesFilterContent",_recipesFilter.value.toString())
+    }
+
 
     /**
      * @method navigate
@@ -70,6 +132,21 @@ class RecipesViewModel(application: Application): ViewModel(){
         _navigationTrigger.value = null
     }
 
+
+
+    fun getFreezerItemList():LiveData<List<FreezerItem>>{
+        Log.e("ViewModel","inside")
+        return repository.getFreezerItemsForFilter()
+    }
+
+
+
+
+    fun test(){
+        Log.e("Test","yip it is working")
+    }
+
+
     /**
      * @method onCleared()
      * @description lifecycle method that handles cleanup of tasks
@@ -77,4 +154,5 @@ class RecipesViewModel(application: Application): ViewModel(){
     override fun onCleared() {
         super.onCleared()
     }
+
 }

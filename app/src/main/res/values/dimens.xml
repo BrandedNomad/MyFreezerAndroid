@@ -61,6 +61,8 @@
     <dimen name="filter_menu_item_padding_right">8dp</dimen>
     <dimen name="filter_menu_padding">8dp</dimen>
 
+    <dimen name="recipe_card_height">220dp</dimen>
+
 
     <dimen name="recipe_card_height">220dp</dimen>
 

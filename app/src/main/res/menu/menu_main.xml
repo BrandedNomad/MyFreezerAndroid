@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/recipeFilter"
+        android:icon="@drawable/search"
+        android:title="Search"
+        app:showAsAction="ifRoom"
+        app:actionProviderClass="androidx.appcompat.widget.ShareActionProvider"/>
+
+    <item
+        android:id="@+id/recipeSearch"
+        android:icon="@drawable/filter_list"
+        android:title="Filter"
+        app:showAsAction="ifRoom" />
+
+</menu>

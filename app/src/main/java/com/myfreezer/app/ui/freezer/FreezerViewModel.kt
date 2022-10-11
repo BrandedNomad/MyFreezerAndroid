@@ -192,6 +192,7 @@ class FreezerViewModel(application: Application): ViewModel() {
             }
         }else if(sortListBy.value =="oldest"){
 
+
             //Sort from oldest to latest
             freezerItemList.value?.let{
                 sortedList = it.sortedBy{ it.dateAdded }

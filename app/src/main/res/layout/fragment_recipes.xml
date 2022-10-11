@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/recipesFragmentDestination"
         android:layout_width="match_parent"
@@ -53,7 +54,7 @@
                 android:textAlignment="center"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>

@@ -90,6 +90,9 @@ fun List<DatabaseRecipe>.asDomainModel():List<RecipeItem>{
     return map{
         RecipeItem(
             recipeId = it.recipe_ID!!.toLong(),
+
+            freezerItem = it.freezerItem_ID,
+
             title = it.title,
             description = it.description,
             likes = it.likes,
