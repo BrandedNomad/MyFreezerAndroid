@@ -48,9 +48,9 @@ data class RecipeItem(
             "fodmap" -> fodmap
             else -> false
         }
-
     }
 }
+
 
 
 

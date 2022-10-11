@@ -1,5 +1,6 @@
 package com.myfreezer.app.shared.utils
 
+
 import org.jsoup.Jsoup
 import java.text.SimpleDateFormat
 import java.util.*
@@ -18,11 +19,13 @@ class Utils {
          * @param {Date} date - the date to be formatted
          * @return {String} dateString - the formatted string.
          */
+
         fun dateToString(date:Date):String {
             val sdf:SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd");
             val dateString:String = sdf.format(Date());
             return dateString
         }
+
 
         /**
          * @method stringToDate
@@ -30,12 +33,14 @@ class Utils {
          * @param {String} dateString - the string to be converted
          * @retun {Date?} the date object
          */
+
         fun stringToDate(dateString:String):Date? {
             val sdf:SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
             val date = sdf.parse(dateString)
             return date
 
         }
+
 
         /**
          * @method ShortedDescription
@@ -59,6 +64,7 @@ class Utils {
         fun htmlToText(html:String):String {
                 return Jsoup.parse(html).text()
         }
+
     }
 
 

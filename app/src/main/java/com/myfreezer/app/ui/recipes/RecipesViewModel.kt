@@ -1,6 +1,7 @@
 package com.myfreezer.app.ui.recipes
 
 import android.app.Application
+
 import android.util.Log
 import androidx.lifecycle.*
 import com.myfreezer.app.models.FreezerItem
@@ -9,6 +10,7 @@ import com.myfreezer.app.repository.Repository
 import com.myfreezer.app.repository.local.database.MyFreezerDatabase
 import com.myfreezer.app.repository.local.entities.asDomainModel
 import kotlinx.coroutines.*
+
 
 /**
  * @class RecipesViewModel
@@ -35,6 +37,7 @@ class RecipesViewModel(application: Application): ViewModel(){
 
 
 
+
     //Navigation trigger used to navigate to specific recipe
     private var _navigationTrigger = MutableLiveData<RecipeItem?>()
     val navigationTrigger: LiveData<RecipeItem?>
@@ -49,11 +52,13 @@ class RecipesViewModel(application: Application): ViewModel(){
         get() = _preferenceFilter
 
 
+
     //Initialization
     init {
         viewModelScope.launch {
             repository.test()
         }
+
 
         _recipesFilter.value = mutableListOf()
         _preferenceFilter.value = mutableListOf()
@@ -107,6 +112,7 @@ class RecipesViewModel(application: Application): ViewModel(){
         Log.e("_reicpesFilterContent",_recipesFilter.value.toString())
     }
 
+
     /**
      * @method navigate
      * @description sets navigation trigger with the value of the recipe selected. This triggers an observer
@@ -127,6 +133,7 @@ class RecipesViewModel(application: Application): ViewModel(){
     }
 
 
+
     fun getFreezerItemList():LiveData<List<FreezerItem>>{
         Log.e("ViewModel","inside")
         return repository.getFreezerItemsForFilter()
@@ -139,6 +146,7 @@ class RecipesViewModel(application: Application): ViewModel(){
         Log.e("Test","yip it is working")
     }
 
+
     /**
      * @method onCleared()
      * @description lifecycle method that handles cleanup of tasks
@@ -146,6 +154,5 @@ class RecipesViewModel(application: Application): ViewModel(){
     override fun onCleared() {
         super.onCleared()
     }
-
 
 }
