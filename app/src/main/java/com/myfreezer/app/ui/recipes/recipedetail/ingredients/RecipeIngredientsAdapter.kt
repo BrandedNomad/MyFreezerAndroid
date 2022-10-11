@@ -33,6 +33,7 @@ class RecipeIngredientsAdapter(var onClickListener:OnClickListener): ListAdapter
         var amountView: TextView = itemView.findViewById(R.id.ingredientQuantity)
         var unitView:TextView = itemView.findViewById(R.id.ingredientUnit)
 
+
         /**
          * @method bind
          * @description binds ingredientItem content to individual ingredient_list_item

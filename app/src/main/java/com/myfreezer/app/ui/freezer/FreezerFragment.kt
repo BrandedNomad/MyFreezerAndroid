@@ -41,6 +41,7 @@ import java.util.*
 
 /**
  * @class FreezerFragment
+
  * @description Contains the implementation of the FreezerFragment
  */
 class FreezerFragment: Fragment(), MenuProvider {
@@ -49,6 +50,7 @@ class FreezerFragment: Fragment(), MenuProvider {
     lateinit var actionMode:ActionMode
     lateinit var viewModel: FreezerViewModel
     lateinit var adapter: FreezerAdapter
+
 
 
     /**
@@ -65,7 +67,9 @@ class FreezerFragment: Fragment(), MenuProvider {
         savedInstanceState: Bundle?
     ): View? {
 
+
         //SETUP BINDING
+
 
         //create binding
         val binding: FragmentFreezerBinding = DataBindingUtil.inflate(
@@ -78,7 +82,9 @@ class FreezerFragment: Fragment(), MenuProvider {
         //set lifecycle owner
         binding.lifecycleOwner = this
 
+
         //SETUP DIALOGS
+
 
         //Layout used for popup dialogs
         val addItemLayout = View.inflate(context,R.layout.add_freezer_item,null)
@@ -103,12 +109,15 @@ class FreezerFragment: Fragment(), MenuProvider {
         deleteConfirmation.setCancelable(false)
         val deleteDialog = deleteConfirmation.create()
 
+
         //SETUP VIEWMODEL
+
 
         //initialize viewModel
         val application = requireNotNull(this.activity).application
         val viewModelFactory = FreezerViewModelFactory(application)
         viewModel = ViewModelProvider(this,viewModelFactory).get(FreezerViewModel::class.java)
+
 
         //SETUP ADAPTER
 
@@ -116,6 +125,7 @@ class FreezerFragment: Fragment(), MenuProvider {
         adapter = FreezerAdapter(FreezerAdapter.OnClickListener{
 
             //When list item is clicked, display a context menu in the appbar
+
             displayFreezerListItemContextMenu(
                 viewModel,
                 it,
@@ -129,7 +139,9 @@ class FreezerFragment: Fragment(), MenuProvider {
         //set adapter
         binding.freezerRecyclerView.adapter = adapter
 
+
         //SET OBSERVERS
+
 
         //Updates display when the freezerItemlist is updated
         viewModel.freezerItemList.observe(viewLifecycleOwner, Observer{
@@ -144,18 +156,22 @@ class FreezerFragment: Fragment(), MenuProvider {
                 binding.freezerEmptyMessage.setVisibility(View.GONE)
             }
 
+
             //resubmit the new list to the adapter for display
             adapter.submitList(it)
         })
 
         //Listens for sorting filter events and displays the sorted list
+
         viewModel.sortListBy.observe(viewLifecycleOwner,Observer{
             var sortedList = viewModel.sortList()
             adapter.submitList(sortedList)
         })
 
 
+
         //SETUP FAB
+
 
         //When the add button is clicked
         binding.fabAddItem.setOnClickListener{
@@ -181,9 +197,13 @@ class FreezerFragment: Fragment(), MenuProvider {
         super.onViewCreated(view, savedInstanceState)
 
         //Adds an option menu to the actionbar
+
+
         activity?.addMenuProvider(this,viewLifecycleOwner) //adding the viewLifecycleOwner, means it does the cleanup automaically
 
     }
+
+
 
     /**
      * @onCreateMenu
@@ -249,9 +269,11 @@ class FreezerFragment: Fragment(), MenuProvider {
      */
     private fun displayAddItemModal(dialog:AlertDialog, itemLayout:View,viewModel:FreezerViewModel){
 
+
         //Get the views within the custom layout
         val cancelButton: Button = itemLayout.findViewById(R.id.dialogItemCancelButton)
         val addButton: MaterialButton = itemLayout.findViewById(R.id.dialogItemSubmitButton)
+
         val nameField:TextInputLayout = itemLayout.findViewById(R.id.dialogItemNameField)
         val quantityField:TextInputLayout= itemLayout.findViewById(R.id.dialogItemQuantityField)
         val unitField:TextInputLayout = itemLayout.findViewById(R.id.dialogItemUnitField)
@@ -260,7 +282,9 @@ class FreezerFragment: Fragment(), MenuProvider {
         //set initial state of the add button to enabled
         addButton.setEnabled(true)
 
+
         //watch the state of the form fields, if any of them are incomplete disable the add button
+
         isFormComplete(itemLayout)
 
         //When cancel button is clicked
@@ -280,7 +304,9 @@ class FreezerFragment: Fragment(), MenuProvider {
                 //dismiss modal
                 dialog.dismiss()
 
+
             } else {
+
                 if(nameField.editText!!.text.toString() == "") {
                     nameField.error = "Give your item a name!"
                 }else{
@@ -302,6 +328,7 @@ class FreezerFragment: Fragment(), MenuProvider {
                     minimumField.error = null
                 }
             }
+
         }
 
         //Display the dialog
@@ -404,6 +431,7 @@ class FreezerFragment: Fragment(), MenuProvider {
         }
     }
 
+
     /**
      * @method addItem
      * @description Adds new freezer item to database and clears the textfields
@@ -456,6 +484,7 @@ class FreezerFragment: Fragment(), MenuProvider {
         editItemLayout:View
     ):Boolean {
 
+
         //Create the actionMode for context menu
         val fragmentActivity = requireActivity()
         actionMode = fragmentActivity.startActionMode(actionModeCallbackWrapper(
@@ -468,10 +497,12 @@ class FreezerFragment: Fragment(), MenuProvider {
 
         ))!!
 
+
         //TODO: refactor the action mode check  so it makes sense
         //Checks whether action mode already exists,
         //if it does it wont create another one
         if(actionMode != null){
+
             return false;
         }
 
@@ -485,7 +516,9 @@ class FreezerFragment: Fragment(), MenuProvider {
      * actionItemClicked methods
      * @param {FreezerViewModel} viewModel: The viewModel that contains the desired methods
      * @param {FreezerItem} freezerItem: The item that was selected
+
      * @return: {ActionMode.Callback} The callback function for the actionMode that configures and handles user interactions with actionMode
+
      */
     fun actionModeCallbackWrapper(
         viewModel:FreezerViewModel,
@@ -501,8 +534,9 @@ class FreezerFragment: Fragment(), MenuProvider {
 
             /**
              * @method: onCreateActionMode
-             * @description: creates the context Menu
+             * @description: creates the context Menu<<<<<<< dev
              * @param {ActionMode?} mode: The actionMode to be created. Provides alternative mode of normal UI like a contextual action.
+
              * @param {Menu?} menu: The menu that needs to be inflated for the context menu
              * @return {Boolean}
              */
@@ -520,17 +554,23 @@ class FreezerFragment: Fragment(), MenuProvider {
             }
 
             /**
+
+
              * @method: onPrepareActionMode
              * @description: Called to refresh an action mode's action menu whenever it is invalidated.
              * @param {ActionMode?} mode - The actionMode to be created
              * @param {Menu?} menu - The menu to be inflated
              * @return {Boolean} false
+
+
              */
             override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
                 return false
             }
 
             /**
+
+
              * @method onActionItemClicked
              * @description Handles item click events
              * @param {ActionMode?} mode - the actionMode
@@ -559,6 +599,8 @@ class FreezerFragment: Fragment(), MenuProvider {
             }
 
             /**
+
+
              * @method onDestroyActionMode
              * @description Called when an action mode is about to be exited and destroyed
              * @param {ActionMode?} mode - the actionMode
@@ -579,6 +621,8 @@ class FreezerFragment: Fragment(), MenuProvider {
      * @param {FreezerViewModel} viewModel - The viewModel that contains the deleteItem method used to delete the item in database
      * @param {FreezerItem} item - The item being deleted
      * @param {View} itemLayout - The deleteItem layout
+
+
      */
     private fun displayDeleteConfirmationDialog(dialog:AlertDialog,viewModel:FreezerViewModel,item:FreezerItem,itemLayout:View){
 
@@ -611,10 +655,14 @@ class FreezerFragment: Fragment(), MenuProvider {
     /**
      * @method: displayDeleteConfirmationDialog
      * @description: prompts the user to either cancel or confirm a delete action
+
+
      * @param {AlertDialog} dialog - the editItem dialog to display
      * @param {FreezerViewModel} viewModel - The viewModel that contains the updateItem method used to update the item in database
      * @param {FreezerItem} item - The item being edited
      * @param {View} itemLayout - The editItem layout
+
+
      */
     private fun displayEditItemDialog(dialog:AlertDialog,viewModel:FreezerViewModel,item:FreezerItem,itemLayout:View){
 
@@ -657,10 +705,13 @@ class FreezerFragment: Fragment(), MenuProvider {
                 && minimumField.editText!!.text.toString() != ""
             ){
                 //Get text field values
+
+
                 val nameValue = nameField.editText!!.text.toString()
                 val quantityValue = quantityField.editText!!.text.toString().toInt()
                 val unitValue = unitField.editText!!.text.toString()
                 val minimumValue = minimumField.editText!!.text.toString().toInt()
+
 
                 //Update existing freezer Item with new values
                 item.name = nameValue
@@ -679,7 +730,9 @@ class FreezerFragment: Fragment(), MenuProvider {
 
                 //dismiss modal
                 dialog.dismiss()
+
             }else{ //if any of the fields are empty
+
                 if(nameField.editText!!.text.toString() == "") {
                     nameField.error = "Give your item a name!"
                 }else{
@@ -708,8 +761,10 @@ class FreezerFragment: Fragment(), MenuProvider {
     }
 
     /**
+
      * @method onDestroy()
      * @description A lifecycle method that is called before view is destroyed. Used for cleanup
+
      */
     override fun onDestroy() {
         super.onDestroy()
@@ -719,4 +774,5 @@ class FreezerFragment: Fragment(), MenuProvider {
             actionMode.finish()
         }
     }
+
 }

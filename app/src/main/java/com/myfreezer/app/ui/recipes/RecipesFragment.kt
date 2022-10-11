@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.myfreezer.app.R
 import com.myfreezer.app.databinding.FragmentRecipesBinding
+
 import android.app.SearchManager
 import android.opengl.Visibility
 import android.util.Log
@@ -41,6 +42,7 @@ class RecipesFragment: Fragment(), MenuProvider {
     lateinit var filteredList:MutableList<RecipeItem>
 
 
+
     /**
      * @method onCreateView
      * @description Inflates and displays the fragment
@@ -63,11 +65,13 @@ class RecipesFragment: Fragment(), MenuProvider {
         )
 
 
+
         binding.lifecycleOwner = this
 
         navigationHandler = requireActivity() as NavigationHandler
 
         filteredList = mutableListOf<RecipeItem>()
+
 
 
         //Setup viewModel
@@ -102,6 +106,7 @@ class RecipesFragment: Fragment(), MenuProvider {
         viewModel.navigationTrigger.observe(viewLifecycleOwner,Observer{
             //recipe has been selected
             if(it != null){
+
 
                 //reset navigation trigger before navigating
                 viewModel.doneNavigating()
@@ -145,9 +150,11 @@ class RecipesFragment: Fragment(), MenuProvider {
 
 
 
+
         //return view
         return binding.root
     }
+
 
     fun filterForPreferences(recipeList:List<RecipeItem>?,filter:MutableList<String>):List<RecipeItem>? {
         Log.e("A","inside")
@@ -282,6 +289,7 @@ class RecipesFragment: Fragment(), MenuProvider {
             searchActionMode.finish()
         }
     }
+
 
 }
 
