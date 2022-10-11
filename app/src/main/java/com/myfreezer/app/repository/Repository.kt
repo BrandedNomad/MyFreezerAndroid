@@ -1,6 +1,7 @@
 package com.myfreezer.app.repository
 
 import android.util.Log
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.myfreezer.app.models.*
@@ -17,6 +18,7 @@ import com.myfreezer.app.repository.remote.services.Network
 import retrofit2.await
 
 
+
 /**
  * @class Repository
  * @description: contains the implementation for the Repository which acts as a single source of truth for this application
@@ -24,7 +26,6 @@ import retrofit2.await
  */
 
 class Repository(val database: MyFreezerDatabase) {
-
 
     //populating freezerItem list from the database
     var freezerItemList = Transformations.map(database.freezerDao.getFreezerItems()){
@@ -36,11 +37,16 @@ class Repository(val database: MyFreezerDatabase) {
         it.asDomainModel()
     }
 
+    //populating the recipeList from the database
+    var recipeList =  Transformations.map(database.freezerDao.getRecipes()){
+        it.asDomainModel()
+    }
 
 
     suspend fun getRecipeIngredientList(recipeId:Long):List<IngredientItem>{
         return database.freezerDao.getRecipeIngredientList(recipeId).asDomainModel()
     }
+
 
     suspend fun getRecipeInstructionsList(recipeId:Long):List<InstructionItem>{
         Log.e("Repo - inside getRecipeInstructionList",recipeId.toString())
@@ -54,6 +60,7 @@ class Repository(val database: MyFreezerDatabase) {
     }
 
 
+
     /**
      * @method addFreezerItem
      * @description: Inserts freezerItem into the database
@@ -61,10 +68,12 @@ class Repository(val database: MyFreezerDatabase) {
      */
     suspend fun addFreezerItem(item:FreezerItem){
         //convert item to databaseFreezerItem
+
         val itemToInsert: DatabaseFreezerItem = DatabaseFreezerItem(item.name,item.quantity,item.unit,item.minimum,item.dateAddedString)
 
         //insert item into database
         database.freezerDao.insert(itemToInsert)
+
 
         //Get recipes suggestions for the item and insert them into the database
         getRecipes(item.name)
@@ -76,11 +85,15 @@ class Repository(val database: MyFreezerDatabase) {
      * @param {FreezerItem} item to be deleted
      */
     suspend fun deleteFreezerItem(item:FreezerItem){
+
         //Get the primary key
+
         val itemName = item.name
         database.freezerDao.deleteFreezerItem(itemName)
 
     }
+
+
 
 
     /**
@@ -92,6 +105,8 @@ class Repository(val database: MyFreezerDatabase) {
         return database.freezerDao.deleteAllRecipes(itemName)
     }
 
+
+
     /**
      * @method updateFreezerItem
      * @description: updates an existing freezerItem when item is edited
@@ -101,10 +116,13 @@ class Repository(val database: MyFreezerDatabase) {
      */
     suspend fun updateFreezerItem(previousId:String, freezerItem:FreezerItem){
 
+
+
         //delete recipes which are associated with this item
         deleteAllRecipes(previousId)
 
         //update the item
+
         database.freezerDao.updateFreezerItem(
             previousId,
             freezerItem.name,
@@ -138,12 +156,14 @@ class Repository(val database: MyFreezerDatabase) {
         }
 
         return response
+
     }
 
     suspend fun saveRecipesToDataBase(recipesToInsert: List<DatabaseRecipe>):LongArray{
         return database.freezerDao.insertRecipeResults(*recipesToInsert.toTypedArray())
 
     }
+
 
 
     suspend fun recipeSearch(searchTerm:String){
@@ -218,4 +238,5 @@ class Repository(val database: MyFreezerDatabase) {
         var test = database.freezerDao.getFreezerItemWithRecipes("chicken")
 
     }
+
 }

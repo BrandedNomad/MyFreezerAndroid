@@ -1,6 +1,7 @@
 package com.myfreezer.app.ui.main
 
 import android.os.Bundle
+
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -12,9 +13,11 @@ import com.myfreezer.app.R
 import com.myfreezer.app.models.RecipeItem
 import com.myfreezer.app.ui.favourites.FavouriteFragment
 import com.myfreezer.app.ui.freezer.FreezerFragment
+
 import com.myfreezer.app.ui.recipes.recipesFilter.RecipesFilterFragment
 import com.myfreezer.app.ui.recipes.RecipesFragment
 import com.myfreezer.app.ui.recipes.RecipesViewModel
+
 import com.myfreezer.app.ui.recipes.recipedetail.RecipeDetailFragment
 import com.myfreezer.app.ui.shopping.ShoppingFragment
 
@@ -23,7 +26,9 @@ import com.myfreezer.app.ui.shopping.ShoppingFragment
  * @description: The main activity class. This class contains the navigation and fragment host view
  * as well as the bottom navigation bar, and the top action bar.
  */
+
 class MainActivity : AppCompatActivity(),NavigationHandler {
+
 
     //Declare variables
     private val freezerFragment = FreezerFragment()
@@ -57,6 +62,16 @@ class MainActivity : AppCompatActivity(),NavigationHandler {
 
 
 
+    /**
+     * @method bottomNavClickListener
+     * @description Listens for touch events on bottom navigation bar and
+     * navigates to the appropriate fragment
+     * @param {BottomNavigationView} bottomNavBar- the bottom navigation bar
+     * @param {Fragment} freezerFragment - the fragment for the freezer view
+     * @param {Fragment} recipeFragment - the fragment for the freezer view
+     * @param {Fragment} favouriteFragment - the fragment for the freezer view
+     * @param {Fragment} shoppingFragment - the fragment for the freezer view
+     */
 
     /**
      * @method bottomNavClickListener
@@ -109,6 +124,7 @@ class MainActivity : AppCompatActivity(),NavigationHandler {
         }
     }
 
+
     /**
      * @method replaceFragment
      * @description swaps fragments within the NavHost
@@ -144,6 +160,7 @@ class MainActivity : AppCompatActivity(),NavigationHandler {
         //navigate to recipeDetail view
         replaceFragment(recipeDetailFragment)
     }
+
 
     override fun filterNavTrigger(viewModel:RecipesViewModel){
 
