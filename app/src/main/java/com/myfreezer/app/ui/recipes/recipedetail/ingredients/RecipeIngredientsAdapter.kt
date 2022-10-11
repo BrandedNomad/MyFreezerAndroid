@@ -25,7 +25,7 @@ class RecipeIngredientsAdapter(var onClickListener:OnClickListener): ListAdapter
     /**
      * @class IngredientViewHolder
      * @description: The view holder for ingredient_list_item (Again)
-     * @param {View} viewItem - The layout or view of the list item
+     * @param {View} viewItem - The layout or view of the list item (again)
      */
     class IngredientViewHolder(viewItem: View): RecyclerView.ViewHolder(viewItem){
 
