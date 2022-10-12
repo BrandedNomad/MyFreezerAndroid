@@ -32,7 +32,7 @@ class Repository(val database: MyFreezerDatabase) {
         it.asDomainModel()
     }
 
-    //populating the recipeList from the database
+    //populating the recipeList from the databases
     var recipeList =  Transformations.map(database.freezerDao.getRecipes()){
         it.asDomainModel()
     }
