@@ -37,6 +37,10 @@ class Repository(val database: MyFreezerDatabase) {
         it.asDomainModel()
     }
 
+    //populating the recipeList from the database
+    var recipeList =  Transformations.map(database.freezerDao.getRecipes()){
+        it.asDomainModel()
+    }
 
 
     suspend fun getRecipeIngredientList(recipeId:Long):List<IngredientItem>{
