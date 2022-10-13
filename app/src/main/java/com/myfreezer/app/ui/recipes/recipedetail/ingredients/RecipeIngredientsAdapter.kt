@@ -24,15 +24,15 @@ class RecipeIngredientsAdapter(var onClickListener:OnClickListener): ListAdapter
 
     /**
      * @class IngredientViewHolder
-     * @description: The view holder for ingredient_list_item
-     * @param {View} viewItem - The layout or view of the list item
+     * @description: The view holder for ingredient_list_item (Again)
+     * @param {View} viewItem - The layout or view of the list item (again)
      */
     class IngredientViewHolder(viewItem: View): RecyclerView.ViewHolder(viewItem){
 
         var titleView: TextView = itemView.findViewById(R.id.ingredientTitle)
         var amountView: TextView = itemView.findViewById(R.id.ingredientQuantity)
         var unitView:TextView = itemView.findViewById(R.id.ingredientUnit)
-        var imageView: ImageView = itemView.findViewById(R.id.ingredientImage)
+
 
         /**
          * @method bind
@@ -42,23 +42,8 @@ class RecipeIngredientsAdapter(var onClickListener:OnClickListener): ListAdapter
          */
         fun bind(holder:IngredientViewHolder,item: IngredientItem){
 
-
-
-            //Buffer and load image
-            var requestOptions = RequestOptions()
-                .centerCrop()
-                .placeholder(R.drawable.fake_recipe)
-                .error(R.drawable.fake_recipe)
-
-            var imageURL = Constants.RECIPE_IMAGE_BASE_URL + item.image
-            Log.e("image adapter", imageURL)
-
-            Glide.with(holder.imageView.getContext()).load(imageURL).apply(requestOptions).into(holder.imageView)
-
-
             var amountSpannable = SpannableString(item.amount.toString())
             var unitSpannable = SpannableString(item.unit.toString())
-
 
 
             holder.titleView.text = item.name

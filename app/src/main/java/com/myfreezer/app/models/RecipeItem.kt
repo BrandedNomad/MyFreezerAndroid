@@ -22,6 +22,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class RecipeItem(
     var recipeId:Long,
+    var freezerItem:String,
     var title:String?,
     var description:String?,
     var likes:Int,
@@ -34,4 +35,24 @@ data class RecipeItem(
     var time:Int,
     var sourceName:String,
     var image:String
-) : Parcelable
+
+) : Parcelable {
+
+    fun getPreference(preference:String):Boolean{
+
+        return when(preference){
+            "vegan" -> vegan
+            "gluten free" -> glutenFree
+            "dairy free" -> dairyFree
+            "healthy" -> healthy
+            "vegetarian" -> vegetarian
+            "fodmap" -> fodmap
+            else -> false
+        }
+    }
+}
+
+
+
+
+

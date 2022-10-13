@@ -33,12 +33,13 @@
     <string name="background_message_recipe_none_title">NO RECIPES YET!</string>
     <string name="background_message_recipe_none_body">First add some items to your freezer by navigating to "My Freezer".</string>
 
-
     <string name="filter_menu_item_alphabetically">a to z</string>
     <string name="filter_menu_item_highest">highest</string>
     <string name="filter_menu_item_lowest">lowest</string>
     <string name="filter_menu_item_oldest">oldest</string>
     <string name="filter_menu_item_latest">latest</string>
 
+    <string name="open">open</string>
+    <string name="closed">closed</string>
 
 </resources>

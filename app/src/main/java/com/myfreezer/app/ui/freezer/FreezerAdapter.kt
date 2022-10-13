@@ -25,7 +25,6 @@ import kotlinx.coroutines.launch
  * @param {OnClickListener} onClickListener - The clickListener that will be attached to every instance of the viewHolder
  * @param {FreezerViewModel} viewModel - The viewModel of the FreezerView
  */
-
 class FreezerAdapter(val onClickListener: OnClickListener,val viewModel:FreezerViewModel): ListAdapter<FreezerItem,FreezerAdapter.FreezerViewHolder>(FreezerDiffCallback()) {
 
     //Flag for context menu
@@ -90,7 +89,6 @@ class FreezerAdapter(val onClickListener: OnClickListener,val viewModel:FreezerV
 
             }
         }
-
     }
 
     /**
