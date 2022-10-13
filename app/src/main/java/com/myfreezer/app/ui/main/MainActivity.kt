@@ -26,7 +26,10 @@ import com.myfreezer.app.ui.shopping.ShoppingFragment
 
 class MainActivity : AppCompatActivity(),NavigationHandler {
 
-    //Declare variables
+
+
+    //Declare variables for main activity
+
     private val freezerFragment = FreezerFragment()
     private val recipesFragment = RecipesFragment()
     private val favouriteFragment = FavouriteFragment()
