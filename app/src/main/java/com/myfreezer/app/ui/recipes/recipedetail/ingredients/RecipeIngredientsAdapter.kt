@@ -42,13 +42,8 @@ class RecipeIngredientsAdapter(var onClickListener:OnClickListener): ListAdapter
          */
         fun bind(holder:IngredientViewHolder,item: IngredientItem){
 
-
-
-
-
             var amountSpannable = SpannableString(item.amount.toString())
             var unitSpannable = SpannableString(item.unit.toString())
-
 
 
             holder.titleView.text = item.name

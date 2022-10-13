@@ -55,6 +55,8 @@ interface FreezerDao {
     fun getFreezerItems(): LiveData<List<DatabaseFreezerItem>>
 
     /**
+<<<<<<< HEAD
+=======
 
      * @method getFreezerItemsForFilter
      * @description returns a list of freezer Items as livedata in alphabetical order
@@ -67,6 +69,7 @@ interface FreezerDao {
 
     /**
 
+>>>>>>> test
      * @method getRecipes
      * @description returns a list of recipes from database as livedata
      * @return {LiveData<List<DatabaseRecipe>>} - the query result

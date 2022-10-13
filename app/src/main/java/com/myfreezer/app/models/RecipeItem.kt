@@ -35,6 +35,7 @@ data class RecipeItem(
     var time:Int,
     var sourceName:String,
     var image:String
+
 ) : Parcelable {
 
     fun getPreference(preference:String):Boolean{
@@ -50,6 +51,7 @@ data class RecipeItem(
         }
     }
 }
+
 
 
 
