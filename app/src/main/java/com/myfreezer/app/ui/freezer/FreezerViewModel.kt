@@ -16,9 +16,7 @@ import kotlinx.coroutines.flow.flow
 /**
  * @class FreezerViewModel
  * @Description Contains the implementation for the FreezerViewModel
-
  * @param {Application} application - The application
-
  */
 class FreezerViewModel(application: Application): ViewModel() {
 
@@ -68,7 +66,6 @@ class FreezerViewModel(application: Application): ViewModel() {
 
     /**
      * @method deleteFreezerItem
-
      * @description: Deletes freezer item. GlobalScope is used instead of viewModelScope
      * so that the coroutine is not canceled when navigating away from the freezerView.
      * @param {FreezerItem} item: The item to be deleted
@@ -80,16 +77,13 @@ class FreezerViewModel(application: Application): ViewModel() {
 
     /**
      * @method updateFreezerItem
-
      * @description: updates existing freezer item. GlobalScope is used instead of viewModelScope
      * so that the coroutine is not canceled when navigating away from the freezerView.
      * @param {String} previousId: the id of the freezerItem before it was edited
      * @param {FreezerItem} item: The item to be deleted
      */
     fun updateFreezerItem(previousId:String, freezerItem:FreezerItem) = GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler){
-
         repository.updateFreezerItem(previousId,freezerItem)
-
     }
 
     /**
@@ -192,7 +186,6 @@ class FreezerViewModel(application: Application): ViewModel() {
             }
         }else if(sortListBy.value =="oldest"){
 
-
             //Sort from oldest to latest
             freezerItemList.value?.let{
                 sortedList = it.sortedBy{ it.dateAdded }
@@ -229,7 +222,6 @@ class FreezerViewModel(application: Application): ViewModel() {
     /**
      * @method onCleared()
      * @description lifeCycle method that performs cleanup tasks
-     * @
      */
 
     override fun onCleared() {

@@ -41,7 +41,6 @@ import java.util.*
 
 /**
  * @class FreezerFragment
-
  * @description Contains the implementation of the FreezerFragment
  */
 class FreezerFragment: Fragment(), MenuProvider {
@@ -197,8 +196,6 @@ class FreezerFragment: Fragment(), MenuProvider {
         super.onViewCreated(view, savedInstanceState)
 
         //Adds an option menu to the actionbar
-
-
         activity?.addMenuProvider(this,viewLifecycleOwner) //adding the viewLifecycleOwner, means it does the cleanup automaically
 
     }
@@ -282,6 +279,10 @@ class FreezerFragment: Fragment(), MenuProvider {
         //set initial state of the add button to enabled
         addButton.setEnabled(true)
 
+        //set initial state of the add button to enabled
+        addButton.setEnabled(true)
+
+        //watch the state of the form fields, if any of them are incomplete disable the add button
 
         //watch the state of the form fields, if any of them are incomplete disable the add button
 
@@ -534,9 +535,8 @@ class FreezerFragment: Fragment(), MenuProvider {
 
             /**
              * @method: onCreateActionMode
-             * @description: creates the context Menu<<<<<<< dev
+             * @description: creates the context Menu
              * @param {ActionMode?} mode: The actionMode to be created. Provides alternative mode of normal UI like a contextual action.
-
              * @param {Menu?} menu: The menu that needs to be inflated for the context menu
              * @return {Boolean}
              */
@@ -554,23 +554,17 @@ class FreezerFragment: Fragment(), MenuProvider {
             }
 
             /**
-
-
              * @method: onPrepareActionMode
              * @description: Called to refresh an action mode's action menu whenever it is invalidated.
              * @param {ActionMode?} mode - The actionMode to be created
              * @param {Menu?} menu - The menu to be inflated
              * @return {Boolean} false
-
-
              */
             override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
                 return false
             }
 
             /**
-
-
              * @method onActionItemClicked
              * @description Handles item click events
              * @param {ActionMode?} mode - the actionMode
@@ -599,8 +593,6 @@ class FreezerFragment: Fragment(), MenuProvider {
             }
 
             /**
-
-
              * @method onDestroyActionMode
              * @description Called when an action mode is about to be exited and destroyed
              * @param {ActionMode?} mode - the actionMode
@@ -621,8 +613,6 @@ class FreezerFragment: Fragment(), MenuProvider {
      * @param {FreezerViewModel} viewModel - The viewModel that contains the deleteItem method used to delete the item in database
      * @param {FreezerItem} item - The item being deleted
      * @param {View} itemLayout - The deleteItem layout
-
-
      */
     private fun displayDeleteConfirmationDialog(dialog:AlertDialog,viewModel:FreezerViewModel,item:FreezerItem,itemLayout:View){
 
@@ -655,14 +645,10 @@ class FreezerFragment: Fragment(), MenuProvider {
     /**
      * @method: displayDeleteConfirmationDialog
      * @description: prompts the user to either cancel or confirm a delete action
-
-
      * @param {AlertDialog} dialog - the editItem dialog to display
      * @param {FreezerViewModel} viewModel - The viewModel that contains the updateItem method used to update the item in database
      * @param {FreezerItem} item - The item being edited
      * @param {View} itemLayout - The editItem layout
-
-
      */
     private fun displayEditItemDialog(dialog:AlertDialog,viewModel:FreezerViewModel,item:FreezerItem,itemLayout:View){
 
@@ -705,8 +691,6 @@ class FreezerFragment: Fragment(), MenuProvider {
                 && minimumField.editText!!.text.toString() != ""
             ){
                 //Get text field values
-
-
                 val nameValue = nameField.editText!!.text.toString()
                 val quantityValue = quantityField.editText!!.text.toString().toInt()
                 val unitValue = unitField.editText!!.text.toString()
@@ -761,10 +745,8 @@ class FreezerFragment: Fragment(), MenuProvider {
     }
 
     /**
-
      * @method onDestroy()
      * @description A lifecycle method that is called before view is destroyed. Used for cleanup
-
      */
     override fun onDestroy() {
         super.onDestroy()

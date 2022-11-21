@@ -1,11 +1,9 @@
 package com.myfreezer.app.ui.recipes
 
-import android.content.Context
-import android.os.Build
+
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -13,17 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.myfreezer.app.R
 import com.myfreezer.app.databinding.FragmentRecipesBinding
-
-import android.app.SearchManager
-import android.opengl.Visibility
 import android.util.Log
-import android.view.View.GONE
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.view.menu.ActionMenuItem
-import androidx.appcompat.view.menu.ActionMenuItemView
-import androidx.constraintlayout.widget.ConstraintSet.GONE
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
 import com.myfreezer.app.models.RecipeItem
 import com.myfreezer.app.ui.main.NavigationHandler
 
@@ -40,7 +28,6 @@ class RecipesFragment: Fragment(), MenuProvider {
     lateinit var searchActionMode:ActionMode
     lateinit var navigationHandler: NavigationHandler
     lateinit var filteredList:MutableList<RecipeItem>
-
 
 
     /**
@@ -65,13 +52,11 @@ class RecipesFragment: Fragment(), MenuProvider {
         )
 
 
-
         binding.lifecycleOwner = this
 
         navigationHandler = requireActivity() as NavigationHandler
 
         filteredList = mutableListOf<RecipeItem>()
-
 
 
         //Setup viewModel
@@ -106,8 +91,6 @@ class RecipesFragment: Fragment(), MenuProvider {
         viewModel.navigationTrigger.observe(viewLifecycleOwner,Observer{
             //recipe has been selected
             if(it != null){
-
-
                 //reset navigation trigger before navigating
                 viewModel.doneNavigating()
                 //navigate to details fragment
@@ -146,10 +129,6 @@ class RecipesFragment: Fragment(), MenuProvider {
             }
 
         })
-
-
-
-
 
         //return view
         return binding.root
@@ -289,7 +268,5 @@ class RecipesFragment: Fragment(), MenuProvider {
             searchActionMode.finish()
         }
     }
-
-
 }
 

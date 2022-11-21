@@ -1,7 +1,6 @@
 package com.myfreezer.app.ui.main
 
 import com.myfreezer.app.models.RecipeItem
-
 import com.myfreezer.app.ui.recipes.RecipesViewModel
 
 
@@ -10,7 +9,6 @@ import com.myfreezer.app.ui.recipes.RecipesViewModel
  * @description: provide declarations of an abstract method for data transfer between fragments. This method is implemented in the MainActivity
  * but are accessed and called from the fragments.
  */
-
 interface NavigationHandler {
 
     /**
